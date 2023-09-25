@@ -25,13 +25,6 @@ HS_PASS = os.getenv('HS_PASS')
 HS_IDRS = os.getenv('HS_ID02')
 
 
-NWSAFFGS_USER="ecu"
-NWSAFFGS_PASS="20-ffGS.ecU-23"
-
-HS_USER="pronostico.inamhi"
-HS_PASS="Pronostico2023*"
-HS_IDRS="352379cf82444fd099eca8bfc662789b"
-
 run_hour = "12"
 print(run_hour)
 
