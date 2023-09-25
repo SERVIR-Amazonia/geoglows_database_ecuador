@@ -33,16 +33,6 @@ HS_PASS = os.getenv('HS_PASS')
 HS_IDRS = os.getenv('HS_ID01')
 
 
-
-NASA_USER = "pronostico.inamhi@gmail.com"
-NASA_PASS = "pronostico.inamhi@gmail.com"
-
-HS_USER="pronostico.inamhi"
-HS_PASS="Pronostico2023*"
-HS_IDRS="925ad37f78674d578eab2494e13db240"
-
-
-
 # Change the work directory
 user = os.getlogin()
 user_dir = os.path.expanduser('~{}'.format(user))
