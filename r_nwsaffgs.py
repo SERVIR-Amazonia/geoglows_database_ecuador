@@ -25,7 +25,20 @@ HS_PASS = os.getenv('HS_PASS')
 HS_IDRS = os.getenv('HS_ID02')
 
 
-run_hour = "12"
+# Retieve the actual hour
+hora_actual = datetime.datetime.now().hour
+run_hour = "00"
+
+# Determine the run hour
+if 0 <= hora_actual < 6:
+    run_hour = "00"
+elif 6 <= hora_actual < 12:
+    run_hour = "06"
+elif 12 <= hora_actual < 18:
+    run_hour = "12"
+else:
+    run_hour = "18"
+
 print(run_hour)
 
 
