@@ -277,3 +277,5 @@ conn.close()
 
 
 
+# Run the bias-corrected forecast analysis
+os.system("python r_analysis_forecast.py")
