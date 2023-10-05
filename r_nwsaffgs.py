@@ -129,3 +129,5 @@ res = hs.resource(HS_IDRS)
 file_list = ['nwsaffds.cpg', 'nwsaffds.dbf', 'nwsaffds.prj', 'nwsaffds.shp', 'nwsaffds.shx']
 res.file_upload(*file_list)
 print("Data uploaded to hydroshare!")
+
+
