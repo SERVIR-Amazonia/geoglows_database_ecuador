@@ -152,8 +152,8 @@ def get_imerg_pacum(temp):
         dst.write(suma_geotiff, 1)
     #
     # Definir coordenadas geográficas del rectángulo de recorte (minx, miny, maxx, maxy)
-    #minx, miny, maxx, maxy = (-92.5, -5.5, -74.5, 1.65)
-    minx, miny, maxx, maxy = (-95, -7, -70, 4)
+    minx, miny, maxx, maxy = (-92.5, -5.5, -74.5, 1.65)
+    #minx, miny, maxx, maxy = (-95, -7, -70, 4)
     #
     # Crear una geometría de rectángulo
     bbox = box(minx, miny, maxx, maxy)
@@ -173,10 +173,13 @@ def get_imerg_pacum(temp):
     with rasterio.open("pacum_masked.tif", "w", **out_meta) as dest:
         dest.write(out_image)
     #
+    os.system("gdalwarp -tr 0.01 0.01 -r bilinear pacum_masked.tif pacum_masked_res.tif")
+    os.system("gdalwarp -q -cutline ~/tethys_apps_ecuador/geoglows_database_ecuador/shp/nwsaffgs_ecuador_basins_v2.shp -tr 0.01 0.01 -of GTiff pacum_masked_res.tif pacum_masked_res2.tif")
+    #
     auth = HydroShareAuthBasic(username=HS_USER, password=HS_PASS)
     hs = HydroShare(auth=auth)
-    local_file = "pacum_masked.tif"
-    resource_filename = f"pacum_{temp}.tif"
+    local_file = "pacum_masked_res2.tif"
+    resource_filename = f"pacum_{temp}_res.tif"
     hs.deleteResourceFile(HS_IDRS,  resource_filename)
     hs.addResourceFile(HS_IDRS, local_file, resource_filename)
     hs.resource(HS_IDRS).public(True)
@@ -193,3 +196,4 @@ get_imerg_pacum(24)
 get_imerg_pacum(48)
 get_imerg_pacum(72)
 
+# gdalwarp -q -cutline ~/tethys_apps_ecuador/geoglows_database_ecuador/shp/nwsaffgs_ecuador_basins_v2.shp -tr 0.01 0.01 -of GTiff pacum_masked.tif pacum_masked_res.tif
