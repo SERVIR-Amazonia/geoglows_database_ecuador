@@ -11,6 +11,7 @@ import datetime
 import warnings
 warnings.filterwarnings('ignore')
 
+
 # Change the work directory
 user = os.getlogin()
 user_dir = os.path.expanduser('~{}'.format(user))
@@ -26,6 +27,48 @@ DB_NAME = os.getenv('DB_NAME')
 # Generate the conection token
 token = "postgresql+psycopg2://{0}:{1}@localhost:5432/{2}".format(DB_USER, DB_PASS, DB_NAME)
 
+
+
+
+###############################################################################################################
+#                                    Function to retrieve data from GESS API                                  #
+###############################################################################################################
+def get_data(comid):
+    url = 'https://geoglows.ecmwf.int/api/ForecastEnsembles/?reach_id={0}&return_format=csv'.format(comid)
+    status = False
+    while not status:
+      try:
+        outdf = pd.read_csv(url, index_col=0)
+        if(outdf.shape[1]==52):
+           status = True
+        else:
+           raise ValueError("Dataframe has not 52 emsembles.")
+      except:
+        print("Trying to retrieve data...")
+    # Filter and correct data
+    outdf[outdf < 0] = 0
+    outdf.index = pd.to_datetime(outdf.index)
+    outdf.index = outdf.index.to_series().dt.strftime("%Y-%m-%d %H:%M:%S")
+    outdf.index = pd.to_datetime(outdf.index)
+    return(outdf)
+
+
+###############################################################################################################
+#                                     Function to insert data to database                                     #
+###############################################################################################################
+def insert_data(db, comid):
+    # Get historical data
+    forecast = get_data(comid)
+    # Establish connection
+    conn = db.connect()
+    # Insert to database
+    table = 'f_{0}'.format(comid)
+    try:
+        forecast.to_sql(table, con=conn, if_exists='replace', index=True)
+    except:
+       print("Error to insert data in comid={0}".format(comid))
+    # Close conection
+    conn.close()   
 
 
 
@@ -78,6 +121,7 @@ def get_return_periods(comid, data):
     return(corrected_rperiods_df)
 
 
+
 ###############################################################################################################
 #                                         Getting ensemble statistic                                          #
 ###############################################################################################################
@@ -103,11 +147,12 @@ def get_ensemble_stats(ensemble):
     return(stats_df)
 
 
+
 ###############################################################################################################
 #                                    Warning if exceed x return period                                        #
 ###############################################################################################################
 def is_warning(arr):
-    cond = [i >= 40 for i in arr].count(True) > 0
+    cond = [i >= 20 for i in arr].count(True) > 0
     return(cond)
 
 def get_excced_rp(stats: pd.DataFrame, ensem: pd.DataFrame, rperiods: pd.DataFrame):
@@ -178,6 +223,13 @@ def get_excced_rp(stats: pd.DataFrame, ensem: pd.DataFrame, rperiods: pd.DataFra
 
 
 
+
+
+
+###############################################################################################################
+#                                              Main routine                                                   #
+###############################################################################################################
+
 # Setting the connetion to db
 db = create_engine(token)
 
@@ -190,24 +242,29 @@ drainage = pd.read_sql("select * from drainage_network;", conn)
 # Number of stations
 n = len(drainage)
 
-# For loop
-for i in range(n):
-    # State variables
-    station_comid = drainage.comid[i]
+for i in range(0,n):
+    # State variable
+    comid = drainage.comid[i]
     # Progress
     prog = round(100 * i/n, 3)
-    print("Progress: {0} %. Comid: {1}".format(prog, station_comid))
+    # Insert data to db
+    try:
+        insert_data(db, comid)
+    except:
+        insert_data(db, comid)
     # Query to database
-    simulated_data = get_format_data("select * from r_{0};".format(station_comid), conn)
-    ensemble_forecast = get_format_data("select * from f_{0};".format(station_comid), conn)
+    simulated_data = get_format_data("select * from r_{0};".format(comid), conn)
+    ensemble_forecast = get_format_data("select * from f_{0};".format(comid), conn)
     # Return period
-    return_periods = get_return_periods(station_comid, simulated_data)
+    return_periods = get_return_periods(comid, simulated_data)
     # Forecast stats
     ensemble_stats = get_ensemble_stats(ensemble_forecast)
-    # Warning if excced a given return period in 10% of emsemble
-    drainage.loc[i, ['alert']] = get_excced_rp(ensemble_stats, ensemble_forecast, return_periods)
+    # Warning if excced a given return period in 40% of emsemble
+    alld = get_excced_rp(ensemble_stats, ensemble_forecast, return_periods)
+    drainage.loc[i, ['alert']] = alld
+    # Print progress and alert
+    print("Progress: {0} %. Comid: {1}. Alert: {2}".format(prog, comid, alld))
     
-
 
 # Insert to database
 drainage.to_sql('drainage_network', con=conn, if_exists='replace', index=False)
@@ -220,3 +277,5 @@ conn.close()
 
 
 
+# Run the bias-corrected forecast analysis
+os.system("python r_corrected_forecast_analysis.py")

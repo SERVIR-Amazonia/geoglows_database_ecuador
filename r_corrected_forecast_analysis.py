@@ -322,3 +322,7 @@ stations.to_sql('waterlevel_station', con=conn, if_exists='replace', index=False
 conn.close()
 
 
+
+
+# Run the drougth forecast analysis
+os.system("python r_drougth_analysis.py")
