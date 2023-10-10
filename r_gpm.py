@@ -185,7 +185,7 @@ def get_imerg_pacum(temp):
         hs.addResourceFile(HS_IDRS, local_file, resource_filename)
         hs.resource(HS_IDRS).public(True)
         hs.resource(HS_IDRS).shareable(True)
-        #
+        # 
     except:
         print("Ocurred an error!")
     # Revome the files
