@@ -186,8 +186,9 @@ def get_imerg_pacum(temp):
         hs.resource(HS_IDRS).public(True)
         hs.resource(HS_IDRS).shareable(True)
         # 
-    except:
+    except Exception as e:
         print("Ocurred an error!")
+        print(e)
     # Revome the files
     for f in os.listdir():
         os.remove(f)
