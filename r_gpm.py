@@ -174,8 +174,8 @@ def get_imerg_pacum(temp):
         with rasterio.open("pacum_masked.tif", "w", **out_meta) as dest:
             dest.write(out_image)
         #
-        os.system("/home/ubuntu/miniconda3/bin/gdalwarp -tr 0.01 0.01 -r bilinear pacum_masked.tif pacum_masked_res.tif")
-        os.system("/home/ubuntu/miniconda3/bin/gdalwarp -q -cutline ~/tethys_apps_ecuador/geoglows_database_ecuador/shp/nwsaffgs_ecuador_basins_v2.shp -tr 0.01 0.01 -of GTiff pacum_masked_res.tif pacum_masked_res2.tif")
+        os.system("gdalwarp -tr 0.01 0.01 -r bilinear pacum_masked.tif pacum_masked_res.tif")
+        os.system("gdalwarp -q -cutline ~/tethys_apps_ecuador/geoglows_database_ecuador/shp/nwsaffgs_ecuador_basins_v2.shp -tr 0.01 0.01 -of GTiff pacum_masked_res.tif pacum_masked_res2.tif")
         #
         auth = HydroShareAuthBasic(username=HS_USER, password=HS_PASS)
         hs = HydroShare(auth=auth)
