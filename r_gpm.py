@@ -181,7 +181,10 @@ def get_imerg_pacum(temp):
         hs = HydroShare(auth=auth)
         local_file = "pacum_masked_res2.tif"
         resource_filename = f"pacum_{temp}_res.tif"
-        hs.deleteResourceFile(HS_IDRS,  resource_filename)
+        try:
+            hs.deleteResourceFile(HS_IDRS,  resource_filename)
+        except:
+            print("File was not found in resource")
         hs.addResourceFile(HS_IDRS, local_file, resource_filename)
         hs.resource(HS_IDRS).public(True)
         hs.resource(HS_IDRS).shareable(True)
