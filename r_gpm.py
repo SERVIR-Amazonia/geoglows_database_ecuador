@@ -42,12 +42,13 @@ os.chdir("data/gpm_imerg")
 
 def get_imerg_pacum(temp):
     try:
-        if(temp == 24):
-            ndays = 1
-        elif(temp == 48):
-            ndays = 2
-        else:
-            ndays = 3
+        ndays = int(temp/24)
+        #if(temp == 24):
+        #    ndays = 1
+        #elif(temp == 48):
+        #    ndays = 2
+        #else:
+        #    ndays = 3
         #
         # Generar la fecha actual
         actual_date = datetime.datetime.now() + datetime.timedelta(hours=-5)
@@ -202,5 +203,6 @@ def get_imerg_pacum(temp):
 get_imerg_pacum(24)
 get_imerg_pacum(48)
 get_imerg_pacum(72)
+get_imerg_pacum(120)
 
 # gdalwarp -q -cutline ~/tethys_apps_ecuador/geoglows_database_ecuador/shp/nwsaffgs_ecuador_basins_v2.shp -tr 0.01 0.01 -of GTiff pacum_masked.tif pacum_masked_res.tif
