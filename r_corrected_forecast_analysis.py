@@ -325,4 +325,4 @@ conn.close()
 
 
 # Run the drougth forecast analysis
-os.system("python r_drougth_analysis.py")
+os.system("python r_drought_analysis.py")
