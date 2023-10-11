@@ -189,6 +189,7 @@ def get_imerg_pacum(temp):
         hs.addResourceFile(HS_IDRS, local_file, resource_filename)
         hs.resource(HS_IDRS).public(True)
         hs.resource(HS_IDRS).shareable(True)
+        print("Uploaded data!")
         # 
     except Exception as e:
         print("Ocurred an error!")
