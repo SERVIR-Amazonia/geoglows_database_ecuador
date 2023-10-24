@@ -152,7 +152,7 @@ def get_ensemble_stats(ensemble):
 #                                    Warning if exceed x return period                                        #
 ###############################################################################################################
 def is_warning(arr):
-    cond = [i >= 20 for i in arr].count(True) > 0
+    cond = [i >= 40 for i in arr].count(True) > 0
     return(cond)
 
 def get_excced_rp(stats: pd.DataFrame, ensem: pd.DataFrame, rperiods: pd.DataFrame):
