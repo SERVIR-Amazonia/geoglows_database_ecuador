@@ -61,6 +61,34 @@ def ensemble_quantile(ensemble, quantile, label):
     df =  df.groupby(df.index.strftime("%Y-%m-%d")).min()
     return(df)
 
+###############################################################################################################
+#                                   Getting return periods from data series                                   #
+###############################################################################################################
+def gumbel_1(std: float, xbar: float, rp: int or float) -> float:
+  return -math.log(-math.log(1 - (1 / rp))) * std * .7797 + xbar - (.45 * std)
+
+def get_return_periods(comid, data):
+    data = 1/(data + 0.1)
+    # Stats
+    max_annual_flow = data.groupby(data.index.strftime("%Y")).max()
+    mean_value = np.mean(max_annual_flow.iloc[:,0].values)
+    std_value = np.std(max_annual_flow.iloc[:,0].values)
+    # Return periods
+    return_periods = [25, 10, 5, 2]
+    return_periods_values = []
+    # Compute the corrected return periods
+    for rp in return_periods:
+      return_periods_values.append(gumbel_1(std_value, mean_value, rp))
+    # Parse to list
+    d = {'rivid': [comid], 
+         'return_period_25': [(1/return_periods_values[0]) - 0.1], 
+         'return_period_10': [(1/return_periods_values[1]) - 0.1], 
+         'return_period_5': [(1/return_periods_values[2]) - 0.1],
+         'return_period_2': [(1/return_periods_values[3]) - 0.1]}
+    # Parse to dataframe
+    corrected_rperiods_df = pd.DataFrame(data=d)
+    corrected_rperiods_df.set_index('rivid', inplace=True)
+    return(corrected_rperiods_df)
 
 
 
@@ -81,15 +109,16 @@ n = len(drainage)
 for i in range(n):
     station_comid = drainage.comid[i]
     try:
-        # Query to database
+        # Query to database 
         simulated_data = get_format_data("select * from r_{0};".format(station_comid), conn)
         ensemble_forecast = get_format_data("select * from f_{0};".format(station_comid), conn)
         # Forecast stats
         ensemble_median = ensemble_quantile(ensemble_forecast, 0.5, "Median")
+        return_periods = get_return_periods(station_comid, simulated_data)
         # Quantiles
-        q15 = get_quantile(simulated_data, 0.03)
-        q10 = get_quantile(simulated_data, 0.02)
-        q05 = get_quantile(simulated_data, 0.01)
+        q15 = return_periods["return_period_2"]#get_quantile(simulated_data, 0.03)
+        q10 = return_periods["return_period_5"]#get_quantile(simulated_data, 0.02)
+        q05 = return_periods["return_period_10"]#get_quantile(simulated_data, 0.01)
         # Indexes
         index_7q15 = sum((ensemble_median < q15).to_numpy())[0] >= 7
         index_7q10 = sum((ensemble_median < q10).to_numpy())[0] >= 7
