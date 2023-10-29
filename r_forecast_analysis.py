@@ -23,6 +23,7 @@ load_dotenv()
 DB_USER = os.getenv('DB_USER')
 DB_PASS = os.getenv('DB_PASS')
 DB_NAME = os.getenv('DB_NAME')
+PYTHON_PATH = os.getenv('PYTHON_PATH')
 
 # Generate the conection token
 token = "postgresql+psycopg2://{0}:{1}@localhost:5432/{2}".format(DB_USER, DB_PASS, DB_NAME)
@@ -272,10 +273,5 @@ drainage.to_sql('drainage_network', con=conn, if_exists='replace', index=False)
 # Close connection
 conn.close()
 
-
-
-
-
-
 # Run the bias-corrected forecast analysis
-os.system("python r_corrected_forecast_analysis.py")
+os.system(f"{PYTHON_PATH} r_corrected_forecast_analysis.py")
