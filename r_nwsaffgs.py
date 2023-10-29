@@ -26,7 +26,7 @@ HS_IDRS = os.getenv('HS_ID02')
 
 
 # Retieve the actual hour
-actual_date = datetime.datetime.now() + datetime.timedelta(hours=-5)
+actual_date = datetime.datetime.now() #+ datetime.timedelta(hours=-5)
 hora_actual = actual_date.hour
 run_hour = "00"
 
