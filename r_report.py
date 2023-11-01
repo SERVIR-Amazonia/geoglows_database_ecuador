@@ -8,6 +8,7 @@ import datetime
 import warnings
 import rasterio
 import rasterio.mask
+from rasterio.mask import mask
 import numpy as np
 import pandas as pd
 import geopandas as gpd
@@ -223,6 +224,60 @@ def get_ffgs_plot(field, gdf, gdf2, umbral, colorfun):
 
 
 
+
+
+
+###############################################################################################################
+#                                               STATS FUNCTIONS                                               #
+###############################################################################################################
+
+def get_pacum_stats(raster_url, gdf):
+  # Realiza una solicitud HTTP para obtener el contenido del archivo Raster
+  raster_response = requests.get(raster_url)
+  raster_data = BytesIO(raster_response.content)
+  # Crear listas para almacenar los valores máximos y mínimos
+  max_values = []
+  min_values = []
+  # Abrir el archivo raster con rasterio
+  with rasterio.open(raster_data) as src:
+      for idx, row in gdf.iterrows():
+          # Obtener la geometría de la feature
+          geom = row['geometry']
+          # Recortar el área correspondiente en el raster
+          out_image, out_transform = mask(src, [geom], crop=True)
+          # Calcular el valor máximo y mínimo en el área recortada
+          max_val = np.nanmax(out_image)
+          min_val = np.nanmin(out_image)
+          # Agregar los valores a las listas
+          max_values.append(max_val)
+          min_values.append(min_val)
+  # Agregar las listas como nuevas columnas en el GeoDataFrame
+  gdf['max'] = max_values
+  gdf['min'] = min_values
+  xmax = gdf[["DPA_VALOR", "max"]].groupby('DPA_VALOR').max()
+  xmin = gdf[["DPA_VALOR", "min"]].groupby('DPA_VALOR').min()
+  pmax = "max"
+  pmin = "min"
+  out_text = [
+    f"entre {xmin[pmin][1]} y {xmax[pmax][1]} mm",
+    f"entre {xmin[pmin][2]} y {xmax[pmax][2]} mm",
+    f"entre {xmin[pmin][3]} y {xmax[pmax][3]} mm"]
+  return(out_text)
+
+
+def get_threshold(param, unit, factor, xmax, xmin):
+  out = [
+    f"entre {round(factor*xmin[param][1],1)} y {round(factor*xmax[param][1],1)} {unit}" ,
+    f"entre {round(factor*xmin[param][2],1)} y {round(factor*xmax[param][2],1)} {unit}" ,
+    f"entre {round(factor*xmin[param][3],1)} y {round(factor*xmax[param][3],1)} {unit}"
+  ]
+  return(out)
+
+
+
+
+
+
 ###############################################################################################################
 #                                                MAIN FUNCTIONS                                               #
 ###############################################################################################################
@@ -246,9 +301,7 @@ get_ffgs_plot(field="ffg", gdf=ffgs, gdf2=ecu, umbral=100, colorfun=color_pacum)
 get_ffgs_plot(field="fmap24", gdf=ffgs, gdf2=ecu, umbral=100, colorfun=color_pacum)
 get_ffgs_plot(field="ffr24", gdf=ffgs, gdf2=ecu, umbral=10, colorfun=color_percent)
 
-
-
-
+# Upload data to hydroshare
 auth = HydroShareAuthBasic(username=HS_USER, password=HS_PASS)
 hs = HydroShare(auth=auth)
 
@@ -259,11 +312,39 @@ def upload_file(hs, local_file, resource_filename):
         print("File was not found in resource")
     hs.addResourceFile(HS_IDRS, local_file, resource_filename)
 
-
 upload_file(hs, f'{user_dir}/data/report/fig_pacum.png', "fig_pacum.png")
 upload_file(hs, f'{user_dir}/data/report/fig_asm.png', "fig_asm.png")
 upload_file(hs, f'{user_dir}/data/report/fig_ffg.png', "fig_ffg.png")
 upload_file(hs, f'{user_dir}/data/report/fig_fmap24.png', "fig_fmap24.png")
 upload_file(hs, f'{user_dir}/data/report/fig_ffr24.png', "fig_ffr24.png")
+print("Uploaded data")
 
+
+# Getting stats
+union = gpd.overlay(ffgs, ecu, how='intersection') 
+union = union[['asm', 'ffg', 'fmap06', 'fmap24', 'ffr12', 'ffr24', 'DPA_VALOR']]
+union = union.replace(-999, np.nan)
+xmin = union.groupby('DPA_VALOR').min()
+xmax = union.groupby('DPA_VALOR').max()
+
+data = {
+    "region": ["costa", "sierra", "amazonia"],
+    "pacum": get_pacum_stats(raster_url, ecu), 
+    "asm": get_threshold("asm", "%", 100, xmax, xmin),
+    "ffg": get_threshold("ffg", "mm", 1, xmax, xmin),
+    "fmap24": get_threshold("fmap24", "mm", 1, xmax, xmin),
+    "ffr24": get_threshold("ffr24", "%", 100, xmax, xmin)
+}
+df = pd.DataFrame(data)
+print("Generating stats")
+
+
+
+# Establish connection
+db = create_engine(token)
+conn = db.connect()
+df.to_sql('ffgs_stats', con=conn, if_exists='replace', index=False)
+# Close connection
+conn.close()
+print("Uploaded stats")
 
