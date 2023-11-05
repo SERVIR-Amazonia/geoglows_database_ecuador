@@ -51,7 +51,7 @@ def insert_data(db, comid):
     # Establish connection
     conn = db.connect()
     # Define the table and delete if exist
-    table = 'r_{0}'.format(comid)
+    table = f'r_{comid}'
     conn.execute("DROP TABLE IF EXISTS {0};".format(table))
     # Insert to database
     try:
