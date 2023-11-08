@@ -31,6 +31,7 @@ NASA_PASS = os.getenv('NASA_PASS')
 HS_USER = os.getenv('HS_USER')
 HS_PASS = os.getenv('HS_PASS')
 HS_IDRS = os.getenv('HS_ID01')
+PYTHON_PATH = os.getenv('PYTHON_PATH')
 
 
 # Change the work directory
@@ -43,13 +44,6 @@ os.chdir("data/gpm_imerg")
 def get_imerg_pacum(temp):
     try:
         ndays = int(temp/24)
-        #if(temp == 24):
-        #    ndays = 1
-        #elif(temp == 48):
-        #    ndays = 2
-        #else:
-        #    ndays = 3
-        #
         # Generar la fecha actual
         actual_date = datetime.datetime.now() + datetime.timedelta(hours=-5)
         actual_year = actual_date.strftime("%Y")
@@ -206,4 +200,6 @@ get_imerg_pacum(48)
 get_imerg_pacum(72)
 get_imerg_pacum(120)
 
-# gdalwarp -q -cutline ~/tethys_apps_ecuador/geoglows_database_ecuador/shp/nwsaffgs_ecuador_basins_v2.shp -tr 0.01 0.01 -of GTiff pacum_masked.tif pacum_masked_res.tif
+
+# Download FFGS data
+os.system(f"{PYTHON_PATH} r_nwsaffgs.py")

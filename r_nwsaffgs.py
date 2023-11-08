@@ -23,6 +23,7 @@ NWSAFFGS_PASS = os.getenv('NWSAFFGS_PASS')
 HS_USER = os.getenv('HS_USER')
 HS_PASS = os.getenv('HS_PASS')
 HS_IDRS = os.getenv('HS_ID02')
+PYTHON_PATH = os.getenv('PYTHON_PATH')
 
 
 # Retieve the actual hour
@@ -130,3 +131,6 @@ res = hs.resource(HS_IDRS)
 file_list = ['nwsaffds.cpg', 'nwsaffds.dbf', 'nwsaffds.prj', 'nwsaffds.shp', 'nwsaffds.shx']
 res.file_upload(*file_list)
 print("Data uploaded to hydroshare!")
+
+# Generate report
+os.system(f"{PYTHON_PATH} r_report.py")
