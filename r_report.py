@@ -13,6 +13,7 @@ import numpy as np
 import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
 
 from io import BytesIO
@@ -21,6 +22,8 @@ from hs_restclient import HydroShare, HydroShareAuthBasic
 from matplotlib.colors import ListedColormap
 from sqlalchemy import create_engine
 from dotenv import load_dotenv
+import cairosvg
+
 
 warnings.filterwarnings('ignore')
 
@@ -224,6 +227,55 @@ def get_ffgs_plot(field, gdf, gdf2, umbral, colorfun):
 
 
 
+def get_geoglows(gdf, gdf2, df): #gdf -> ecuador, gdf2 -> drainage, df -> alerts
+    # Crear una figura y ejes de Matplotlib
+    fig, ax = plt.subplots(figsize=(8, 8))
+
+    # Graficar el archivo SHP
+    gdf.plot(ax=ax, color='none', edgecolor='black', linewidth=1)
+    gdf2.plot(ax=ax, color='blue', edgecolor='blue', linewidth=0.3)
+
+    # Configurar la ruta a los archivos SVG para cada clase 'alert'
+    svg_mapping = {
+        'R0': 'svg/0.svg',
+        'R2': 'svg/2.svg',
+        'R5': 'svg/5.svg',
+        'R10': 'svg/10.svg',
+        'R25': 'svg/25.svg',
+        'R50': 'svg/50.svg',
+        'R100': 'svg/100.svg'
+    }
+
+    # Graficar los puntos utilizando archivos SVG como marcadores
+    for index, row in df.iterrows():
+        lat = row['latitude']
+        lon = row['longitude']
+        alert = row['alert']
+        
+        # Obtener la ruta del archivo SVG correspondiente
+        svg_path = svg_mapping.get(alert, 'default_icon.svg')
+        
+        # Convertir el archivo SVG en una imagen temporal (PNG)
+        temp_png_path = 'temp_icon.png'
+        cairosvg.svg2png(url=svg_path, write_to=temp_png_path)
+        
+        # Cargar la imagen PNG como un OffsetImage
+        img = OffsetImage(plt.imread(temp_png_path), zoom=0.5)
+        ab = AnnotationBbox(img, (lon, lat), frameon=False)
+        
+        # Agregar el marcador al gráfico
+        ax.add_artist(ab)
+
+    # Establecer límites en los ejes x e y para delimitar la figura
+    plt.xlim(-81.3, -74.9)
+    plt.ylim(-5.2, 1.6)
+    plt.axis("off")
+    plt.margins(0)
+
+    # Save the figure
+    print("Saving image GEOGLOWS")
+    fig_path = f'{user_dir}/data/report/fig_geoglows.png'
+    plt.savefig(fig_path, bbox_inches='tight', pad_inches=0)
 
 
 
@@ -286,6 +338,10 @@ def get_threshold(param, unit, factor, xmax, xmin):
 ecu = gpd.read_file("shp/ecuador.shp")
 print("Read Ecuador Boundaries")
 
+# Get drainage
+drainage = gpd.read_file("shp/drainage.shp")
+print("Read Ecuador Drainage")
+
 # Get FFGS data
 shp_url = "https://geoserver.hydroshare.org/geoserver/HS-352379cf82444fd099eca8bfc662789b/wfs?service=WFS&version=2.0.0&request=GetFeature&typeName=nwsaffds&maxFeatures=20000&outputFormat=application/json"
 ffgs = gpd.read_file(shp_url)
@@ -294,12 +350,21 @@ print("Read FFGS data")
 # Pacum raster URL
 raster_url = "https://www.hydroshare.org/resource/925ad37f78674d578eab2494e13db240/data/contents/pacum_24_res.tif"
 
+# Get data from DB
+db = create_engine(token)
+conn = db.connect()
+alerts = pd.read_sql("select latitude,longitude,alert from drainage_network where alert != 'R0' and loc1 != 'GALAPAGOS';", conn)
+conn.close()
+print("Retrieved data from DB")
+
+
 # Generate figures
 get_pacum_plot(raster_url = raster_url, gdf = ecu)
 get_ffgs_plot(field="asm", gdf=ffgs, gdf2=ecu, umbral=10, colorfun=color_percent)
 get_ffgs_plot(field="ffg", gdf=ffgs, gdf2=ecu, umbral=100, colorfun=color_pacum)
 get_ffgs_plot(field="fmap24", gdf=ffgs, gdf2=ecu, umbral=100, colorfun=color_pacum)
 get_ffgs_plot(field="ffr24", gdf=ffgs, gdf2=ecu, umbral=10, colorfun=color_percent)
+get_geoglows(gdf=ecu, gdf2=drainage, df=alerts)
 
 # Upload data to hydroshare
 auth = HydroShareAuthBasic(username=HS_USER, password=HS_PASS)
@@ -317,6 +382,7 @@ upload_file(hs, f'{user_dir}/data/report/fig_asm.png', "fig_asm.png")
 upload_file(hs, f'{user_dir}/data/report/fig_ffg.png', "fig_ffg.png")
 upload_file(hs, f'{user_dir}/data/report/fig_fmap24.png', "fig_fmap24.png")
 upload_file(hs, f'{user_dir}/data/report/fig_ffr24.png', "fig_ffr24.png")
+upload_file(hs, f'{user_dir}/data/report/fig_geoglows.png', "fig_geoglows.png")
 print("Uploaded data")
 
 
@@ -346,5 +412,5 @@ conn = db.connect()
 df.to_sql('ffgs_stats', con=conn, if_exists='replace', index=False)
 # Close connection
 conn.close()
-print("Uploaded stats")
+print("Uploaded stats") 
 
