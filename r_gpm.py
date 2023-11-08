@@ -202,4 +202,6 @@ get_imerg_pacum(120)
 
 
 # Download FFGS data
+os.chdir(user_dir)
+os.chdir("tethys_apps_ecuador/geoglows_database_ecuador")
 os.system(f"{PYTHON_PATH} r_nwsaffgs.py")

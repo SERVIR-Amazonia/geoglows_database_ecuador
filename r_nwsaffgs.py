@@ -27,7 +27,7 @@ PYTHON_PATH = os.getenv('PYTHON_PATH')
 
 
 # Retieve the actual hour
-actual_date = datetime.datetime.now() #+ datetime.timedelta(hours=-5)
+actual_date = datetime.datetime.now() + datetime.timedelta(hours=-5)
 hora_actual = actual_date.hour
 run_hour = "00"
 
@@ -133,4 +133,6 @@ res.file_upload(*file_list)
 print("Data uploaded to hydroshare!")
 
 # Generate report
+os.chdir(user_dir)
+os.chdir("tethys_apps_ecuador/geoglows_database_ecuador")
 os.system(f"{PYTHON_PATH} r_report.py")
