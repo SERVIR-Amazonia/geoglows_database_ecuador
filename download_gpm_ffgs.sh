@@ -1,6 +1,9 @@
 #!/bin/bash 
 cd ~/tethys_apps_ecuador/geoglows_database_ecuador
-source .env set
+if [ ! -f .env ]
+then
+  export $(cat .env | xargs)
+fi
 $PYTHON_PATH r_gpm.py
 $PYTHON_PATH r_nwsaffgs.py
 $PYTHON_PATH r_report.py
