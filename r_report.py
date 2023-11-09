@@ -353,7 +353,7 @@ raster_url = "https://www.hydroshare.org/resource/925ad37f78674d578eab2494e13db2
 # Get data from DB
 db = create_engine(token)
 conn = db.connect()
-alerts = pd.read_sql("select latitude,longitude,alert from drainage_network where alert != 'R0' and loc1 != 'GALAPAGOS';", conn)
+alerts = pd.read_sql("select loc1, latitude,longitude,alert from drainage_network where alert != 'R0' and loc1 != 'GALAPAGOS';", conn)
 conn.close()
 print("Retrieved data from DB")
 
@@ -388,10 +388,24 @@ print("Uploaded data")
 
 # Getting stats
 union = gpd.overlay(ffgs, ecu, how='intersection') 
-union = union[['asm', 'ffg', 'fmap06', 'fmap24', 'ffr12', 'ffr24', 'DPA_VALOR']]
+union = union[['asm', 'ffg', 'fmap06', 'fmap24', 'ffr12', 'ffr24', 'DPA_VALOR', "DPA_DESPRO"]]
 union = union.replace(-999, np.nan)
 xmin = union.groupby('DPA_VALOR').min()
 xmax = union.groupby('DPA_VALOR').max()
+
+# Getting provinces
+maxprov = union.groupby('DPA_DESPRO').max()
+maxprov["loc1"] = maxprov.index
+maxprov = maxprov[maxprov['ffr24'] > 0.3][["loc1","DPA_VALOR"]]
+aleprov = alerts["loc1"].drop_duplicates().to_frame(name='loc1')
+combined = pd.merge(maxprov, aleprov, how='inner', left_on='loc1', right_on='loc1')
+combined['loc1'] = combined['loc1'].str.title()
+
+# Getting string per region
+co = combined[combined["DPA_VALOR"] == 1]["loc1"].str.cat(sep=', ')
+si = combined[combined["DPA_VALOR"] == 2]["loc1"].str.cat(sep=', ')
+am = combined[combined["DPA_VALOR"] == 3]["loc1"].str.cat(sep=', ')
+
 
 data = {
     "region": ["costa", "sierra", "amazonia"],
@@ -399,8 +413,15 @@ data = {
     "asm": get_threshold("asm", "%", 100, xmax, xmin),
     "ffg": get_threshold("ffg", "mm", 1, xmax, xmin),
     "fmap24": get_threshold("fmap24", "mm", 1, xmax, xmin),
-    "ffr24": get_threshold("ffr24", "%", 100, xmax, xmin)
+    "ffr24": get_threshold("ffr24", "%", 100, xmax, xmin),
+    "prov": [
+        co if co != "" else "Sin alertas", 
+        si if si != "" else "Sin alertas", 
+        am if am != "" else "Sin alertas"
+    ]
 }
+
+
 df = pd.DataFrame(data)
 print("Generating stats")
 
@@ -413,4 +434,7 @@ df.to_sql('ffgs_stats', con=conn, if_exists='replace', index=False)
 # Close connection
 conn.close()
 print("Uploaded stats") 
+
+
+
 
