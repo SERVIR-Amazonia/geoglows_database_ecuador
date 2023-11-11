@@ -50,8 +50,9 @@ def get_imerg_pacum(temp):
         actual_month = actual_date.strftime("%m")
         #
         # Descargar los nombres de archivos existentes
-        url = "https://jsimpsonhttps.pps.eosdis.nasa.gov/text/imerg/gis/early/{0}/{1}/"
-        url = url.format(actual_year, actual_month)
+        url = "https://jsimpsonhttps.pps.eosdis.nasa.gov/text/imerg/gis/early/"
+        #url = "https://jsimpsonhttps.pps.eosdis.nasa.gov/text/imerg/gis/early/{0}/{1}/"
+        #url = url.format(actual_year, actual_month)
         #
         # Descargar el archivo con los nombres de los recursos
         password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
@@ -97,9 +98,10 @@ def get_imerg_pacum(temp):
                 finish_hour = df.finish[i].strftime("%H")
                 finish_minute = df.finish[i].strftime("%M")
                 finish_second = df.finish[i].strftime("%S")
-                source = "/imerg/gis/early/{0}/{1}/3B-HHR-E.MS.MRG.3IMERG.{0}{1}{2}-S{3}{4}{5}-E{6}{7}{8}".format(start_year,start_month,start_day,start_hour,start_minute,start_second,finish_hour,finish_minute,finish_second)
+                #source = "/imerg/gis/early/{0}/{1}/3B-HHR-E.MS.MRG.3IMERG.{0}{1}{2}-S{3}{4}{5}-E{6}{7}{8}".format(start_year,start_month,start_day,start_hour,start_minute,start_second,finish_hour,finish_minute,finish_second)
+                source = "/imerg/gis/early/3B-HHR-E.MS.MRG.3IMERG.{0}{1}{2}-S{3}{4}{5}-E{6}{7}{8}".format(start_year,start_month,start_day,start_hour,start_minute,start_second,finish_hour,finish_minute,finish_second)
                 resultado = files[files['files'].str.contains(source)]
-                resultado = resultado[resultado['files'].str.contains(".V06D.30min.tif")].iloc[0,0]
+                resultado = resultado[resultado['files'].str.contains("30min.tif")].iloc[0,0]
                 url = "https://jsimpsonhttps.pps.eosdis.nasa.gov{0}".format(resultado)
                 # Authenticacion
                 auth = (NASA_USER, NASA_PASS)
@@ -111,8 +113,9 @@ def get_imerg_pacum(temp):
                     print(f'Descarga exitosa: {nombre_archivo}')
                 else:
                     print(f'Error al descargar: Código de estado {response.status_code}')
-            except:
+            except Exception as e:
                 print("Conexion no permitida")
+                print(e)
                 time.sleep(10)
         #
         # Lista para almacenar los nombres de los archivos GeoTIFF
