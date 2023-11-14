@@ -116,6 +116,65 @@ def color_pacum(pixelValue):
     else:
         return "none"
 
+
+def color_pacum_invert(pixelValue):
+    if pixelValue == 0:
+        return "none"
+    elif 0.01 <= pixelValue <= 0.5:
+        return rgba_to_hex((0, 0, 0, 255))
+    elif 0.5 < pixelValue <= 1:
+        return rgba_to_hex((212, 212, 212, 255))
+    elif 1 < pixelValue <= 2:
+        return rgba_to_hex((249, 230, 255, 255))
+    elif 2 < pixelValue <= 3:
+        return rgba_to_hex((235, 166, 255, 255))
+    elif 3 < pixelValue <= 4:
+        return rgba_to_hex((221, 102, 255, 255))
+    elif 4 < pixelValue <= 5:
+        return rgba_to_hex((194, 0, 251, 255))
+    elif 5 < pixelValue <= 7:
+        return rgba_to_hex((100, 0, 0, 255))
+    elif 7 < pixelValue <= 10:
+        return rgba_to_hex((136, 0, 0, 255))
+    elif 10 < pixelValue <= 15:
+        return rgba_to_hex((191, 0, 0, 255))
+    elif 15 < pixelValue <= 20:
+        return rgba_to_hex((247, 30, 84, 255))
+    elif 20 < pixelValue <= 25:
+        return rgba_to_hex((248, 78, 120, 255))
+    elif 25 < pixelValue <= 30:
+        return rgba_to_hex((255, 166, 106, 255))
+    elif 30 < pixelValue <= 35:
+        return rgba_to_hex((255, 127, 39, 255))
+    elif 35 < pixelValue <= 40:
+        return rgba_to_hex((240, 96, 0, 255))
+    elif 40 < pixelValue <= 45:
+        return rgba_to_hex((232, 220, 0, 255))
+    elif 45 < pixelValue <= 50:
+        return rgba_to_hex((255, 244, 43, 255))
+    elif 50 < pixelValue <= 60:
+        return rgba_to_hex((99, 237, 7, 255))
+    elif 60 < pixelValue <= 70:
+        return rgba_to_hex((26, 207, 5, 255))
+    elif 70 < pixelValue <= 80:
+        return rgba_to_hex((20, 143, 27, 255))
+    elif 80 < pixelValue <= 90:
+        return rgba_to_hex((0, 54, 127, 255))
+    elif 90 < pixelValue <= 100:
+        return rgba_to_hex((0, 105, 255, 255))
+    elif 100 < pixelValue <= 125:
+        return rgba_to_hex((4, 130, 255, 255))
+    elif 125 < pixelValue <= 150:
+        return rgba_to_hex((53, 154, 255, 255))
+    elif 150 < pixelValue <= 300:
+        return rgba_to_hex((117, 186, 255, 255))
+    elif pixelValue > 300:
+        return rgba_to_hex((180, 215, 255, 255))
+    else:
+        return "none"
+
+
+
 def color_percent(pixelValue):
     if 0 <= pixelValue <= 0.1:
         return "#F9F788"
@@ -361,7 +420,7 @@ print("Retrieved data from DB")
 # Generate figures
 get_pacum_plot(raster_url = raster_url, gdf = ecu)
 get_ffgs_plot(field="asm", gdf=ffgs, gdf2=ecu, umbral=10, colorfun=color_percent)
-get_ffgs_plot(field="ffg", gdf=ffgs, gdf2=ecu, umbral=100, colorfun=color_pacum)
+get_ffgs_plot(field="ffg", gdf=ffgs, gdf2=ecu, umbral=100, colorfun=color_pacum_invert)
 get_ffgs_plot(field="fmap24", gdf=ffgs, gdf2=ecu, umbral=100, colorfun=color_pacum)
 get_ffgs_plot(field="ffr24", gdf=ffgs, gdf2=ecu, umbral=10, colorfun=color_percent)
 get_geoglows(gdf=ecu, gdf2=drainage, df=alerts)
@@ -433,7 +492,7 @@ conn = db.connect()
 df.to_sql('ffgs_stats', con=conn, if_exists='replace', index=False)
 # Close connection
 conn.close()
-print("Uploaded stats") 
+print("Uploaded stats")  
 
 
 
