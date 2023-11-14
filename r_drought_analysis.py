@@ -110,7 +110,7 @@ def get_occurrence_low_warning(ensem, warnings):
     for warning in warnings.columns:
         rv[warning] = len(ts[ts < warnings[warning].values[0]])
     # Assing warnings
-    if rv['7q10'] >= 5 and rv['7q10'] < 7 :
+    if rv['7q10'] >= 4 and rv['7q10'] < 7 :
         return 'S1'
     elif rv['7q10'] >= 7 and rv['7q10'] < 10 :
         return 'S2'
