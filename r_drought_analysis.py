@@ -9,6 +9,7 @@ import numpy as np
 import math
 import datetime
 import warnings
+from scipy import stats
 warnings.filterwarnings('ignore')
 
 # Change the work directory
@@ -44,52 +45,84 @@ def get_format_data(sql_statement, conn):
     # Return result
     return(data)
 
-###############################################################################################################
-#                                                  Getting Q10                                                #
-###############################################################################################################
-def get_quantile(data, quantile):
-    df = simulated_data.quantile(quantile, axis=0).to_frame()
-    df.rename(columns = {quantile: "q"}, inplace = True)
-    return(df["q"][0])
 
-###############################################################################################################
-#                                         Getting ensemble statistic                                          #
-###############################################################################################################
-def ensemble_quantile(ensemble, quantile, label):
-    df = ensemble.quantile(quantile, axis=1).to_frame()
-    df.rename(columns = {quantile: label}, inplace = True)
-    df =  df.groupby(df.index.strftime("%Y-%m-%d")).min()
-    return(df)
 
-###############################################################################################################
-#                                   Getting return periods from data series                                   #
-###############################################################################################################
-def gumbel_1(std: float, xbar: float, rp: int or float) -> float:
-  return -math.log(-math.log(1 - (1 / rp))) * std * .7797 + xbar - (.45 * std)
 
-def get_return_periods(comid, data):
-    data = 1/data
-    # Stats
-    max_annual_flow = data.groupby(data.index.strftime("%Y-%m")).max()
-    mean_value = np.mean(max_annual_flow.iloc[:,0].values)
-    std_value = np.std(max_annual_flow.iloc[:,0].values)
-    # Return periods
-    return_periods = [10, 5, 2]
-    return_periods_values = []
-    # Compute the corrected return periods
-    for rp in return_periods:
-      return_periods_values.append(gumbel_1(std_value, mean_value, rp))
-    # Parse to list
-    d = {'rivid': [comid],  
-         'return_period_10': [1/return_periods_values[0]],
-         'return_period_5': [1/return_periods_values[1]],
-         'return_period_2': [1/return_periods_values[2]]}
+# Calc 7q10 threshold for high warnings levels
+def get_warning_low_level(comid, data):
+    def __calc_method__(ts):
+        # Result dictionary
+        rv = {'empirical' : {},
+              'norm'      : {'fun': stats.norm,     'para' : {'loc': np.nanmean(ts), 'scale': np.nanstd(ts)}},
+              'pearson3'  : {'fun': stats.pearson3, 'para' : {'loc': np.nanmean(ts), 'scale': np.nanstd(ts), 'skew': 1}},
+              'dweibull'  : {'fun': stats.dweibull, 'para' : {'loc': np.nanmean(ts), 'scale': np.nanstd(ts), 'c'   : 1}},
+              'chi2'      : {'fun' : stats.chi2,    'para' : {'loc': np.nanmean(ts), 'scale' : np.nanstd(ts), 'df' : 2}},
+              'gumbel_r'  : {'fun' : stats.gumbel_r,'para' : {'loc': np.nanmean(ts) - 0.45005 * np.nanstd(ts), 'scale' : 0.7797 * np.nanstd(ts)}}}
+        # Extract empirical distribution data
+        freq, cl = np.histogram(ts, bins='sturges')
+        freq = np.cumsum(freq) / np.sum(freq)
+        cl_marc = (cl[1:] + cl[:-1]) / 2
+        # Save values
+        rv['empirical'].update({'freq': freq,'cl_marc': cl_marc})
+        # Function for stadistical test
+        ba_xi2 = lambda o, e : np.square(np.subtract(o,e)).mean() ** (1/2)
+        # Add to probability distribution the cdf and the xi test
+        for p_dist in rv:
+            if p_dist == 'empirical':
+                continue
+            # Build cummulative distribution function (CDF)
+            rv[p_dist].update({'cdf' : rv[p_dist]['fun'].cdf(x = cl_marc, **rv[p_dist]['para'])})
+            # Obtain the xi test result
+            rv[p_dist].update({f'{p_dist}_x2test' : ba_xi2(o = rv[p_dist]['cdf'], e = freq)})
+        # Select best probability function
+        p_dist_comp = pd.DataFrame(data={'Distribution' : [p_dist for p_dist in rv if p_dist != 'empirical'],
+                                         'xi2_test'     : [rv[p_dist][f'{p_dist}_x2test'] for p_dist in rv if p_dist != 'empirical']})
+        p_dist_comp.sort_values(by='xi2_test', inplace = True)
+        p_dist_comp.reset_index(drop = True, inplace = True)
+        best_p_dist = p_dist_comp['Distribution'].values[0]
+        return rv[best_p_dist]['fun'](**rv[best_p_dist]['para'])
+    # Previous datatime manager
+    data_cp = data.copy()
+    data_cp = data_cp.rolling(window=7).mean()
+    data_cp = data_cp.groupby(data_cp.index.year).min().values.flatten()
+    # Calc comparation value
+    rv = {}
+    for key in {'7q10' : 1}:
+        res = __calc_method__(data_cp)
+        # TODO: Fix in case of small rivers get 7q10 negative
+        val = res.ppf([0.01]) if res.ppf([0.01]) > 0 else 0    # Modified 7q5
+        rv.update({key : val})
+    # Build result dataframe
+    d = {'rivid': [comid]}
+    d.update(rv)
     # Parse to dataframe
-    corrected_rperiods_df = pd.DataFrame(data=d)
-    corrected_rperiods_df.set_index('rivid', inplace=True)
-    return(corrected_rperiods_df)
+    corrected_low_warnings_df = pd.DataFrame(data=d)
+    corrected_low_warnings_df.set_index('rivid', inplace=True)
+    return corrected_low_warnings_df
 
+# Excedence warning low
+def get_occurrence_low_warning(ensem, warnings):
+    # Build esnsemble comparation time serie
+    ts = ensem.quantile(0.75, axis = 1).copy()
+    ts = ts.groupby(ts.index.year.astype(str) +'/'+ ts.index.month.astype(str) +'/'+ ts.index.day.astype(str)).min()
+    # Count warnings alerts
+    rv = {}
+    for warning in warnings.columns:
+        rv[warning] = len(ts[ts < warnings[warning].values[0]])
+    # Assing warnings
+    if rv['7q10'] >= 5 and rv['7q10'] < 7 :
+        return 'S1'
+    elif rv['7q10'] >= 7 and rv['7q10'] < 10 :
+        return 'S2'
+    elif rv['7q10'] >= 10 :
+        return 'S3'
+    else:
+        return 'S0'
+    
 
+###############################################################################################################
+#                                                Main Function                                                #
+###############################################################################################################
 
 # Setting the connetion to db
 db = create_engine(token)
@@ -109,28 +142,11 @@ for i in range(n):
     station_comid = drainage.comid[i]
     try:
         # Query to database 
+        station_comid = drainage.comid[i]
         simulated_data = get_format_data("select * from r_{0} where datetime < '2022-06-01' and datetime > '1979-01-02';".format(station_comid), conn)
         ensemble_forecast = get_format_data("select * from f_{0};".format(station_comid), conn)
-        # Forecast stats
-        ensemble_median = ensemble_quantile(ensemble_forecast, 0.5, "Median")
-        return_periods = get_return_periods(station_comid, simulated_data)
-        print(return_periods)
-        # Quantiles
-        q15 = return_periods["return_period_2"]#get_quantile(simulated_data, 0.03)
-        q10 = return_periods["return_period_5"]#get_quantile(simulated_data, 0.02)
-        q05 = return_periods["return_period_10"]#get_quantile(simulated_data, 0.01)
-        # Indexes
-        index_7q15 = sum((ensemble_median < q15).to_numpy())[0] >= 7
-        index_7q10 = sum((ensemble_median < q10).to_numpy())[0] >= 7
-        index_7q05 = sum((ensemble_median < q05).to_numpy())[0] >= 7
-        # Alertas
-        warning_drought = "S0"
-        if(index_7q15):
-            warning_drought = "S1"
-        if(index_7q10):
-            warning_drought = "S2"
-        if(index_7q05):
-            warning_drought = "S3"
+        warnings_low_level = get_warning_low_level(comid = station_comid, data  = simulated_data)
+        warning_drought = get_occurrence_low_warning(ensem=ensemble_forecast, warnings=warnings_low_level)
         # Warning
         drainage.loc[i, ['drought']] = warning_drought
         print(f"{station_comid} - {warning_drought}")
@@ -143,9 +159,5 @@ drainage.to_sql('drainage_network', con=conn, if_exists='replace', index=False)
 
 # Close connection
 conn.close()
-
-
-
-
 
 
