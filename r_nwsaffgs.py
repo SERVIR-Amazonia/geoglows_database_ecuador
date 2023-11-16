@@ -1,5 +1,6 @@
 # Import libraries and dependencies
 import os
+import ssl
 import datetime
 import urllib.request
 import gzip
@@ -66,23 +67,14 @@ def get_file(product, filename, run, colname):
     # URL for the comprimed file (*.gz)
     url = "https://nwsaffgs-ubuntu.hrcwater.org/NWSAFFGS_CONSOLE/EXPORTS/REGIONAL/{0}/{1}/{2}/{4}_TXT/{0}{1}{2}-{3}00_ffgs_prod_{5}_regional.txt.gz"
     url = url.format(actual_year, actual_month, actual_day, actual_hour, product, filename)
-    #
     # Download the *.gz file
     gz_filename = "data.gz"
-    password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
-    password_mgr.add_password(None, url, NWSAFFGS_USER, NWSAFFGS_PASS)
-    handler = urllib.request.HTTPBasicAuthHandler(password_mgr)
-    opener = urllib.request.build_opener(handler)
-    urllib.request.install_opener(opener)
-    with urllib.request.urlopen(url) as response, open(gz_filename, 'wb') as out_file:
-        shutil.copyfileobj(response, out_file)
-    #
+    os.system(f"wget --user {NWSAFFGS_USER} --password {NWSAFFGS_PASS} --no-check-certificate {url} -O {gz_filename}")
     # Tar the *.gz file
     output_filename = "data.txt"  # Nombre del archivo descomprimido
     with gzip.open(gz_filename, 'rb') as gz_file, open(output_filename, 'wb') as out_file:
         shutil.copyfileobj(gz_file, out_file)
     print("Download successfully completed!")
-    #
     # Read the file and join
     data_nwsaffgs = pd.read_table("data.txt", sep="\t")
     data_nwsaffgs.columns = ["BASIN", colname]
