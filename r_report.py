@@ -402,7 +402,7 @@ drainage = gpd.read_file("shp/drainage.shp")
 print("Read Ecuador Drainage")
 
 # Get FFGS data
-shp_url = "https://geoserver.hydroshare.org/geoserver/HS-352379cf82444fd099eca8bfc662789b/wfs?service=WFS&version=2.0.0&request=GetFeature&typeName=nwsaffds&maxFeatures=20000&outputFormat=application/json"
+shp_url = "https://geoserver.hydroshare.org/geoserver/HS-352379cf82444fd099eca8bfc662789b/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=nwsaffds&maxFeatures=20000&outputFormat=application/json"
 ffgs = gpd.read_file(shp_url)
 print("Read FFGS data")
 
