@@ -27,11 +27,5 @@ imerg.get(outpath="../paute_final/imerg.tif")
 # Change the work directory
 os.chdir("../paute_final")
 
-plot.pacum_ec(raster="imerg.tif", gdf=ec)
+plot.pacum_ec(raster="imerg.tif", ec_gdf=ec, paute_gdf=paute)
 plot.pacum_paute(raster="imerg.tif", gdf=paute)
-
-
-#plot.pacum("pacum_paute.tif", gdf=paute, fig_path="../../tethys_apps_ecuador/geoglows_database_ecuador/paute/paute-pacum.png")
-
-
-#shutil.copy(pa)
