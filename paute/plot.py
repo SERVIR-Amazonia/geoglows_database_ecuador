@@ -107,7 +107,7 @@ def pacum_ec(raster, ec_gdf, paute_gdf):
     plt.margins(0)
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
     ec_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
-    paute_gdf.plot(ax=plt.gca(), color='ligthcoral', edgecolor='darkred', linewidth=2)
+    paute_gdf.plot(ax=plt.gca(), color='none', edgecolor='red', linewidth=2)
 
     # Establecer límites en los ejes x e y   
     plt.xlim(-81.3, -74.9)
