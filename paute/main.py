@@ -3,7 +3,7 @@ import plot
 import imerg
 import geopandas as gpd
 
-
+import shutil
 
 
 # Change the work directory
@@ -23,4 +23,6 @@ os.chdir(user_dir)
 os.chdir("data/paute")
 
 imerg.get()
-plot.pacum("pacum_paute.tif", gdf=paute, fig_path="paute-pacum.png")
+plot.pacum("pacum_paute.tif", gdf=paute, fig_path="../../tethys_apps_ecuador/geoglows_database_ecuador/paute/paute-pacum.png")
+
+#shutil.copy(pa)
