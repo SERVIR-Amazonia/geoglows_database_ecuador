@@ -31,8 +31,14 @@ plot.pacum(
     raster="imerg.tif", 
     gdf=ec, 
     title="Ecuador Continental",  
-    fig_path="ecuador_prueba.png")
+    fig_path="ecuador.png")
 
+plot.pacum(
+    raster="imerg.tif", 
+    gdf=paute, 
+    title="Cuenca del río Paute",  
+    fig_path="paute.png",
+    paute=True)
 
 
 #plot.pacum("pacum_paute.tif", gdf=paute, fig_path="../../tethys_apps_ecuador/geoglows_database_ecuador/paute/paute-pacum.png")

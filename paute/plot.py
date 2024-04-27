@@ -84,12 +84,7 @@ def color_pacum(pixelValue):
 
 
 
-# raster = "imerg.tif"
-# gdf = ec
-# title="Ecuador Continental", 
-# xylim=[-81.3, -74.9, -5.2, 1.6]
-# fig_path = "Ecuador.png"
-def pacum(raster, gdf, title, fig_path):
+def pacum_ec(raster, gdf, title, fig_path, paute=False):
     # Abre el raster utilizando rasterio
     with rasterio.open(raster) as src:
         # Realiza el enmascaramiento del raster con las geometrías del shapefile
@@ -114,14 +109,18 @@ def pacum(raster, gdf, title, fig_path):
     gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
 
     # Establecer límites en los ejes x e y
-    plt.xlim(-81.3, -74.9)
-    plt.ylim(-5.2, 1.6)
+    if paute:
+        plt.xlim(-79.4, -78.2)
+        plt.ylim(-3.3, -2.25)
+    else:    
+        plt.xlim(-81.3, -74.9)
+        plt.ylim(-5.2, 1.6)
     #plt.axis("off")
     #
     # Añadir un título a la figura
     plt.title(title, fontsize=18)
     #
     # Save the figure
-    plt.savefig(fig_path, bbox_inches='tight', pad_inches=0.3)
+    plt.savefig(fig_path, bbox_inches='tight', pad_inches=0.2)
 
 
