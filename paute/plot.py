@@ -105,7 +105,7 @@ def pacum(raster, gdf, fig_path):
     #
     # Crea una figura de Matplotlib y muestra el raster enmascarado
     plt.figure(figsize=(8, 8))
-    plt.margins(1)
+    #plt.margins(1)
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
     gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
     #
@@ -116,4 +116,4 @@ def pacum(raster, gdf, fig_path):
     #
     # Save the figure
     print("Saving image PACUM")
-    plt.savefig(fig_path, bbox_inches='tight', pad_inches=0)
+    plt.savefig(fig_path, bbox_inches='tight', pad_inches=1)
