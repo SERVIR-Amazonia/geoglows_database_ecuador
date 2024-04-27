@@ -125,8 +125,7 @@ def pacum_paute(raster, gdf):
     # Abre el raster utilizando rasterio
     with rasterio.open(raster) as src:
         # Realiza el enmascaramiento del raster con las geometrías del shapefile
-        #out_image, out_transform = rasterio.mask.mask(src, gdf.geometry, crop=True)
-        out_image = src.read(1)
+        out_image, out_transform = rasterio.mask.mask(src, gdf.geometry, crop=True)
     #
     # Crear una lista de valores entre 0 y 1
     mmin = out_image.min()
@@ -143,7 +142,7 @@ def pacum_paute(raster, gdf):
     # Crea una figura de Matplotlib y muestra el raster enmascarado
     plt.figure(figsize=(8, 8))
     plt.margins(0)
-    show(out_image, ax=plt.gca(), cmap=cmap_custom)
+    show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
     gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
 
     # Establecer límites en los ejes x e y   
