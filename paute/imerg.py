@@ -28,7 +28,7 @@ NASA_PASS = os.getenv('NASA_PASS')
 
 
 # Main function
-def get_imerg():
+def get():
     try:
         # Generar la fecha actual
         actual_date = datetime.datetime.now() + datetime.timedelta(hours=-7) # Como se ejecuta a las 12.00 UTC (-7, es 05.00 UTC, media noche de EC)

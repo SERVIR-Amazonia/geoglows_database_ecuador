@@ -85,7 +85,7 @@ def color_pacum(pixelValue):
 
 
 
-def get_pacum_plot(raster, gdf, fig_path):
+def pacum(raster, gdf, fig_path):
     # Abre el raster utilizando rasterio
     with rasterio.open(raster) as src:
         # Realiza el enmascaramiento del raster con las geometrías del shapefile

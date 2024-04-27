@@ -1,8 +1,9 @@
 import os
+import plot
+import imerg
 import geopandas as gpd
-from dotenv import load_dotenv
-from .imerg import get_imerg
-from .plot import get_pacum_plot
+
+
 
 
 # Change the work directory
@@ -21,5 +22,5 @@ user_dir = os.path.expanduser('~{}'.format(user))
 os.chdir(user_dir)
 os.chdir("data/paute")
 
-get_imerg()
-get_pacum_plot("pacum_paute.tif", gdf=paute)
+imerg.get()
+plot.pacum("pacum_paute.tif", gdf=paute, fig_path="paute-pacum.png")
