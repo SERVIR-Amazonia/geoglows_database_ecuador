@@ -116,12 +116,12 @@ def pacum(raster, gdf, title, fig_path):
     # Establecer límites en los ejes x e y
     plt.xlim(-81.3, -74.9)
     plt.ylim(-5.2, 1.6)
-    plt.axis("off")
+    #plt.axis("off")
     #
     # Añadir un título a la figura
     plt.title(title, fontsize=18)
     #
     # Save the figure
-    plt.savefig(fig_path, bbox_inches='tight', pad_inches=1)
+    plt.savefig(fig_path, bbox_inches='tight', pad_inches=0.3)
 
 
