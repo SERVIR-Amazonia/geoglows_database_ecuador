@@ -118,6 +118,6 @@ def pacum(raster, gdf, title, xylim, fig_path):
     plt.title(title, fontsize=18)
     #
     # Save the figure
-    plt.savefig(fig_path, bbox_inches='tight', pad_inches=0.3)
+    plt.savefig(fig_path, bbox_inches='tight', pad_inches=1)
 
 
