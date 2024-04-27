@@ -114,6 +114,9 @@ def pacum(raster, gdf, fig_path):
     plt.ylim(-3.3, -2.25)
     #plt.axis("off")
     #
+    # Añadir un título a la figura
+    plt.title('Cuenca del río Paute')
+    #
     # Save the figure
     print("Saving image PACUM")
     plt.savefig(fig_path, bbox_inches='tight', pad_inches=0.5)
