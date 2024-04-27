@@ -114,6 +114,10 @@ def pacum(raster, gdf, fig_path):
     plt.ylim(-3.4, -2.1)
     #plt.axis("off")
     #
+    # Añadir la leyenda de la barra de colores
+    cbar = plt.colorbar(plt.cm.ScalarMappable(cmap=cmap_custom))
+    cbar.set_label('Pacum [mm]')
+    #
     # Save the figure
     print("Saving image PACUM")
     plt.savefig(fig_path, bbox_inches='tight', pad_inches=1)
