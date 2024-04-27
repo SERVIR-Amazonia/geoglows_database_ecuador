@@ -84,7 +84,7 @@ def color_pacum(pixelValue):
 
 
 
-def pacum(raster, gdf, title, fig_path, paute=False):
+def pacum_ec(raster, gdf):
     # Abre el raster utilizando rasterio
     with rasterio.open(raster) as src:
         # Realiza el enmascaramiento del raster con las geometrías del shapefile
@@ -108,19 +108,50 @@ def pacum(raster, gdf, title, fig_path, paute=False):
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
     gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
 
-    # Establecer límites en los ejes x e y
-    if paute:
-        plt.xlim(-79.4, -78.2)
-        plt.ylim(-3.3, -2.25)
-    else:    
-        plt.xlim(-81.3, -74.9)
-        plt.ylim(-5.2, 1.6)
+    # Establecer límites en los ejes x e y   
+    plt.xlim(-81.3, -74.9)
+    plt.ylim(-5.2, 1.6)
     #plt.axis("off")
     #
     # Añadir un título a la figura
-    plt.title(title, fontsize=18)
+    plt.title("Ecuador Continental", fontsize=18)
     #
     # Save the figure
-    plt.savefig(fig_path, bbox_inches='tight', pad_inches=0.2)
+    plt.savefig("ecuador.png", bbox_inches='tight', pad_inches=0.2)
 
+
+def pacum_paute(raster, gdf):
+    # Abre el raster utilizando rasterio
+    with rasterio.open(raster) as src:
+        # Realiza el enmascaramiento del raster con las geometrías del shapefile
+        out_image, out_transform = rasterio.mask.mask(src, gdf.geometry, crop=True)
+    #
+    # Crear una lista de valores entre 0 y 1
+    mmin = out_image.min()
+    mmax = out_image.max()
+    rang = 100*(mmax - mmin)
+    values = np.linspace(mmin, mmax, rang)  # Asegurarse de que haya suficientes valores en el rango
+    #
+    # Crear una lista de colores utilizando la función color
+    colors = [color_pacum(value) for value in values]
+    #
+    # Crear un objeto ListedColormap basado en la lista de colores
+    cmap_custom = ListedColormap(colors)
+    #
+    # Crea una figura de Matplotlib y muestra el raster enmascarado
+    plt.figure(figsize=(8, 8))
+    plt.margins(0)
+    show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
+    gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
+
+    # Establecer límites en los ejes x e y   
+    plt.xlim(-79.4, -78.2)
+    plt.ylim(-3.3, -2.25)
+    #plt.axis("off")
+    #
+    # Añadir un título a la figura
+    plt.title("Cuenca del río Paute", fontsize=18)
+    #
+    # Save the figure
+    plt.savefig("paute.png", bbox_inches='tight', pad_inches=0.2)
 

@@ -27,18 +27,8 @@ imerg.get(outpath="../paute_final/imerg.tif")
 # Change the work directory
 os.chdir("../paute_final")
 
-plot.pacum(
-    raster="imerg.tif", 
-    gdf=ec, 
-    title="Ecuador Continental",  
-    fig_path="ecuador.png")
-
-plot.pacum(
-    raster="imerg.tif", 
-    gdf=paute, 
-    title="Cuenca del río Paute",  
-    fig_path="paute.png",
-    paute=True)
+plot.pacum_ec(raster="imerg.tif", gdf=ec)
+plot.pacum_paute(raster="imerg.tif", gdf=paute)
 
 
 #plot.pacum("pacum_paute.tif", gdf=paute, fig_path="../../tethys_apps_ecuador/geoglows_database_ecuador/paute/paute-pacum.png")
