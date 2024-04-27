@@ -3,8 +3,6 @@ import plot
 import imerg
 import geopandas as gpd
 
-import shutil
-
 
 # Change the work directory
 user = os.getlogin()
@@ -23,18 +21,21 @@ user_dir = os.path.expanduser('~{}'.format(user))
 os.chdir(user_dir)
 os.chdir("data/paute")
 
-imerg.get(
-    outpath="../paute_final/imerg.tif")
+# Download data
+imerg.get(outpath="../paute_final/imerg.tif")
 
-#plot.pacum(
-#    raster="imerg.tif", 
-#    gdf=ec, 
-#    title="Ecuador Continental", 
-#    xylim=[-81.3, -74.9, -5.2, 1.6], 
-#    fig_path="../../tethys_apps_ecuador/geoglows_database_ecuador/paute/ecuador.png")
+# Change the work directory
+os.chdir("../paute_final")
+
+plot.pacum(
+    raster="imerg.tif", 
+    gdf=ec, 
+    title="Ecuador Continental",  
+    fig_path="ecuador_prueba.png")
+
+
 
 #plot.pacum("pacum_paute.tif", gdf=paute, fig_path="../../tethys_apps_ecuador/geoglows_database_ecuador/paute/paute-pacum.png")
 
-for f in os.listdir():
-    os.remove(f)
+
 #shutil.copy(pa)
