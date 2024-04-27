@@ -14,7 +14,8 @@ os.chdir("tethys_apps_ecuador/geoglows_database_ecuador")
 
 # Read PAUTE basin SHP
 paute = gpd.read_file("shp/paute.shp")
-print("Reading Paute Basin")
+ec = gpd.read_file("shp/ecuador.shp")
+print("Reading SHP files")
 
 # Change the work directory
 user = os.getlogin()
@@ -23,7 +24,15 @@ os.chdir(user_dir)
 os.chdir("data/paute")
 
 imerg.get()
-plot.pacum("pacum_paute.tif", gdf=paute, fig_path="../../tethys_apps_ecuador/geoglows_database_ecuador/paute/paute-pacum.png")
+
+plot.pacum(
+    raster="imerg.tif", 
+    gdf=ec, 
+    title="Ecuador Continental", 
+    xylim=[-81.3, -74.9, -5.2, 1.6], 
+    fig_path="../../tethys_apps_ecuador/geoglows_database_ecuador/paute/ecuador.png")
+
+#plot.pacum("pacum_paute.tif", gdf=paute, fig_path="../../tethys_apps_ecuador/geoglows_database_ecuador/paute/paute-pacum.png")
 
 for f in os.listdir():
     os.remove(f)

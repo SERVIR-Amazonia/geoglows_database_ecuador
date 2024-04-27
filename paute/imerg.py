@@ -159,7 +159,7 @@ def get():
             dest.write(out_image)
         #
         os.system("gdalwarp -tr 0.01 0.01 -r bilinear pacum_masked.tif pacum_masked_res.tif")
-        os.system("gdalwarp -q -cutline ~/tethys_apps_ecuador/geoglows_database_ecuador/shp/paute.shp -tr 0.01 0.01 -of GTiff pacum_masked_res.tif pacum_paute.tif")
+        os.system("gdalwarp -q -cutline ~/tethys_apps_ecuador/geoglows_database_ecuador/shp/ecuador.shp -tr 0.01 0.01 -of GTiff pacum_masked_res.tif imerg.tif")
         # 
     except Exception as e:
         print("Ocurred an error!")

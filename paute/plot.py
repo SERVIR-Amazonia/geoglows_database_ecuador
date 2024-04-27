@@ -85,7 +85,7 @@ def color_pacum(pixelValue):
 
 
 
-def pacum(raster, gdf, fig_path):
+def pacum(raster, gdf, title, xylim, fig_path):
     # Abre el raster utilizando rasterio
     with rasterio.open(raster) as src:
         # Realiza el enmascaramiento del raster con las geometrías del shapefile
@@ -110,13 +110,14 @@ def pacum(raster, gdf, fig_path):
     gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
     #
     # Establecer límites en los ejes x e y
-    plt.xlim(-79.4, -78.2)
-    plt.ylim(-3.3, -2.25)
+    plt.xlim(xylim[0], xylim[1]) #plt.xlim(-79.4, -78.2)
+    plt.xlim(xylim[2], xylim[3]) #plt.ylim(-3.3, -2.25)
     #plt.axis("off")
     #
     # Añadir un título a la figura
-    plt.title('Cuenca del río Paute')
+    plt.title(title, fontsize=18)
     #
     # Save the figure
-    print("Saving image PACUM")
-    plt.savefig(fig_path, bbox_inches='tight', pad_inches=0.5)
+    plt.savefig(fig_path, bbox_inches='tight', pad_inches=0.3)
+
+
