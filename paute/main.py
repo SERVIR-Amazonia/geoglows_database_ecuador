@@ -25,4 +25,6 @@ os.chdir("data/paute")
 imerg.get()
 plot.pacum("pacum_paute.tif", gdf=paute, fig_path="../../tethys_apps_ecuador/geoglows_database_ecuador/paute/paute-pacum.png")
 
+for f in os.listdir():
+    os.remove(f)
 #shutil.copy(pa)
