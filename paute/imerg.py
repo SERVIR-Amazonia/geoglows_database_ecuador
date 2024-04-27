@@ -1,6 +1,7 @@
 # Import libraries
 import os
 import time
+import shutil
 import rasterio
 import requests
 import datetime
@@ -28,7 +29,7 @@ NASA_PASS = os.getenv('NASA_PASS')
 
 
 # Main function
-def get():
+def get(outpath):
     try:
         # Generar la fecha actual
         actual_date = datetime.datetime.now() + datetime.timedelta(hours=-7) # Como se ejecuta a las 12.00 UTC (-7, es 05.00 UTC, media noche de EC)
@@ -161,6 +162,10 @@ def get():
         os.system("gdalwarp -tr 0.01 0.01 -r bilinear pacum_masked.tif pacum_masked_res.tif")
         os.system("gdalwarp -q -cutline ~/tethys_apps_ecuador/geoglows_database_ecuador/shp/ecuador.shp -tr 0.01 0.01 -of GTiff pacum_masked_res.tif imerg.tif")
         # 
+        shutil.copy("imerg.tif", outpath)
+        #
+        for f in os.listdir():
+            os.remove(f)
     except Exception as e:
         print("Ocurred an error!")
         print(e)
