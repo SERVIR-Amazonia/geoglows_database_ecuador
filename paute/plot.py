@@ -96,12 +96,15 @@ def pacum(raster, gdf, fig_path):
     mmax = out_image.max()
     rang = 100*(mmax - mmin)
     values = np.linspace(mmin, mmax, rang)  # Asegurarse de que haya suficientes valores en el rango
+    values2 = np.linspace(0, 300, 30000)
     #
     # Crear una lista de colores utilizando la función color
     colors = [color_pacum(value) for value in values]
+    colors2 = [color_pacum(value) for value in values2] 
     #
     # Crear un objeto ListedColormap basado en la lista de colores
     cmap_custom = ListedColormap(colors)
+    cmap_custom2 = ListedColormap(colors2)
     #
     # Crea una figura de Matplotlib y muestra el raster enmascarado
     plt.figure(figsize=(8, 8))
@@ -115,7 +118,7 @@ def pacum(raster, gdf, fig_path):
     #plt.axis("off")
     #
     # Añadir la leyenda de la barra de colores
-    cbar = plt.colorbar(plt.cm.ScalarMappable(cmap=cmap_custom))
+    cbar = plt.colorbar(plt.cm.ScalarMappable(cmap=cmap_custom2))
     cbar.set_label('Pacum [mm]')
     #
     # Save the figure
