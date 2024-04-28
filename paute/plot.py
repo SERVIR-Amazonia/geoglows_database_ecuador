@@ -145,9 +145,9 @@ def pacum_paute(raster, paute_gdf, rp_gdf, rs_gdf, embalses_gdf):
     plt.margins(0)
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
     rs_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=0.2)
-    rp_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=1)
+    rp_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=1, label="Ríos")
     paute_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2)
-    embalses_gdf.plot(ax=plt.gca(), color='red', markersize=50)
+    embalses_gdf.plot(ax=plt.gca(), color='red', markersize=50, label="Embalses")
 
     # Establecer límites en los ejes x e y   
     plt.xlim(-79.4, -78.2)
@@ -156,6 +156,9 @@ def pacum_paute(raster, paute_gdf, rp_gdf, rs_gdf, embalses_gdf):
     #
     # Añadir un título a la figura
     plt.title("Cuenca del río Paute", fontsize=18)
+    #
+    # Agregar la leyenda en la parte inferior
+    plt.legend(loc='lower center')
     #
     # Save the figure
     plt.savefig("paute.png", bbox_inches='tight', pad_inches=0.2)
