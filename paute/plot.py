@@ -122,7 +122,7 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     plt.savefig("ecuador.png", bbox_inches='tight', pad_inches=0.2)
 
 
-def pacum_paute(raster, paute_gdf, rp_gdf, rs_gdf):
+def pacum_paute(raster, paute_gdf, rp_gdf, rs_gdf, embalses_gdf):
     # Abre el raster utilizando rasterio
     with rasterio.open(raster) as src:
         # Realiza el enmascaramiento del raster con las geometrías del shapefile
@@ -147,6 +147,7 @@ def pacum_paute(raster, paute_gdf, rp_gdf, rs_gdf):
     rs_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=0.2)
     rp_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=1)
     paute_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2)
+    embalses_gdf.plot(ax=plt.gca(), color='red', markersize=50)
 
     # Establecer límites en los ejes x e y   
     plt.xlim(-79.4, -78.2)

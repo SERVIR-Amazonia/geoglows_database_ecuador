@@ -3,7 +3,6 @@ import plot
 import imerg
 import geopandas as gpd
 
-
 # Change the work directory
 user = os.getlogin()
 user_dir = os.path.expanduser('~{}'.format(user))
@@ -16,6 +15,7 @@ prov = gpd.read_file("shp/ecuador.shp")
 ec = gpd.read_file("shp/ecuador_diss.shp")
 rp = gpd.read_file("shp/rios_principales.shp")
 rs = gpd.read_file("shp/rios_secundarios.shp")
+embalses = gpd.read_file("shp/embalses.shp")
 print("Reading SHP files")
 
 # Change the work directory
@@ -30,5 +30,6 @@ imerg.get(outpath="../paute_final/imerg.tif")
 # Change the work directory
 os.chdir("../paute_final")
 
+# Generate precipitation plots
 plot.pacum_ec(raster="imerg.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=paute)
-plot.pacum_paute(raster="imerg.tif", paute_gdf=paute, rp_gdf=rp, rs_gdf=rs)
+plot.pacum_paute(raster="imerg.tif", paute_gdf=paute, rp_gdf=rp, rs_gdf=rs, embalses_gdf=embalses)
