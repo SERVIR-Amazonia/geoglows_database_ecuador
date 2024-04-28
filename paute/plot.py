@@ -159,7 +159,9 @@ def pacum_paute(raster, paute_gdf, rp_gdf, rs_gdf, embalses_gdf):
     plt.title("Cuenca del río Paute", fontsize=18)
     #
     # Agregar la leyenda en la parte inferior
-    plt.legend(loc='lower right')
+    #plt.legend(loc='lower right')
+    handles, labels = plt.gca().get_legend_handles_labels()
+    plt.legend(handles, labels, loc='lower right')
     #
     # Save the figure
     plt.savefig("paute.png", bbox_inches='tight', pad_inches=0.2)
