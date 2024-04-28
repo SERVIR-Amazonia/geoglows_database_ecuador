@@ -126,7 +126,7 @@ def pacum_paute(raster, paute_gdf, rp_gdf, rs_gdf):
     # Abre el raster utilizando rasterio
     with rasterio.open(raster) as src:
         # Realiza el enmascaramiento del raster con las geometrías del shapefile
-        out_image, out_transform = rasterio.mask.mask(src, gdf.geometry, crop=True)
+        out_image, out_transform = rasterio.mask.mask(src, paute_gdf.geometry, crop=True)
     #
     # Crear una lista de valores entre 0 y 1
     mmin = out_image.min()
