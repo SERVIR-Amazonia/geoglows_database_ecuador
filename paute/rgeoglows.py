@@ -214,24 +214,24 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
             mode="lines",
         ),
 
-        go.Scatter(name='Máximos y mínimos pronosticados',
-                   x=plot_data['x_stats'] + plot_data['x_stats'][::-1],
-                   y=plot_data['flow_max'] + plot_data['flow_min'][::-1],
-                   legendgroup='boundaries',
-                   fill='toself',
-                   line=dict(color='lightblue', dash='dash')),
-        go.Scatter(name='Máximo pronosticado',
-                   x=plot_data['x_stats'],
-                   y=plot_data['flow_max'],
-                   legendgroup='boundaries',
-                   showlegend=False,
-                   line=dict(color='darkblue', dash='dash')),
-        go.Scatter(name='Minimo pronosticado',
-                   x=plot_data['x_stats'],
-                   y=plot_data['flow_min'],
-                   legendgroup='boundaries',
-                   showlegend=False,
-                   line=dict(color='darkblue', dash='dash')),
+        #go.Scatter(name='Máximos y mínimos pronosticados',
+        #           x=plot_data['x_stats'] + plot_data['x_stats'][::-1],
+        #           y=plot_data['flow_max'] + plot_data['flow_min'][::-1],
+        #           legendgroup='boundaries',
+        #           fill='toself',
+        #           line=dict(color='lightblue', dash='dash')),
+        #go.Scatter(name='Máximo pronosticado',
+        #           x=plot_data['x_stats'],
+        #           y=plot_data['flow_max'],
+        #           legendgroup='boundaries',
+        #           showlegend=False,
+        #           line=dict(color='darkblue', dash='dash')),
+        #go.Scatter(name='Minimo pronosticado',
+        #           x=plot_data['x_stats'],
+        #           y=plot_data['flow_min'],
+        #           legendgroup='boundaries',
+        #           showlegend=False,
+        #           line=dict(color='darkblue', dash='dash')),
 
         go.Scatter(name='Rango percentílico 25%-75%',
                    x=plot_data['x_stats'] + plot_data['x_stats'][::-1],
@@ -279,12 +279,12 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
                'tickformat': '%b %d %Y'},
     )
     figure = go.Figure(scatter_plots, layout=layout)
-    figure.update_layout(template='simple_white')
+    figure.update_layout(template='simple_white', width = 1000)
     figure.update_yaxes(linecolor='gray', mirror=True, showline=True) 
     figure.update_xaxes(linecolor='gray', mirror=True, showline=True)
     return(figure)
 
-
+# .update_layout(width = plot_width)
 
 ####################################################################################################
 ##                                        MAIN FUNCTION                                           ##
