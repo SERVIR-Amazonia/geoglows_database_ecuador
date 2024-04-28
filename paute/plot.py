@@ -146,6 +146,7 @@ def pacum_paute(raster, paute_gdf, rp_gdf, rs_gdf, embalses_gdf):
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
     rs_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=0.2)
     rp_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=1, label="Rios")
+    plt.legend(loc='lower right')
     paute_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2)
     embalses_gdf.plot(ax=plt.gca(), color='red', markersize=50, label="Embalses")
 
