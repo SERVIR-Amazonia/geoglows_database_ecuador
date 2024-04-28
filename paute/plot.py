@@ -118,7 +118,6 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     # Añadir un título a la figura
     plt.title("Ecuador Continental", fontsize=18)
     #
-    plt.legend(['Cuenca del Paute'])
     # Save the figure
     plt.savefig("ecuador.png", bbox_inches='tight', pad_inches=0.2)
 
