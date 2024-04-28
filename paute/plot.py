@@ -84,7 +84,7 @@ def color_pacum(pixelValue):
 
 
 
-def pacum_ec(raster, ec_gdf, paute_gdf):
+def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     # Abre el raster utilizando rasterio
     with rasterio.open(raster) as src:
         # Realiza el enmascaramiento del raster con las geometrías del shapefile
@@ -106,7 +106,8 @@ def pacum_ec(raster, ec_gdf, paute_gdf):
     plt.figure(figsize=(8, 8))
     plt.margins(0)
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
-    ec_gdf.plot(ax=plt.gca(), color='none', edgecolor='#A0A0A0', linewidth=0.5)
+    prov_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=0.2)
+    ec_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
     paute_gdf.plot(ax=plt.gca(), color='none', edgecolor='red', linewidth=1.5)
 
     # Establecer límites en los ejes x e y   
