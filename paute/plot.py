@@ -144,7 +144,7 @@ def pacum_paute(raster, paute_gdf, rp_gdf, rs_gdf):
     plt.figure(figsize=(8, 8))
     plt.margins(0)
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
-    rs_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=0.2)
+    rs_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=0.2)
     rp_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=1)
     paute_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2)
 
