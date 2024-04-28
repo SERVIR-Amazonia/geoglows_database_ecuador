@@ -13,7 +13,7 @@ os.chdir("tethys_apps_ecuador/geoglows_database_ecuador")
 # Read PAUTE basin SHP
 paute = gpd.read_file("shp/paute.shp")
 prov = gpd.read_file("shp/ecuador.shp")
-ec = prov.unary_union
+ec = gpd.read_file("shp/ecuador_diss.shp")
 print("Reading SHP files")
 
 # Change the work directory
