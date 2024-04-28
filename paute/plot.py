@@ -145,7 +145,7 @@ def pacum_paute(raster, paute_gdf, rp_gdf, rs_gdf, embalses_gdf):
     plt.margins(0)
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
     rs_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=0.2)
-    rr = rp_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=1, label="Rios")
+    rr = rp_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=1, label="Rios", legend=True)
     plt.legend(loc='lower right')
     paute_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2)
     ee = embalses_gdf.plot(ax=plt.gca(), color='red', markersize=50, label="Embalses")
@@ -159,9 +159,7 @@ def pacum_paute(raster, paute_gdf, rp_gdf, rs_gdf, embalses_gdf):
     plt.title("Cuenca del río Paute", fontsize=18)
     #
     # Agregar la leyenda en la parte inferior
-    #plt.legend(loc='lower right')
-    #handles, labels = plt.gca().get_legend_handles_labels()
-    plt.legend([ee, rr], ['Embalses', 'Rios'], loc='lower right')
+    plt.legend(loc='lower right')
     #
     # Save the figure
     plt.savefig("paute.png", bbox_inches='tight', pad_inches=0.2)
