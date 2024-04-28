@@ -108,7 +108,7 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
     prov_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=0.2)
     ec_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
-    paute_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2, label="Cuenca del río Paute")
+    paute_gdf.plot(ax=plt.gca(), column="CODIGO", color='none', edgecolor='black', linewidth=2, label="Cuenca del río Paute")
 
     # Establecer límites en los ejes x e y   
     plt.xlim(-81.3, -74.9)
