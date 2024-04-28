@@ -108,7 +108,7 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
     prov_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=0.2)
     ec_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
-    paute_gdf.plot(ax=plt.gca(), color='none', edgecolor='red', linewidth=1.5)
+    paute_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2)
 
     # Establecer límites en los ejes x e y   
     plt.xlim(-81.3, -74.9)
@@ -122,7 +122,7 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     plt.savefig("ecuador.png", bbox_inches='tight', pad_inches=0.2)
 
 
-def pacum_paute(raster, gdf):
+def pacum_paute(raster, paute_gdf, rp_gdf, rs_gdf):
     # Abre el raster utilizando rasterio
     with rasterio.open(raster) as src:
         # Realiza el enmascaramiento del raster con las geometrías del shapefile
@@ -144,7 +144,9 @@ def pacum_paute(raster, gdf):
     plt.figure(figsize=(8, 8))
     plt.margins(0)
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
-    gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
+    rs_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=0.2)
+    rp_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=1)
+    paute_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2)
 
     # Establecer límites en los ejes x e y   
     plt.xlim(-79.4, -78.2)

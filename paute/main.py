@@ -10,10 +10,12 @@ user_dir = os.path.expanduser('~{}'.format(user))
 os.chdir(user_dir)
 os.chdir("tethys_apps_ecuador/geoglows_database_ecuador")
 
-# Read PAUTE basin SHP
+# Read SHP files
 paute = gpd.read_file("shp/paute.shp")
 prov = gpd.read_file("shp/ecuador.shp")
 ec = gpd.read_file("shp/ecuador_diss.shp")
+rp = gpd.read_file("shp/rios_principales.shp")
+rs = gpd.read_file("shp/rios_secundarios.shp")
 print("Reading SHP files")
 
 # Change the work directory
@@ -29,4 +31,4 @@ imerg.get(outpath="../paute_final/imerg.tif")
 os.chdir("../paute_final")
 
 plot.pacum_ec(raster="imerg.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=paute)
-plot.pacum_paute(raster="imerg.tif", gdf=paute)
+plot.pacum_paute(raster="imerg.tif", paute_gdf=paute, rp_gdf=rp, rs_gdf=rs)
