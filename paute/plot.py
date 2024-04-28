@@ -144,10 +144,11 @@ def pacum_paute(raster, paute_gdf, rp_gdf, rs_gdf, embalses_gdf):
     plt.figure(figsize=(8, 8))
     plt.margins(0)
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
+    embalses_gdf.plot(ax=plt.gca(), color='red', markersize=50, label="Embalses")
     rs_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=0.2, label="Rios")
     rp_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=1)
     paute_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2)
-    embalses_gdf.plot(ax=plt.gca(), color='red', markersize=50, label="Embalses")
+    #embalses_gdf.plot(ax=plt.gca(), color='red', markersize=50, label="Embalses")
 
     # Establecer límites en los ejes x e y   
     plt.xlim(-79.4, -78.2)
