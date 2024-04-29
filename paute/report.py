@@ -1,6 +1,6 @@
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.lib.units import cm
-from reportlab.platypus import SimpleDocTemplate, PageTemplate, Image, Spacer, Table, TableStyle
+from reportlab.platypus import SimpleDocTemplate, PageTemplate, Image, Spacer, Table, TableStyle, PageBreak
 from reportlab.platypus.frames import Frame
 from reportlab.platypus.paragraph import Paragraph
 from functools import partial
@@ -121,6 +121,7 @@ def report(filename, pacum, pacum_table):
         Image("pacum24.png", width=12*cm, height=1.2*cm),
         Spacer(1, 12),
         agregar_tabla(pacum_table),
+        PageBreak(),
         Paragraph("<b>Pronóstico hidrológico: Río Paute (en Paute)</b>", estilo_parrafo),
         Image("paute_en_paute.png", width=doc.width, height=8*cm),
         
