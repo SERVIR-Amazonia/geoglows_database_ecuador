@@ -42,16 +42,13 @@ imerg.get(outpath="../paute_final/imerg.tif")
 # Change the work directory
 os.chdir("../paute_final")
 
+# Compute mean precipitation per subbasin
 pacum_subbasins = imerg.get_pacum_subbasin("imerg.tif", subcuencas, "SC")
 pacum_basin = imerg.get_pacum_subbasin("imerg.tif", paute, "Subcuenca")
 
-print(pacum_subbasins)
-print(pacum_basin)
-
-
 # Generate precipitation plots
-#plot.pacum_ec(raster="imerg.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=paute)
-#plot.pacum_paute(raster="imerg.tif", paute_gdf=paute, rp_gdf=rp, rs_gdf=rs, embalses_gdf=embalses)
+plot.pacum_ec(raster="imerg.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=paute)
+plot.pacum_paute(raster="imerg.tif", paute_gdf=paute, rp_gdf=rp, rs_gdf=rs, embalses_gdf=embalses)
 
 # Establish connection
 #db = create_engine(token)
