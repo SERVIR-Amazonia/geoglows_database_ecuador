@@ -25,6 +25,7 @@ def footer(canvas, doc, content):
 def header_and_footer(canvas, doc, header_content, footer_content):
     header(canvas, doc, header_content)
     footer(canvas, doc, footer_content)
+    doc.context['page_template'].beforeDrawPage(canvas, doc)
 
 def get_datetime():
     # Obtener la fecha y hora actual
@@ -104,7 +105,7 @@ def report(filename, pacum, pacum_table):
         id='test', 
         frames=frame, 
         onPage=partial(header_and_footer, header_content=header_content, footer_content=footer_content))
-    doc.addPageTemplates([template, template])
+    doc.addPageTemplates([template])
     #
     # Agregar elementos al contenido del PDF
     elementos = [
