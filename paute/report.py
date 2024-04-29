@@ -81,9 +81,6 @@ def report(filename, pacum, pacum_table):
     subtitulo_1 = "<b>Precipitación acumulada diaria (GPM IMERG)</b>"
     parrafo_2 = f"Precipitacion media en la Cuenca del río Paute: {pacum} mm"
     #
-    # Convertir el DataFrame de Pandas a una lista de listas para la tabla
-    #pacum_table = [pacum_table.columns.tolist()] + pacum_table.values.tolist()
-    #
     # Configurar estilos
     estilos = getSampleStyleSheet()
     estilo_titulo = estilos["Title"]
