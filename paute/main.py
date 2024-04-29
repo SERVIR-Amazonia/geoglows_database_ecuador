@@ -2,6 +2,7 @@ import os
 import plot
 import imerg
 import rgeoglows
+import report
 import geopandas as gpd
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
@@ -67,6 +68,6 @@ os.remove("paute.png")
 #conn.close()
 
 
-#filename = "prueba-final.pdf"
-#report(filename)
+filename = "report.pdf"
+report.report(filename, pacum=pacum_basin.pacum[0], pacum_table=pacum_subbasins)
 
