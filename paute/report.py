@@ -95,16 +95,16 @@ def report(filename, pacum, pacum_table):
     doc = SimpleDocTemplate(filename, pagesize=letter)
     #
     # Definir el frame de encabezado y pie de pagina
-    frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
+    #frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
     header_content = Image(header_path, width=doc.width, height=2.5*cm)
     footer_content = Image(footer_path, width=doc.width, height=1.5*cm)
     #
     # Crear el template para todas las paginas
-    template = PageTemplate(
-        id='test', 
-        frames=frame, 
-        onPage=partial(header_and_footer, header_content=header_content, footer_content=footer_content))
-    doc.addPageTemplates([template])
+    #template = PageTemplate(
+    #    id='test', 
+    #    frames=frame, 
+    #    onPage=partial(header_and_footer, header_content=header_content, footer_content=footer_content))
+    #doc.addPageTemplates([template])
     #
     # Agregar elementos al contenido del PDF
     elementos = [
@@ -131,7 +131,10 @@ def report(filename, pacum, pacum_table):
     ]
     #
     # Contruir el pdf
-    doc.build(elementos, onFirstPage=partial(header_and_footer, header_content=header_content, footer_content=footer_content), onLaterPages=partial(header_and_footer, header_content=header_content, footer_content=footer_content))
+    doc.build(
+        elementos, 
+        onFirstPage=partial(header_and_footer, header_content=header_content, footer_content=footer_content), 
+        onLaterPages=partial(header_and_footer, header_content=header_content, footer_content=footer_content))
 
 
 
