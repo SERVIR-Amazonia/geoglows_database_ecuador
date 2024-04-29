@@ -65,11 +65,10 @@ def agregar_tabla(datos):
     tabla.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,0), colors.grey),
                                ('TEXTCOLOR', (0,0), (-1,0), colors.whitesmoke),
                                ('ALIGN', (0,0), (-1,-1), 'CENTER'),
-                               #('FONTNAME', (0,0), (-1,0), 'Helvetica-Bold'),
-                               ('FONTSIZE', (0, 0), (-1, -1), 8),
+                               ('FONTSIZE', (0, 0), (-1, -1), 9),
                                ('BOTTOMPADDING', (0,0), (-1,0), 4),
                                ('BACKGROUND', (0,1), (-1,-1), colors.white),
-                               ('GRID', (0,0), (-1,-1), 1, colors.black)]))
+                               ('GRID', (0,0), (-1,-1), 0.5, colors.black)]))
     return(tabla)
 
 
