@@ -84,9 +84,16 @@ def report(filename, pacum, pacum_table):
     #
     # Configurar estilos
     estilos = getSampleStyleSheet()
+    #
     estilo_titulo = estilos["Title"]
+    estilo_titulo.textColor = colors.Color(31/255, 73/255, 125/255)
+    #
     estilo_parrafo = estilos["Normal"]
     estilo_parrafo.alignment = TA_CENTER
+    #
+    estilo_subtitulo = estilos["Heading1"]
+    estilo_subtitulo.fontSize = 12
+    estilo_subtitulo.textColor = colors.Color(31/255, 73/255, 125/255)
     #
     # Crear el documento PDF
     doc = SimpleDocTemplate(filename, pagesize=letter)
