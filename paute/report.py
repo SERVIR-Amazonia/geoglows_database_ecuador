@@ -65,8 +65,8 @@ def agregar_tabla(datos):
     tabla.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,0), colors.grey),
                                ('TEXTCOLOR', (0,0), (-1,0), colors.whitesmoke),
                                ('ALIGN', (0,0), (-1,-1), 'CENTER'),
-                               ('FONTSIZE', (0, 0), (-1, -1), 9),
-                               ('BOTTOMPADDING', (0,0), (-1,0), 4),
+                               ('FONTSIZE', (0, 0), (-1, -1), 8.5),
+                               ('BOTTOMPADDING', (0,0), (-1,0), 3),
                                ('BACKGROUND', (0,1), (-1,-1), colors.white),
                                ('GRID', (0,0), (-1,-1), 0.5, colors.black)]))
     return(tabla)
@@ -86,8 +86,8 @@ def report(filename, pacum, pacum_table):
     estilos = getSampleStyleSheet()
     estilo_titulo = estilos["Title"]
     estilo_subtitulo = estilos["Normal"]
-    estilo_subtitulo.alignment = TA_CENTER
     estilo_parrafo = estilos["Normal"]
+    estilo_subtitulo.alignment = TA_CENTER
     #
     # Crear el documento PDF
     doc = SimpleDocTemplate(filename, pagesize=letter)
