@@ -103,7 +103,8 @@ def report(filename, pacum, pacum_table):
     template = PageTemplate(
         id='test', 
         frames=frame, 
-        onPage=partial(header_and_footer, header_content=header_content, footer_content=footer_content))
+        onPage=partial(header_and_footer, header_content=header_content, footer_content=footer_content),
+        beforePage=partial(header_and_footer, header_content=header_content, footer_content=footer_content))
     doc.addPageTemplates([template])
     #
     # Agregar elementos al contenido del PDF
