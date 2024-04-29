@@ -45,7 +45,9 @@ os.chdir("../paute_final")
 
 # Compute mean precipitation per subbasin
 pacum_subbasins = imerg.get_pacum_subbasin("imerg.tif", subcuencas, "SC")
+pacum_subbasins = pacum_subbasins.rename(columns={'subbasin': 'Subcuenca', 'pacum': 'Precipitación media (mm)'})
 pacum_basin = imerg.get_pacum_subbasin("imerg.tif", paute, "Subcuenca")
+
 
 # Generate precipitation plots
 plot.pacum_ec(raster="imerg.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=paute)
