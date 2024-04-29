@@ -123,7 +123,10 @@ def report(filename, pacum, pacum_table):
         Image("pacum.png", width=doc.width, height=8*cm),
         Image("pacum24.png", width=12*cm, height=1.2*cm),
         Spacer(1, 12),
-        agregar_tabla(pacum_table)
+        agregar_tabla(pacum_table),
+        Paragraph("<b>Pronóstico hidrológico: Río Paute (en Paute)</b>", estilo_parrafo),
+        Image("paute_en_paute.png", width=doc.width, height=8*cm),
+        
         
     ]
     #

@@ -60,14 +60,15 @@ os.remove("paute.png")
 
 
 # Establish connection
-#db = create_engine(token)
-#conn = db.connect()
+db = create_engine(token)
+conn = db.connect()
 
-#comid = 9033441
-#a = rgeoglows.plot(comid, conn, "prueba.png")
+# Rio Paute (en Paute)
+comid = 9033441
+rgeoglows.plot(comid, conn, "paute_en_paute.png")
 
 # Close connection
-#conn.close()
+conn.close()
 
 
 filename = "report.pdf"
