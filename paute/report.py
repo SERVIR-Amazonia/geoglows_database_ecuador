@@ -108,6 +108,7 @@ def report(filename, pacum, pacum_table):
     #
     # Agregar elementos al contenido del PDF
     elementos = [
+        Spacer(1, 8),
         Paragraph(titulo, estilo_titulo),
         Spacer(1, 8),
         Paragraph(emision, estilo_subtitulo),
@@ -119,7 +120,7 @@ def report(filename, pacum, pacum_table):
         Spacer(1, 5),
         Paragraph(parrafo_2, estilo_parrafo),
         Spacer(1, 5),
-        Image("pacum.png", width=doc.width, height=7*cm),
+        Image("pacum.png", width=doc.width, height=8*cm),
         Image("pacum24.png", width=12*cm, height=1.2*cm),
         Spacer(1, 12),
         agregar_tabla(pacum_table)
