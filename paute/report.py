@@ -25,7 +25,6 @@ def footer(canvas, doc, content):
 def header_and_footer(canvas, doc, header_content, footer_content):
     header(canvas, doc, header_content)
     footer(canvas, doc, footer_content)
-    doc.context['page_template'].beforeDrawPage(canvas, doc)
 
 def get_datetime():
     # Obtener la fecha y hora actual
@@ -132,7 +131,7 @@ def report(filename, pacum, pacum_table):
     ]
     #
     # Contruir el pdf
-    doc.build(elementos)
+    doc.build(elementos, onFirstPage=header_and_footer, onLaterPages=header_and_footer)
 
 
 
