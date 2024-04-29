@@ -85,7 +85,7 @@ def report(filename, pacum, pacum_table):
     # Configurar estilos
     estilos = getSampleStyleSheet()
     estilo_titulo = estilos["Title"]
-    estilo_subtitulo = estilos["Normal"]
+    estilo_subtitulo = estilos["Subtitle"]
     estilo_parrafo = estilos["Normal"]
     estilo_subtitulo.alignment = TA_CENTER
     #
@@ -101,8 +101,8 @@ def report(filename, pacum, pacum_table):
         Spacer(1, 8),
         Paragraph(titulo, estilo_titulo),
         Spacer(1, 8),
-        Paragraph(emision, estilo_subtitulo),
-        Paragraph(vigencia, estilo_subtitulo),
+        Paragraph(emision, estilo_parrafo),
+        Paragraph(vigencia, estilo_parrafo),
         Spacer(1, 20),
         Paragraph(parrafo_1, estilo_parrafo),
         Spacer(1, 24),
