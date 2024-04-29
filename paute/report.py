@@ -131,7 +131,7 @@ def report(filename, pacum, pacum_table):
     ]
     #
     # Contruir el pdf
-    doc.build(elementos, onFirstPage=header_and_footer, onLaterPages=header_and_footer)
+    doc.build(elementos, onFirstPage=partial(header_and_footer, header_content=header_content, footer_content=footer_content), onLaterPages=partial(header_and_footer, header_content=header_content, footer_content=footer_content))
 
 
 
