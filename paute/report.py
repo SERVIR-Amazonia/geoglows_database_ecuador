@@ -66,11 +66,12 @@ def agregar_tabla(datos):
                                ('TEXTCOLOR', (0,0), (-1,0), colors.whitesmoke),
                                ('ALIGN', (0,0), (-1,-1), 'CENTER'),
                                ('FONTNAME', (0,0), (-1,0), 'Helvetica-Bold'),
-                               ('FONTSIZE', (0, 0), (-1, -1), 10),
+                               ('FONTSIZE', (0, 0), (-1, -1), 5),
                                ('BOTTOMPADDING', (0,0), (-1,0), 12),
-                               ('BACKGROUND', (0,1), (-1,-1), colors.beige),
+                               ('BACKGROUND', (0,1), (-1,-1), colors.white),
                                ('GRID', (0,0), (-1,-1), 1, colors.black)]))
     return(tabla)
+
 
 def report(filename, pacum, pacum_table):
     # Vars
@@ -92,17 +93,9 @@ def report(filename, pacum, pacum_table):
     # Crear el documento PDF
     doc = SimpleDocTemplate(filename, pagesize=letter)
     #
-    # Definir el frame de encabezado y pie de pagina
-    #frame = Frame(doc.leftMargin, doc.bottomMargin, doc.width, doc.height, id='normal')
+    # Definir el encabezado y pie de pagina
     header_content = Image(header_path, width=doc.width, height=2.5*cm)
     footer_content = Image(footer_path, width=doc.width, height=1.5*cm)
-    #
-    # Crear el template para todas las paginas
-    #template = PageTemplate(
-    #    id='test', 
-    #    frames=frame, 
-    #    onPage=partial(header_and_footer, header_content=header_content, footer_content=footer_content))
-    #doc.addPageTemplates([template])
     #
     # Agregar elementos al contenido del PDF
     elementos = [
