@@ -49,6 +49,12 @@ pacum_basin = imerg.get_pacum_subbasin("imerg.tif", paute, "Subcuenca")
 # Generate precipitation plots
 plot.pacum_ec(raster="imerg.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=paute)
 plot.pacum_paute(raster="imerg.tif", paute_gdf=paute, rp_gdf=rp, rs_gdf=rs, embalses_gdf=embalses)
+plot.join_images("ecuador.png", "paute.png")
+
+# Remove indivual plot
+os.remove("ecuador.png")
+os.remove("paute.png")
+
 
 # Establish connection
 #db = create_engine(token)
@@ -59,4 +65,8 @@ plot.pacum_paute(raster="imerg.tif", paute_gdf=paute, rp_gdf=rp, rs_gdf=rs, emba
 
 # Close connection
 #conn.close()
+
+
+#filename = "prueba-final.pdf"
+#report(filename)
 

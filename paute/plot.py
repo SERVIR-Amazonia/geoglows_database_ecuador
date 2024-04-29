@@ -9,12 +9,14 @@ from fiona.crs import from_epsg
 
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 from io import BytesIO
 from rasterio.plot import show
 from matplotlib.colors import ListedColormap
 from dotenv import load_dotenv
 import cairosvg
+
 
 
 def rgba_to_hex(rgba_color):
@@ -163,4 +165,25 @@ def pacum_paute(raster, paute_gdf, rp_gdf, rs_gdf, embalses_gdf):
     #
     # Save the figure
     plt.savefig("paute.png", bbox_inches='tight', pad_inches=0.2)
+
+
+def join_images(img1, img2):
+    # Cargar las imágenes
+    imagen1 = mpimg.imread(img1)
+    imagen2 = mpimg.imread(img2)
+    # Crear una nueva figura
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11,5))
+    # Mostrar la primera imagen en la primera subtrama
+    ax1.imshow(imagen1)
+    ax1.axis('off')
+    ax1.set_aspect(aspect='auto')
+    # Mostrar la segunda imagen en la segunda subtrama
+    ax2.imshow(imagen2)
+    ax2.axis('off')
+    ax2.set_aspect(aspect='auto')
+    # Ajustar el espacio entre las subtramas
+    plt.tight_layout()
+    # Guardar la figura en un archivo de imagen
+    plt.savefig('pacum.png')
+
 
