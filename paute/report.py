@@ -88,7 +88,7 @@ def report(filename, pacum, pacum_table, paute_table):
     subtitulo_1 = "<b>Precipitación acumulada diaria</b>"
     parrafo_2 = f"De acuerdo con los datos del hidroestimador satelital GPM IMERG Early Run, la precipitación media registrada en la Cuenca del río Paute durante el {anterior}, fue de {pacum} mm. A continuación se presenta un desglose de la precipitación media por subcuencas."
     subtitulo_2 = "<b>Pronóstico corregido de niveles</b>"
-    parrafo_3 = "Río Paute (en Paute) - Estación H0894"
+    parrafo_3 = "<b>Río Paute (en Paute) - Estación H0894</b>"
     #
     # Configurar estilos
     estilos = getSampleStyleSheet()
@@ -154,9 +154,11 @@ def report(filename, pacum, pacum_table, paute_table):
         agregar_tabla(pacum_table),
         PageBreak(),
         Paragraph(subtitulo_2, estilo_subtitulo),
-        Spacer(1, 5),
+        Spacer(1, 16),
         Paragraph(parrafo_3, estilo_parrafo2),
+        Spacer(1, 16),
         Image("paute_en_paute.png", width=doc.width, height=6*cm),
+        Spacer(1, 16),
         agregar_tabla(paute_table),
     ]
     #
