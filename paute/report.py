@@ -47,15 +47,22 @@ def get_datetime():
     emision = "<b>Hora y fecha de emision:</b> " + now.strftime("%d de %B del %Y, %H:%M")
     for mes_ingles, mes_espanol in meses_ingles_a_espanol.items():
         emision = emision.replace(mes_ingles, mes_espanol)
+    #
+    # Formatear dia anterior
+    anterior = (now + timedelta(days=-1)).strftime("%d de %B")
+    for mes_ingles, mes_espanol in meses_ingles_a_espanol.items():
+        anterior = anterior.replace(mes_ingles, mes_espanol)
+    #
     # Calcular la vigencia para 24 horas
     inicio_vigencia = now.strftime("desde 07:00 del %d de %B")
     fin_vigencia = (now + timedelta(days=1)).strftime("hasta las 07:00 del %d de %B del %Y")
     for mes_ingles, mes_espanol in meses_ingles_a_espanol.items():
         inicio_vigencia = inicio_vigencia.replace(mes_ingles, mes_espanol)
         fin_vigencia = fin_vigencia.replace(mes_ingles, mes_espanol)
+    #
     # Formatear la vigencia
     vigencia = f"<b>Vigencia:</b> {inicio_vigencia} {fin_vigencia}"
-    return(emision, vigencia)
+    return(emision, vigencia, anterior)
 
 
 def agregar_tabla(datos):
@@ -76,10 +83,10 @@ def report(filename, pacum, pacum_table):
     header_path = "report_header.png"
     footer_path = "report_footer.png"
     titulo = "<b>Boletín Hidrometeorológico Especial Paute</b>"
-    emision, vigencia = get_datetime()
+    emision, vigencia, anterior = get_datetime()
     parrafo_1 = "La <b>DIRECCIÓN DE PRONÓSTICOS Y ALERTAS HIDROMETEOROLÓGICAS DEL INAMHI</b>, basándose en la información obtenida de la plataforma INAMHI GEOGLOWS emite el siguiente boletín de vigilancia y predicción de condiciones hidrometeorológicas:"
     subtitulo_1 = "<b>Precipitación acumulada diaria</b>"
-    parrafo_2 = f"De acuerdo a los datos del hidroestimador satelital GPM IMERG Early Run, la precipitación media en la Cuenca del río Paute es de {pacum} mm. A continuación se detalla la precipitación media por subcuencas de interés."
+    parrafo_2 = f"Con base en los datos del hidroestimador satelital GPM IMERG Early Run, la precipitación media en la Cuenca del río Paute para el {anterior} fue de {pacum} mm. A continuación se detalla la precipitación media por subcuencas."
     #
     # Configurar estilos
     estilos = getSampleStyleSheet()
