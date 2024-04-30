@@ -50,6 +50,7 @@ os.chdir("../paute_final")
 
 # Compute mean precipitation per subbasin
 pacum_subbasins = imerg.get_pacum_subbasin("imerg.tif", subcuencas, "SC")
+pacum_subbasins = pacum_subbasins.reindex([0,2,1,3,4])
 pacum_subbasins = pacum_subbasins.rename(columns={'subbasin': 'Subcuenca', 'pacum': 'Precipitación media diaria (mm)'})
 pacum_basin = imerg.get_pacum_subbasin("imerg.tif", paute, "Subcuenca")
 
