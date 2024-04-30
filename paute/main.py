@@ -1,11 +1,16 @@
 import os
 import plot
 import imerg
-import rgeoglows
 import report
+import warnings
+import rgeoglows
 import geopandas as gpd
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
+
+
+# Ignore warnings
+warnings.filterwarnings("ignore")
 
 
 # Change the work directory
