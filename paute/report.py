@@ -1,7 +1,6 @@
-from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import cm
-from reportlab.platypus import SimpleDocTemplate, PageTemplate, Image, Spacer, Table, TableStyle, PageBreak
-from reportlab.platypus.frames import Frame
+from reportlab.platypus import SimpleDocTemplate, Image, Spacer, Table, TableStyle, PageBreak
 from reportlab.platypus.paragraph import Paragraph
 from functools import partial
 from reportlab.lib.pagesizes import letter
@@ -85,8 +84,16 @@ def report(filename, pacum, pacum_table):
     # Configurar estilos
     estilos = getSampleStyleSheet()
     #
-    estilo_titulo = estilos["Title"]
-    estilo_titulo.textColor = colors.Color(31/255, 73/255, 125/255)
+    #estilo_titulo = estilos["Title"]
+    #estilo_titulo.textColor = colors.Color(31/255, 73/255, 125/255)
+    estilo_titulo = ParagraphStyle(
+        name = 'Title',
+        fontSize = 20,
+        textColor = colors.Color(31/255, 73/255, 125/255),
+        alignment = TA_CENTER,
+        spaceBefore = 6,
+        spaceAfter = 6
+    )
     #
     estilo_parrafo = estilos["Normal"]
     estilo_parrafo.alignment = TA_CENTER
@@ -98,7 +105,7 @@ def report(filename, pacum, pacum_table):
     #
     estilo_parrafo2 = estilos["Normal"]
     estilo_parrafo2.alignment = TA_JUSTIFY
-    estilo_parrafo2.leading = 14
+    estilo_parrafo2.leading = 16
     #
     # Crear el documento PDF
     doc = SimpleDocTemplate(filename, pagesize=letter)
