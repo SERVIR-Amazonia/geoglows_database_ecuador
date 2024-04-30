@@ -90,22 +90,34 @@ def report(filename, pacum, pacum_table):
         textColor = colors.Color(31/255, 73/255, 125/255),
         alignment = TA_CENTER)
     #
+    estilo_subtitulo = ParagraphStyle(
+        name = 'Subtitle',
+        fontSize = 14,
+        textColor = colors.Color(31/255, 73/255, 125/255),
+        alignment = TA_CENTER)
+    #
     estilo_fecha = ParagraphStyle(
         name = 'Dates',
         fontSize = 10,
-        alignment = TA_CENTER)
+        alignment = TA_CENTER,
+        spaceBefore = 5,
+        spaceAfter = 5)
     #
-    estilo_parrafo = estilos["Normal"]
-    estilo_parrafo.alignment = TA_CENTER
+    estilo_parrafo = ParagraphStyle(
+        name = 'P01',
+        fontSize = 10,
+        alignment = TA_CENTER,
+        spaceBefore = 5,
+        spaceAfter = 5,
+        leading = 18)
     #
-    estilo_subtitulo = estilos["Heading1"]
-    estilo_subtitulo.fontSize = 12
-    estilo_subtitulo.textColor = colors.Color(31/255, 73/255, 125/255)
-    estilo_subtitulo.alignment = TA_CENTER
-    #
-    estilo_parrafo2 = estilos["Normal"]
-    estilo_parrafo2.alignment = TA_JUSTIFY
-    estilo_parrafo2.leading = 16
+    estilo_parrafo2 = ParagraphStyle(
+        name = 'P02',
+        fontSize = 10,
+        alignment = TA_JUSTIFY,
+        spaceBefore = 5,
+        spaceAfter = 5,
+        leading = 18)
     #
     # Crear el documento PDF
     doc = SimpleDocTemplate(filename, pagesize=letter)
@@ -118,10 +130,10 @@ def report(filename, pacum, pacum_table):
     elementos = [
         Spacer(1, 10),
         Paragraph(titulo, estilo_titulo),
-        Spacer(1, 18),
+        Spacer(1, 12),
         Paragraph(emision, estilo_fecha),
         Paragraph(vigencia, estilo_fecha),
-        Spacer(1, 20),
+        Spacer(1, 18),
         Paragraph(parrafo_1, estilo_parrafo),
         Spacer(1, 24),
         Paragraph(subtitulo_1, estilo_subtitulo),
