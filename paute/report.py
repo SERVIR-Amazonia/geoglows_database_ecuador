@@ -86,12 +86,14 @@ def report(filename, pacum, pacum_table):
     #
     estilo_titulo = ParagraphStyle(
         name = 'Title',
-        fontSize = 20,
+        fontSize = 18,
         textColor = colors.Color(31/255, 73/255, 125/255),
-        alignment = TA_CENTER,
-        spaceBefore = 10,
-        spaceAfter = 10
-    )
+        alignment = TA_CENTER)
+    #
+    estilo_fecha = ParagraphStyle(
+        name = 'Dates',
+        fontSize = 10,
+        alignment = TA_CENTER)
     #
     estilo_parrafo = estilos["Normal"]
     estilo_parrafo.alignment = TA_CENTER
@@ -114,11 +116,11 @@ def report(filename, pacum, pacum_table):
     #
     # Agregar elementos al contenido del PDF
     elementos = [
-        Spacer(1, 8),
+        Spacer(1, 10),
         Paragraph(titulo, estilo_titulo),
-        Spacer(1, 8),
-        Paragraph(emision, estilo_parrafo),
-        Paragraph(vigencia, estilo_parrafo),
+        Spacer(1, 18),
+        Paragraph(emision, estilo_fecha),
+        Paragraph(vigencia, estilo_fecha),
         Spacer(1, 20),
         Paragraph(parrafo_1, estilo_parrafo),
         Spacer(1, 24),
