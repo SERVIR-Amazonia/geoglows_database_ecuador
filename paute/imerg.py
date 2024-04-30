@@ -50,7 +50,7 @@ def get_pacum_subbasin(raster_file, shp_file, field):
             avg_precipitation = round(np.nanmean(out_image), 2)
             #
             # Agregar los resultados al DataFrame
-            resultados = resultados.append({'subbasin': row[field], 'pacum': avg_precipitation}, ignore_index=True)
+            resultados = resultados.append({'subbasin': f"Rio {row[field]}", 'pacum': avg_precipitation}, ignore_index=True)
     #
     return(resultados)
 

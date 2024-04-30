@@ -49,7 +49,7 @@ def get_datetime():
         emision = emision.replace(mes_ingles, mes_espanol)
     #
     # Formatear dia anterior
-    anterior = (now + timedelta(days=-1)).strftime("%d de %B")
+    anterior = (now + timedelta(days=-1)).strftime("%d de %B del %Y")
     for mes_ingles, mes_espanol in meses_ingles_a_espanol.items():
         anterior = anterior.replace(mes_ingles, mes_espanol)
     #
@@ -135,7 +135,6 @@ def report(filename, pacum, pacum_table):
     #
     # Agregar elementos al contenido del PDF
     elementos = [
-        Spacer(1, 8),
         Paragraph(titulo, estilo_titulo),
         Spacer(1, 14),
         Paragraph(emision, estilo_fecha),
@@ -149,13 +148,11 @@ def report(filename, pacum, pacum_table):
         Image("pacum24.png", width=12*cm, height=1.2*cm),
         Spacer(1, 12),
         Paragraph(parrafo_2, estilo_parrafo2),
-        Spacer(1, 8),
+        Spacer(1, 5),
         agregar_tabla(pacum_table),
         PageBreak(),
         Paragraph("<b>Pronóstico hidrológico: Río Paute (en Paute)</b>", estilo_parrafo),
         Image("paute_en_paute.png", width=doc.width, height=8*cm),
-        
-        
     ]
     #
     # Contruir el pdf
