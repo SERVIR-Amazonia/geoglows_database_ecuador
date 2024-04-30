@@ -112,7 +112,7 @@ def report(filename, pacum, pacum_table):
         Spacer(1, 20),
         Paragraph(parrafo_1, estilo_parrafo),
         Spacer(1, 24),
-        Paragraph(subtitulo_1, estilo_parrafo),
+        Paragraph(subtitulo_1, estilo_subtitulo),
         Spacer(1, 5),
         Paragraph(parrafo_2, estilo_parrafo),
         Spacer(1, 5),
