@@ -190,7 +190,7 @@ def report(filename, pacum, pacum_table, paute_table, cuenca_table, gualaceo_tab
         Image("palmira.png", width=doc.width, height=6*cm),
         Spacer(1, 16),
         agregar_tabla(palmira_table),
-        Spacer(1, 20),
+        Spacer(1, 90),
         Paragraph("<b>Elaborado por:</b> DPA INAMHI en colaboración con SERVIR AMAZONIA", estilo_parrafo2),
     ]
     #
@@ -199,24 +199,4 @@ def report(filename, pacum, pacum_table, paute_table, cuenca_table, gualaceo_tab
         elementos, 
         onFirstPage=partial(header_and_footer, header_content=header_content, footer_content=footer_content), 
         onLaterPages=partial(header_and_footer, header_content=header_content, footer_content=footer_content))
-
-
-
-
-
-#import pandas as pd
-# Datos de ejemplo
-#datos = {
-#    'Subcuenca': ['Cuenca 1', 'Cuenca 2', 'Cuenca 3'],
-#    'Precipitacion media (mm)': [10.5, 20.3, 15.8]
-#}
-#df = pd.DataFrame(datos)
-
-
-#filename = "prueba-final.pdf"
-#report(filename, pacum=0.5, pacum_table=df)
-
-
-
-
 
