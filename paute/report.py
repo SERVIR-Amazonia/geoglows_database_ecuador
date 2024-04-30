@@ -156,7 +156,6 @@ def report(filename, pacum, pacum_table, paute_table):
         Paragraph(subtitulo_2, estilo_subtitulo),
         Spacer(1, 16),
         Paragraph(parrafo_3, estilo_parrafo),
-        Spacer(1, 8),
         Image("paute_en_paute.png", width=doc.width, height=6*cm),
         Spacer(1, 16),
         agregar_tabla(paute_table),
