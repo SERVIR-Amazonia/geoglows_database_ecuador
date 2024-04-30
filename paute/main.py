@@ -4,14 +4,14 @@ import imerg
 import report
 import warnings
 import rgeoglows
+import cgeoglows
+import pandas as pd
 import geopandas as gpd
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
 
-
 # Ignore warnings
 warnings.filterwarnings("ignore")
-
 
 # Change the work directory
 user = os.getlogin()
@@ -28,6 +28,14 @@ rs = gpd.read_file("shp/rios_secundarios.shp")
 embalses = gpd.read_file("shp/embalses.shp")
 subcuencas = gpd.read_file("shp/paute_subcuencas_2.shp")
 print("Reading SHP files")
+
+# Read Paute data
+h0894 = pd.read_csv("H0894-paute.dat", sep="\t", header=0)
+h0894.index = h0894.datetime
+h0894 = h0894.drop(columns=['datetime'])
+h0894.index = pd.to_datetime(h0894.index)
+h0894.index = h0894.index.to_series().dt.strftime("%Y-%m-%d %H:%M:%S")
+h0894.index = pd.to_datetime(h0894.index)
 
 # Generate the conection token
 load_dotenv()
@@ -71,7 +79,7 @@ conn = db.connect()
 
 # Rio Paute (en Paute)
 comid = 9033441
-rgeoglows.plot(comid, conn, "paute_en_paute.png")
+cgeoglows.plot(comid, h0894, conn, "paute_en_paute_pp.png")
 
 # Close connection
 conn.close()
