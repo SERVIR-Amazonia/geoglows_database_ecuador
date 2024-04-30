@@ -5,7 +5,7 @@ from reportlab.platypus.frames import Frame
 from reportlab.platypus.paragraph import Paragraph
 from functools import partial
 from reportlab.lib.pagesizes import letter
-from reportlab.lib.enums import TA_CENTER
+from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY
 from datetime import datetime, timedelta
 from reportlab.lib import colors
 
@@ -79,8 +79,8 @@ def report(filename, pacum, pacum_table):
     titulo = "Boletín Hidrometeorológico Especial Paute"
     emision, vigencia = get_datetime()
     parrafo_1 = "La <b>DIRECCIÓN DE PRONÓSTICOS Y ALERTAS HIDROMETEOROLÓGICAS DEL INAMHI </b>, basándose en la información obtenida de la plataforma INAMHI GEOGLOWS emite el siguiente boletín de vigilancia y predicción de condiciones hidrometeorológicas:"
-    subtitulo_1 = "<b>Precipitación acumulada diaria (GPM IMERG)</b>"
-    parrafo_2 = f"Precipitacion media en la Cuenca del río Paute: {pacum} mm"
+    subtitulo_1 = "<b>Precipitación acumulada diaria</b>"
+    parrafo_2 = f"De acuerdo a los datos del hidroestimador satelital GPM IMERG Early Run, la precipitación media en la Cuenca del río Paute es de {pacum} mm"
     #
     # Configurar estilos
     estilos = getSampleStyleSheet()
@@ -95,6 +95,9 @@ def report(filename, pacum, pacum_table):
     estilo_subtitulo.fontSize = 12
     estilo_subtitulo.textColor = colors.Color(31/255, 73/255, 125/255)
     estilo_subtitulo.alignment = TA_CENTER
+    #
+    estilo_parrafo2 = estilos["Normal"]
+    estilo_parrafo2.alignment = TA_JUSTIFY
     #
     # Crear el documento PDF
     doc = SimpleDocTemplate(filename, pagesize=letter)
@@ -114,10 +117,10 @@ def report(filename, pacum, pacum_table):
         Paragraph(parrafo_1, estilo_parrafo),
         Spacer(1, 24),
         Paragraph(subtitulo_1, estilo_subtitulo),
-        Paragraph(parrafo_2, estilo_parrafo),
-        Spacer(1, 5),
         Image("pacum.png", width=doc.width, height=8*cm),
         Image("pacum24.png", width=12*cm, height=1.2*cm),
+        Spacer(1, 12),
+        Paragraph(parrafo_2, estilo_parrafo2),
         Spacer(1, 12),
         agregar_tabla(pacum_table),
         PageBreak(),
