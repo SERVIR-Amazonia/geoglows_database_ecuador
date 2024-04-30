@@ -190,6 +190,8 @@ def report(filename, pacum, pacum_table, paute_table, cuenca_table, gualaceo_tab
         Image("palmira.png", width=doc.width, height=6*cm),
         Spacer(1, 16),
         agregar_tabla(palmira_table),
+        Spacer(1, 20),
+        Paragraph("<b>Elaborado por:</b> DPA INAMHI en colaboración con SERVIR AMAZONIA", estilo_parrafo2),
     ]
     #
     # Contruir el pdf
