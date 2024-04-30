@@ -86,7 +86,7 @@ def report(filename, pacum, pacum_table):
     emision, vigencia, anterior = get_datetime()
     parrafo_1 = "La <b>DIRECCIÓN DE PRONÓSTICOS Y ALERTAS HIDROMETEOROLÓGICAS DEL INAMHI</b>, basándose en la información obtenida de la plataforma INAMHI GEOGLOWS emite el siguiente boletín de vigilancia y predicción de condiciones hidrometeorológicas:"
     subtitulo_1 = "<b>Precipitación acumulada diaria</b>"
-    parrafo_2 = f"Con base en los datos del hidroestimador satelital GPM IMERG Early Run, la precipitación media en la Cuenca del río Paute para el {anterior} fue de {pacum} mm. A continuación se detalla la precipitación media por subcuencas."
+    parrafo_2 = f"De acuerdo con los datos del hidroestimador satelital GPM IMERG Early Run, la precipitación media registrada en la Cuenca del río Paute durante el {anterior}, fue de {pacum} mm. A continuación se presenta un desglose de la precipitación media por subcuencas."
     #
     # Configurar estilos
     estilos = getSampleStyleSheet()
