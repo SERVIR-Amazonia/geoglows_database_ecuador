@@ -302,3 +302,11 @@ def plot(comid, conn, outpath):
         records=forecast_records,
         sim = simulated_data)
     pio.write_image(forecast_plot, outpath)
+    #
+    daily_avg = ensemble_stats.resample('D').mean().round(2)
+    daily_avg.index = pd.to_datetime(daily_avg.index)
+    daily_avg["Fecha"] = daily_avg.index.to_series().dt.strftime("%Y-%m-%d")
+    daily_avg = daily_avg[['Fecha', 'flow_avg_m^3/s', "high_res_m^3/s"]]
+    daily_avg = daily_avg.rename(columns={  'flow_avg_m^3/s': 'Nivel medio pronosticado (m)', 
+                                            "high_res_m^3/s": "Pronóstico de Alta resolución (m)"})
+    return(daily_avg)

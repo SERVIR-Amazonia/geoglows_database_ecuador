@@ -79,7 +79,27 @@ conn = db.connect()
 
 # Rio Paute (en Paute)
 comid = 9033441
-paute_table = cgeoglows.plot(comid, h0894, conn, "paute_en_paute.png")
+paute_table = cgeoglows.plot(comid, h0894, conn, "paute.png")
+
+# Rio Cuenca (Pte. Europa)
+comid = 9033449
+cuenca_table = rgeoglows.plot(comid, conn, "cuenca.png")
+
+# Rio Gualaceo (Sta. Barbara)
+comid = 9033577
+gualaceo_table = rgeoglows.plot(comid, conn, "gualaceo.png")
+
+# Rio Mazar
+comid = 9032447
+mazar_table = rgeoglows.plot(comid, conn, "mazar.png")
+
+# Rio Juval
+comid = 9032294
+juval_table = rgeoglows.plot(comid, conn, "juval.png")
+
+# Rio Palmira
+comid = 9032324
+palmira_table = rgeoglows.plot(comid, conn, "palmira.png")
 
 # Close connection
 conn.close()
@@ -90,5 +110,10 @@ report.report(
     filename, 
     pacum=pacum_basin.pacum[0], 
     pacum_table=pacum_subbasins,
-    paute_table=paute_table)
+    paute_table=paute_table,
+    cuenca_table = cuenca_table,
+    gualaceo_table = gualaceo_table,
+    mazar_table = mazar_table,
+    juval_table = juval_table,
+    palmira_table = palmira_table,)
 

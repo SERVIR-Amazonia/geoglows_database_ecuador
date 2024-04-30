@@ -78,7 +78,7 @@ def agregar_tabla(datos):
     return(tabla)
 
 
-def report(filename, pacum, pacum_table, paute_table):
+def report(filename, pacum, pacum_table, paute_table, cuenca_table, gualaceo_table, mazar_table, juval_table, palmira_table):
     # Vars
     header_path = "report_header.png"
     footer_path = "report_footer.png"
@@ -87,8 +87,6 @@ def report(filename, pacum, pacum_table, paute_table):
     parrafo_1 = "La <b>DIRECCIÓN DE PRONÓSTICOS Y ALERTAS HIDROMETEOROLÓGICAS DEL INAMHI</b>, basándose en la información obtenida de la plataforma INAMHI GEOGLOWS emite el siguiente boletín de vigilancia y predicción de condiciones hidrometeorológicas:"
     subtitulo_1 = "<b>Precipitación acumulada diaria</b>"
     parrafo_2 = f"De acuerdo con los datos del hidroestimador satelital GPM IMERG Early Run, la precipitación media registrada en la Cuenca del río Paute durante el {anterior}, fue de {pacum} mm. A continuación se presenta un desglose de la precipitación media por subcuencas."
-    subtitulo_2 = "<b>Pronóstico corregido de niveles</b>"
-    parrafo_3 = "<b>Río Paute (en Paute) - Estación H0894</b>"
     #
     # Configurar estilos
     estilos = getSampleStyleSheet()
@@ -153,12 +151,45 @@ def report(filename, pacum, pacum_table, paute_table):
         Spacer(1, 5),
         agregar_tabla(pacum_table),
         PageBreak(),
-        Paragraph(subtitulo_2, estilo_subtitulo),
+        ##
+        Paragraph("<b>Pronóstico corregido de niveles</b>", estilo_subtitulo),
         Spacer(1, 16),
-        Paragraph(parrafo_3, estilo_parrafo),
-        Image("paute_en_paute.png", width=doc.width, height=6*cm),
+        Paragraph("<b>Rio Paute (en Paute) - Estación H0894</b>", estilo_parrafo),
+        Image("paute.png", width=doc.width, height=6*cm),
         Spacer(1, 16),
         agregar_tabla(paute_table),
+        ##
+        PageBreak(),
+        Paragraph("<b>Pronóstico de caudales</b>", estilo_subtitulo),
+        Spacer(1, 16),
+        Paragraph("<b>Rio Cuenca (Pte. Europa)</b>", estilo_parrafo),
+        Image("cuenca.png", width=doc.width, height=6*cm),
+        Spacer(1, 16),
+        agregar_tabla(cuenca_table),
+        ##
+        PageBreak(),
+        Paragraph("<b>Rio Gualaceo (Sta. Bárbara)</b>", estilo_parrafo),
+        Image("gualaceo.png", width=doc.width, height=6*cm),
+        Spacer(1, 16),
+        agregar_tabla(gualaceo_table),
+        ##
+        PageBreak(),
+        Paragraph("<b>Rio Mazar</b>", estilo_parrafo),
+        Image("mazar.png", width=doc.width, height=6*cm),
+        Spacer(1, 16),
+        agregar_tabla(mazar_table),
+        ##
+        PageBreak(),
+        Paragraph("<b>Rio Juval</b>", estilo_parrafo),
+        Image("juval.png", width=doc.width, height=6*cm),
+        Spacer(1, 16),
+        agregar_tabla(juval_table),
+        ##
+        PageBreak(),
+        Paragraph("<b>Rio Palmira</b>", estilo_parrafo),
+        Image("palmira.png", width=doc.width, height=6*cm),
+        Spacer(1, 16),
+        agregar_tabla(palmira_table),
     ]
     #
     # Contruir el pdf
