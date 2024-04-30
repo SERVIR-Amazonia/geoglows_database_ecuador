@@ -358,6 +358,7 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
     figure.update_layout(template='simple_white', width = 900)
     figure.update_yaxes(linecolor='gray', mirror=True, showline=True) 
     figure.update_xaxes(linecolor='gray', mirror=True, showline=True)
+    figure.update_layout(margin=dict(l=5, r=5, t=5, b=5))
     return(figure)
 
 def get_historic_simulation(cor, obs, code, name):
