@@ -98,6 +98,7 @@ def report(filename, pacum, pacum_table):
     #
     estilo_parrafo2 = estilos["Normal"]
     estilo_parrafo2.alignment = TA_JUSTIFY
+    estilo_parrafo2.leading = 14
     #
     # Crear el documento PDF
     doc = SimpleDocTemplate(filename, pagesize=letter)
