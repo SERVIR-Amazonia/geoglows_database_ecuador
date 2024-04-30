@@ -273,13 +273,13 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
     scatter_plots += rperiod_scatters
 
     layout = go.Layout(
-        #title=f"Pronóstico de caudales <br>COMID:{comid}",
+        title=f"Pronóstico de caudales <br>COMID:{comid}",
         yaxis={'title': 'Caudal (m<sup>3</sup>/s)', 'range': [0, 'auto']},
         xaxis={'title': 'Fecha (UTC +0:00)', 'range': [startdate, enddate], 'hoverformat': '%b %d %Y %H:%M',
                'tickformat': '%b %d %Y'},
     )
     figure = go.Figure(scatter_plots, layout=layout)
-    figure.update_layout(template='simple_white', width = 1000)
+    figure.update_layout(template='simple_white', width = 900)
     figure.update_yaxes(linecolor='gray', mirror=True, showline=True) 
     figure.update_xaxes(linecolor='gray', mirror=True, showline=True)
     return(figure)
