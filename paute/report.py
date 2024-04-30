@@ -75,24 +75,22 @@ def report(filename, pacum, pacum_table):
     # Vars
     header_path = "report_header.png"
     footer_path = "report_footer.png"
-    titulo = "Boletín Hidrometeorológico Especial Paute"
+    titulo = "<b>Boletín Hidrometeorológico Especial Paute</b>"
     emision, vigencia = get_datetime()
-    parrafo_1 = "La <b>DIRECCIÓN DE PRONÓSTICOS Y ALERTAS HIDROMETEOROLÓGICAS DEL INAMHI </b>, basándose en la información obtenida de la plataforma INAMHI GEOGLOWS emite el siguiente boletín de vigilancia y predicción de condiciones hidrometeorológicas:"
+    parrafo_1 = "La <b>DIRECCIÓN DE PRONÓSTICOS Y ALERTAS HIDROMETEOROLÓGICAS DEL INAMHI</b>, basándose en la información obtenida de la plataforma INAMHI GEOGLOWS emite el siguiente boletín de vigilancia y predicción de condiciones hidrometeorológicas:"
     subtitulo_1 = "<b>Precipitación acumulada diaria</b>"
     parrafo_2 = f"De acuerdo a los datos del hidroestimador satelital GPM IMERG Early Run, la precipitación media en la Cuenca del río Paute es de {pacum} mm"
     #
     # Configurar estilos
     estilos = getSampleStyleSheet()
     #
-    #estilo_titulo = estilos["Title"]
-    #estilo_titulo.textColor = colors.Color(31/255, 73/255, 125/255)
     estilo_titulo = ParagraphStyle(
         name = 'Title',
         fontSize = 20,
         textColor = colors.Color(31/255, 73/255, 125/255),
         alignment = TA_CENTER,
-        spaceBefore = 6,
-        spaceAfter = 6
+        spaceBefore = 10,
+        spaceAfter = 10
     )
     #
     estilo_parrafo = estilos["Normal"]
