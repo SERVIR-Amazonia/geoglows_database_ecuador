@@ -360,6 +360,32 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
     figure.update_xaxes(linecolor='gray', mirror=True, showline=True)
     return(figure)
 
+def get_historic_simulation(cor, obs, code, name):
+    dates = cor.index.tolist()
+    startdate = dates[0]
+    enddate = dates[-1]
+    corrected_data = {
+        'x_datetime': cor.index.tolist(),
+        'y_flow': cor.values.flatten(),
+    }
+    observed_data = {
+        'x_datetime': obs.index.tolist(),
+        'y_flow': obs.values.flatten(),
+    }
+    scatter_plots = [
+        go.Scatter(name='Simulación histórica corregida', x=corrected_data['x_datetime'], y=corrected_data['y_flow']),
+        go.Scatter(name='Datos observados', x=observed_data['x_datetime'], y=observed_data['y_flow'])
+    ]
+    layout = go.Layout(
+        title=f"Simulación histórica <br>{str(code).upper()} - {name}",
+        yaxis={'title': 'Nivel (m)', 'range': [0, 'auto']},
+        xaxis={'title': 'Fecha (UTC +0:00)', 'range': [startdate, enddate], 'hoverformat': '%b %d %Y', 'tickformat': '%Y'},
+    )
+    figure = go.Figure(scatter_plots, layout=layout)
+    figure.update_layout(template='simple_white')
+    figure.update_yaxes(linecolor='gray', mirror=True, showline=True) 
+    figure.update_xaxes(linecolor='gray', mirror=True, showline=True)
+    return figure
 
 ####################################################################################################
 ##                                        MAIN FUNCTION                                           ##
@@ -391,4 +417,11 @@ def plot(comid, observed_data, conn, outpath):
         records = corrected_forecast_records,
         sim = observed_data)
     #
+    corrected_data_plot = get_historic_simulation(
+        cor = corrected_data, 
+        obs = observed_data, 
+        code = "H0894",
+        name = "Paute en Paute")
+    #
     pio.write_image(forecast_plot, outpath)
+    pio.write_image(corrected_data_plot, "hist.png")
