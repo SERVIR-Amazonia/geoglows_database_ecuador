@@ -419,4 +419,6 @@ def plot(comid, observed_data, conn, outpath):
         sim = observed_data)
     #
     pio.write_image(forecast_plot, outpath)
-    print(corrected_ensemble_stats)
+    #
+    daily_avg = corrected_ensemble_stats.resample('D').mean().round(2)
+    print(daily_avg)
