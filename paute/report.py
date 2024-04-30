@@ -109,7 +109,7 @@ def report(filename, pacum, pacum_table):
         alignment = TA_CENTER,
         spaceBefore = 5,
         spaceAfter = 5,
-        leading = 18)
+        leading = 16)
     #
     estilo_parrafo2 = ParagraphStyle(
         name = 'P02',
@@ -117,7 +117,7 @@ def report(filename, pacum, pacum_table):
         alignment = TA_JUSTIFY,
         spaceBefore = 5,
         spaceAfter = 5,
-        leading = 18)
+        leading = 16)
     #
     # Crear el documento PDF
     doc = SimpleDocTemplate(filename, pagesize=letter)
@@ -128,7 +128,7 @@ def report(filename, pacum, pacum_table):
     #
     # Agregar elementos al contenido del PDF
     elementos = [
-        Spacer(1, 10),
+        Spacer(1, 8),
         Paragraph(titulo, estilo_titulo),
         Spacer(1, 14),
         Paragraph(emision, estilo_fecha),
