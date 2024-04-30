@@ -155,7 +155,7 @@ def report(filename, pacum, pacum_table):
         PageBreak(),
         Paragraph(subtitulo_2, estilo_subtitulo),
         Paragraph(parrafo_3, estilo_parrafo2),
-        Image("paute_en_paute.png", width=doc.width, height=8*cm),
+        Image("paute_en_paute.png", width=doc.width, height=5.5*cm),
     ]
     #
     # Contruir el pdf
