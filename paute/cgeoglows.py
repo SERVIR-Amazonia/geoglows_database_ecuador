@@ -419,3 +419,4 @@ def plot(comid, observed_data, conn, outpath):
         sim = observed_data)
     #
     pio.write_image(forecast_plot, outpath)
+    print(corrected_ensemble_stats)

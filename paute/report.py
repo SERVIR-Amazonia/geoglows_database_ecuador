@@ -154,8 +154,9 @@ def report(filename, pacum, pacum_table):
         agregar_tabla(pacum_table),
         PageBreak(),
         Paragraph(subtitulo_2, estilo_subtitulo),
+        Spacer(1, 5),
         Paragraph(parrafo_3, estilo_parrafo2),
-        Image("paute_en_paute.png", width=doc.width, height=5.5*cm),
+        Image("paute_en_paute.png", width=doc.width, height=6*cm),
     ]
     #
     # Contruir el pdf
