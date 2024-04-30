@@ -78,7 +78,7 @@ def agregar_tabla(datos):
     return(tabla)
 
 
-def report(filename, pacum, pacum_table):
+def report(filename, pacum, pacum_table, paute_table):
     # Vars
     header_path = "report_header.png"
     footer_path = "report_footer.png"
@@ -157,6 +157,7 @@ def report(filename, pacum, pacum_table):
         Spacer(1, 5),
         Paragraph(parrafo_3, estilo_parrafo2),
         Image("paute_en_paute.png", width=doc.width, height=6*cm),
+        agregar_tabla(paute_table),
     ]
     #
     # Contruir el pdf

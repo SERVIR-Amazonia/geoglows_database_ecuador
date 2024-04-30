@@ -79,13 +79,16 @@ conn = db.connect()
 
 # Rio Paute (en Paute)
 comid = 9033441
-cgeoglows.plot(comid, h0894, conn, "paute_en_paute.png")
-rgeoglows.plot(comid, conn, "paute_en_paute_raw.png")
+paute_table = cgeoglows.plot(comid, h0894, conn, "paute_en_paute.png")
 
 # Close connection
 conn.close()
 
 
 filename = "report.pdf"
-report.report(filename, pacum=pacum_basin.pacum[0], pacum_table=pacum_subbasins)
+report.report(
+    filename, 
+    pacum=pacum_basin.pacum[0], 
+    pacum_table=pacum_subbasins,
+    paute_table=paute_table)
 

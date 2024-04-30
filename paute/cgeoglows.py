@@ -426,4 +426,4 @@ def plot(comid, observed_data, conn, outpath):
                                             'flow_avg_m^3/s': 'Media', 
                                             'flow_25%_m^3/s': 'Percentil 25%',
                                             "high_res_m^3/s": "Alta resolución"})
-    print(daily_avg)
+    return(daily_avg)
