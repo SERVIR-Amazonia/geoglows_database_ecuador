@@ -87,6 +87,8 @@ def report(filename, pacum, pacum_table):
     parrafo_1 = "La <b>DIRECCIÓN DE PRONÓSTICOS Y ALERTAS HIDROMETEOROLÓGICAS DEL INAMHI</b>, basándose en la información obtenida de la plataforma INAMHI GEOGLOWS emite el siguiente boletín de vigilancia y predicción de condiciones hidrometeorológicas:"
     subtitulo_1 = "<b>Precipitación acumulada diaria</b>"
     parrafo_2 = f"De acuerdo con los datos del hidroestimador satelital GPM IMERG Early Run, la precipitación media registrada en la Cuenca del río Paute durante el {anterior}, fue de {pacum} mm. A continuación se presenta un desglose de la precipitación media por subcuencas."
+    subtitulo_2 = "<b>Pronóstico corregido de niveles</b>"
+    parrafo_3 = "Río Paute (en Paute) - Estación H0894"
     #
     # Configurar estilos
     estilos = getSampleStyleSheet()
@@ -151,7 +153,8 @@ def report(filename, pacum, pacum_table):
         Spacer(1, 5),
         agregar_tabla(pacum_table),
         PageBreak(),
-        Paragraph("<b>Pronóstico hidrológico: Río Paute (en Paute)</b>", estilo_parrafo),
+        Paragraph(subtitulo_2, estilo_subtitulo),
+        Paragraph(parrafo_3, estilo_parrafo2),
         Image("paute_en_paute.png", width=doc.width, height=8*cm),
     ]
     #
