@@ -355,7 +355,7 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
                'tickformat': '%b %d %Y'},
     )
     figure = go.Figure(scatter_plots, layout=layout)
-    figure.update_layout(template='simple_white', width = 800)
+    figure.update_layout(template='simple_white', width = 1000)
     figure.update_yaxes(linecolor='gray', mirror=True, showline=True) 
     figure.update_xaxes(linecolor='gray', mirror=True, showline=True)
     figure.update_layout(margin=dict(l=10, r=10, t=10, b=10))
