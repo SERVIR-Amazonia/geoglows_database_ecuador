@@ -270,7 +270,7 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
             line=dict(color='#FFA15A',))]
         scatter_plots += records_plot
 
-    scatter_plots += rperiod_scatters
+    #scatter_plots += rperiod_scatters
 
     layout = go.Layout(
         title=f"Pronóstico de caudales <br>COMID:{comid}",
@@ -279,9 +279,10 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
                'tickformat': '%b %d %Y'},
     )
     figure = go.Figure(scatter_plots, layout=layout)
-    figure.update_layout(template='simple_white', width = 900)
+    figure.update_layout(template='simple_white', width = 1000, height = 400)
     figure.update_yaxes(linecolor='gray', mirror=True, showline=True) 
     figure.update_xaxes(linecolor='gray', mirror=True, showline=True)
+    figure.update_layout(margin=dict(l=10, r=10, t=10, b=10))
     return(figure)
 
 # .update_layout(width = plot_width)
@@ -307,6 +308,6 @@ def plot(comid, conn, outpath):
     daily_avg.index = pd.to_datetime(daily_avg.index)
     daily_avg["Fecha"] = daily_avg.index.to_series().dt.strftime("%Y-%m-%d")
     daily_avg = daily_avg[['Fecha', 'flow_avg_m^3/s', "high_res_m^3/s"]]
-    daily_avg = daily_avg.rename(columns={  'flow_avg_m^3/s': 'Nivel medio pronosticado (m)', 
-                                            "high_res_m^3/s": "Pronóstico de Alta resolución (m)"})
+    daily_avg = daily_avg.rename(columns={  'flow_avg_m^3/s': 'Caudal medio pronosticado (m3/s)', 
+                                            "high_res_m^3/s": "Pronóstico de Alta resolución (m3/s)"})
     return(daily_avg)

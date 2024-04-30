@@ -346,7 +346,7 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
             line=dict(color='#FFA15A',))]
         scatter_plots += records_plot
 
-    scatter_plots += rperiod_scatters
+    #scatter_plots += rperiod_scatters
 
     layout = go.Layout(
         #title=f"Pronóstico de Niveles <br>COMID:{comid}",
