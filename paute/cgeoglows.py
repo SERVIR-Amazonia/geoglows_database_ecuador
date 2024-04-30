@@ -421,9 +421,9 @@ def plot(comid, observed_data, conn, outpath):
     pio.write_image(forecast_plot, outpath)
     #
     daily_avg = corrected_ensemble_stats.resample('D').mean().round(2)
-    daily_avg = daily_avg[['flow_75%_m^3/s', 'flow_avg_m^3/s', 'flow_25%_m^3/s', "high_res_m^3/s"]]
-    daily_avg = daily_avg.rename(columns={  'flow_75%_m^3/s': 'Percentil 75%', 
-                                            'flow_avg_m^3/s': 'Media', 
-                                            'flow_25%_m^3/s': 'Percentil 25%',
-                                            "high_res_m^3/s": "Alta resolución"})
+    daily_avg.index = pd.to_datetime(daily_avg.index)
+    daily_avg["Fecha"] = daily_avg.index.to_series().dt.strftime("%Y-%m-%d")
+    daily_avg = daily_avg[['Fecha', 'flow_avg_m^3/s', "high_res_m^3/s"]]
+    daily_avg = daily_avg.rename(columns={  'flow_avg_m^3/s': 'Nivel medio pronosticado (m)', 
+                                            "high_res_m^3/s": "Pronóstico de Alta resolución (m)"})
     return(daily_avg)
