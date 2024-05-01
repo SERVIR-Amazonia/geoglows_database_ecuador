@@ -1,7 +1,9 @@
 import os
+import mail
 import plot
 import imerg
 import report
+import datetime
 import warnings
 import rgeoglows
 import cgeoglows
@@ -37,12 +39,13 @@ h0894.index = pd.to_datetime(h0894.index)
 h0894.index = h0894.index.to_series().dt.strftime("%Y-%m-%d %H:%M:%S")
 h0894.index = pd.to_datetime(h0894.index)
 
-# Generate the conection token
+# Load enviromental variables - credentials
 load_dotenv()
 DB_USER = os.getenv('DB_USER')
 DB_PASS = os.getenv('DB_PASS')
 DB_NAME = os.getenv('DB_NAME')
-token = "postgresql+psycopg2://{0}:{1}@localhost:5432/{2}".format(DB_USER, DB_PASS, DB_NAME)
+MAIL_USER = os.getenv('MAIL_USER')
+MAIL_PASS = os.getenv('MAIL_PASS')
 
 # Change the work directory
 user = os.getlogin()
@@ -74,38 +77,23 @@ os.remove("paute.png")
 
 
 # Establish connection
+token = "postgresql+psycopg2://{0}:{1}@localhost:5432/{2}".format(DB_USER, DB_PASS, DB_NAME)
 db = create_engine(token)
 conn = db.connect()
 
-# Rio Paute (en Paute)
-comid = 9033441
-paute_table = cgeoglows.plot(comid, h0894, conn, "paute.png")
-
-# Rio Cuenca (Pte. Europa)
-comid = 9033449
-cuenca_table = rgeoglows.plot(comid, conn, "cuenca.png")
-
-# Rio Gualaceo (Sta. Barbara)
-comid = 9033577
-gualaceo_table = rgeoglows.plot(comid, conn, "gualaceo.png")
-
-# Rio Mazar
-comid = 9032447
-mazar_table = rgeoglows.plot(comid, conn, "mazar.png")
-
-# Rio Juval
-comid = 9032294
-juval_table = rgeoglows.plot(comid, conn, "juval.png")
-
-# Rio Palmira
-comid = 9032324
-palmira_table = rgeoglows.plot(comid, conn, "palmira.png")
+# Generate data and plot for river basins
+paute_table = cgeoglows.plot(9033441, h0894, conn, "paute.png")
+cuenca_table = rgeoglows.plot(9033449, conn, "cuenca.png")
+gualaceo_table = rgeoglows.plot(9033577, conn, "gualaceo.png")
+mazar_table = rgeoglows.plot(9032447, conn, "mazar.png")
+juval_table = rgeoglows.plot(9032294, conn, "juval.png")
+palmira_table = rgeoglows.plot(9032324, conn, "palmira.png")
 
 # Close connection
 conn.close()
 
-
-filename = "report.pdf"
+# Generate report
+filename = datetime.now().strftime('boletin-paute_%Y-%m-%d.pdf')
 report.report(
     filename, 
     pacum=pacum_basin.pacum[0], 
@@ -117,3 +105,11 @@ report.report(
     juval_table = juval_table,
     palmira_table = palmira_table,)
 
+# Send email
+mail.send(
+    subject=datetime.now().strftime('Boletin Hidrometeorológico Paute %Y-%m-%d'),
+    body="La DIRECCIÓN DE PRONÓSTICOS Y ALERTAS HIDROMETEOROLÓGICAS DEL INAMHI, basándose en la información obtenida de la plataforma INAMHI GEOGLOWS emite el siguiente boletín de vigilancia y predicción de condiciones hidrometeorológicas en la Cuenca del río Paute",
+    attachment_file=filename,
+    sender=MAIL_USER,
+    password=MAIL_PASS
+)
