@@ -190,8 +190,8 @@ def get(outpath):
         with rasterio.open("pacum_masked.tif", "w", **out_meta) as dest:
             dest.write(out_image)
         #
-        a = os.system("gdalwarp -tr 0.01 0.01 -r bilinear pacum_masked.tif pacum_masked_res.tif")
-        b = os.system("gdalwarp -q -cutline ~/tethys_apps_ecuador/geoglows_database_ecuador/shp/ecuador.shp -tr 0.01 0.01 -of GTiff pacum_masked_res.tif imerg.tif")
+        os.system("gdalwarp -tr 0.01 0.01 -r bilinear pacum_masked.tif pacum_masked_res.tif")
+        os.system("gdalwarp -q -cutline ~/tethys_apps_ecuador/geoglows_database_ecuador/shp/ecuador.shp -tr 0.01 0.01 -of GTiff pacum_masked_res.tif imerg.tif")
         # 
         shutil.copy("imerg.tif", outpath)
         #
