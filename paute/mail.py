@@ -7,8 +7,12 @@ from email import encoders
 def send(subject, body, attachment_file, sender, password):
     # Users to send email
     recipients = [
-        "juseth.chancay@gmail.com", 
-        "jusethchancay@ecociencia.org"]
+        "ccardenas@inamhi.gob.ec",
+        "angelica.gutierrez@noaa.gov",
+        "secretariat@geoglows.org",
+        "rodrigotorres@ecociencia.org",
+        "jusethchancay@ecociencia.org"
+    ]
     #
     # SMTP server
     smtp_server = "smtp.office365.com"

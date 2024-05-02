@@ -113,7 +113,7 @@ print("Generated PDF report")
 # Send email
 mail.send(
     subject=dt.datetime.now().strftime('Boletin Hidrometeorológico Paute %Y-%m-%d'),
-    body="La DIRECCIÓN DE PRONÓSTICOS Y ALERTAS HIDROMETEOROLÓGICAS DEL INAMHI, basándose en la información obtenida de la plataforma INAMHI GEOGLOWS emite el siguiente boletín de vigilancia y predicción de condiciones hidrometeorológicas en la Cuenca del río Paute",
+    body="La DIRECCIÓN DE PRONÓSTICOS Y ALERTAS HIDROMETEOROLÓGICAS DEL INAMHI, basándose en la información obtenida de la plataforma INAMHI GEOGLOWS emite el siguiente boletín de vigilancia y predicción de condiciones hidrometeorológicas en la Cuenca del río Paute.",
     attachment_file=filename,
     sender=MAIL_USER,
     password=MAIL_PASS
