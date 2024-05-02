@@ -10,9 +10,9 @@ def send(subject, body, attachment_file, sender, password):
         "ccardenas@inamhi.gob.ec",
         "angelica.gutierrez@noaa.gov",
         "secretariat@geoglows.org",
+        "vanesa.martin@nasa.gov",
         "rodrigotorres@ecociencia.org",
-        "jusethchancay@ecociencia.org"
-    ]
+        "jusethchancay@ecociencia.org"]
     #
     # SMTP server
     smtp_server = "smtp.office365.com"
