@@ -356,7 +356,7 @@ def plot(comid, observed_data, conn, outpath):
     #
     # Stats for raw and corrected forecast
     ensemble_stats = get_ensemble_stats(ensemble_forecast)
-    corrected_ensemble_stats = get_ensemble_stats(corrected_ensemble_forecast)
+    corrected_ensemble_stats = get_ensemble_stats(corrected_ensemble_forecast).dropna()
     #
     # Forecast plot
     forecast_plot = get_forecast_stats(
