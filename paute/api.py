@@ -259,8 +259,14 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
     }
     
     plot_data.update(rperiods.to_dict(orient='index').items())
-    max_visible = max(max(plot_data['flow_max']), max(plot_data['flow_avg']), max(plot_data['high_res']))
+    max_visible = max(
+        max(plot_data['flow_max']), 
+        max(plot_data['flow_avg']), 
+        max(plot_data['high_res']),
+        daymax_df.max()
+    )
     max_visible = max_visible + 0.15*max_visible
+    print(max_visible)
     #rperiod_scatters = _rperiod_scatters(startdate, enddate, rperiods, plot_data['y_max'], max_visible)
 
     scatter_plots = [
@@ -329,7 +335,7 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
     titulo = "Rio Paute (en Paute) - Estación H0894"
     layout = go.Layout(
         title=titulo,
-        yaxis={'title': 'Nivel (m)', 'range': [0, "auto"]},
+        yaxis={'title': 'Nivel (m)', 'range': [0, max_visible]},
         xaxis={'title': 'Fecha (UTC +0:00)', 'range': [startdate, enddate], 'hoverformat': '%b %d %Y %H:%M',
                'tickformat': '%b %d %Y'},
     )
