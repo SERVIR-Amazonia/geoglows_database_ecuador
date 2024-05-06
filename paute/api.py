@@ -324,19 +324,10 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
         scatter_plots += records_plot
 
     # Create the logo
-    logo = go.layout.Image(
-        source="logos-inamhi-servir.png",
-        x=0.95,
-        y=1,
-        sizex=0.1,
-        sizey=0.1,
-        xanchor="right",
-        yanchor="top"
-    )
+    titulo = "<img src='logos-inamhi-servir.png' style='vertical-align:middle; margin-right: 5px;'> Título del Gráfico"
 
     layout = go.Layout(
-        #title=f"Pronóstico de Niveles <br>COMID:{comid}",
-        images=[logo],
+        title=titulo,
         yaxis={'title': 'Nivel (m)', 'range': [0, 'auto']},
         xaxis={'title': 'Fecha (UTC +0:00)', 'range': [startdate, enddate], 'hoverformat': '%b %d %Y %H:%M',
                'tickformat': '%b %d %Y'},
@@ -345,7 +336,7 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
     figure.update_layout(template='simple_white', width = 1000, height = 400)
     figure.update_yaxes(linecolor='gray', mirror=True, showline=True) 
     figure.update_xaxes(linecolor='gray', mirror=True, showline=True)
-    figure.update_layout(margin=dict(l=10, r=10, t=10, b=10))
+    figure.update_layout(margin=dict(l=10, r=10, t=50, b=10))
     return(figure)
 
 ####################################################################################################
