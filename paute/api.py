@@ -266,6 +266,8 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
     )
     max_visible = max_visible + 0.15*max_visible
     print(max_visible)
+    print(daymin_df)
+    print(daymax_df)
     #rperiod_scatters = _rperiod_scatters(startdate, enddate, rperiods, plot_data['y_max'], max_visible)
 
     scatter_plots = [
