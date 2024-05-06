@@ -324,7 +324,7 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
         scatter_plots += records_plot
 
     # Create the logo
-    titulo = "<img src='logos-inamhi-servir.png' style='vertical-align:middle; margin-right: 5px;'> Título del Gráfico"
+    titulo = f"<img src='logos-inamhi-servir.png' style='vertical-align:middle; margin-right: 5px;'> Título del Gráfico 2"
 
     layout = go.Layout(
         title=titulo,
