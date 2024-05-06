@@ -11,6 +11,7 @@ import hydrostats.data as hd
 import hydrostats as hs
 import plotly.io as pio
 from PIL import Image
+from hs_restclient import HydroShare, HydroShareAuthBasic
 
 ###################################################################################################
 ##                                 UTILS AND AUXILIAR FUNCTIONS                                   ##
@@ -443,6 +444,9 @@ DB_PASS = os.getenv('DB_PASS')
 DB_NAME = os.getenv('DB_NAME')
 MAIL_USER = os.getenv('MAIL_USER')
 MAIL_PASS = os.getenv('MAIL_PASS')
+HS_USER = os.getenv('HS_USER')
+HS_PASS = os.getenv('HS_PASS')
+HS_IDRS = os.getenv('HS_ID02')
 print("Read enviromental variables")
 
 # Change the work directory
@@ -461,3 +465,17 @@ plot(9033441, h0894, conn, "paute-api.png")
 
 # Close connection
 conn.close()
+
+
+# Upload data to hydroshare
+auth = HydroShareAuthBasic(username=HS_USER, password=HS_PASS)
+hs = HydroShare(auth=auth)
+
+def upload_file(hs, local_file, resource_filename):
+    try:
+        hs.deleteResourceFile(HS_IDRS,  resource_filename)
+    except:
+        print("File was not found in resource")
+    hs.addResourceFile(HS_IDRS, local_file, resource_filename)
+
+upload_file(hs, 'paute-api.png', "fig_paute.png")
