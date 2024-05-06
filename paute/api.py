@@ -10,6 +10,7 @@ import pandas as pd
 import hydrostats.data as hd
 import hydrostats as hs
 import plotly.io as pio
+from PIL import Image
 
 ###################################################################################################
 ##                                 UTILS AND AUXILIAR FUNCTIONS                                   ##
@@ -337,8 +338,10 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
     figure.update_xaxes(linecolor='gray', mirror=True, showline=True)
     figure.update_layout(margin=dict(l=10, r=10, t=50, b=10))
 
+    pyLogo = Image.open("logos-inamhi-servir.png")
+
     figure.add_layout_image(
-        source="logos-inamhi-servir.png",
+        source=pyLogo,
         x=0,
         y=1,
         xref="paper",
