@@ -324,8 +324,7 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
         scatter_plots += records_plot
 
     # Create the logo
-    titulo = f"<img src='logos-inamhi-servir.png' style='vertical-align:middle; margin-right: 5px;'> Título del Gráfico 2"
-
+    titulo = "Rio Paute (en Paute) - Estación H0894"
     layout = go.Layout(
         title=titulo,
         yaxis={'title': 'Nivel (m)', 'range': [0, 'auto']},
@@ -337,6 +336,19 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
     figure.update_yaxes(linecolor='gray', mirror=True, showline=True) 
     figure.update_xaxes(linecolor='gray', mirror=True, showline=True)
     figure.update_layout(margin=dict(l=10, r=10, t=50, b=10))
+
+    figure.add_layout_image(
+        source="logos-inamhi-servir.png",
+        x=0,
+        y=1,
+        xref="paper",
+        yref="paper",
+        sizex=0.1,
+        sizey=0.1,
+        xanchor="left",
+        yanchor="top"
+    )
+
     return(figure)
 
 ####################################################################################################
