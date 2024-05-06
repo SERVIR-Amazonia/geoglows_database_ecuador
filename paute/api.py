@@ -263,7 +263,6 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
         max(plot_data['flow_max']), 
         max(plot_data['flow_avg']), 
         max(plot_data['high_res']),
-        daymax_df.max()
     )
     max_visible = max_visible + 0.15*max_visible
     print(max_visible)
