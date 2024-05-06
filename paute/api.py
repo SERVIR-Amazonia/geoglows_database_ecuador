@@ -323,8 +323,20 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
             line=dict(color='#FFA15A',))]
         scatter_plots += records_plot
 
+    # Create the logo
+    logo = go.layout.Image(
+        source="logos-inamhi-servir.png",
+        x=0.95,
+        y=1,
+        sizex=0.1,
+        sizey=0.1,
+        xanchor="right",
+        yanchor="top"
+    )
+
     layout = go.Layout(
         #title=f"Pronóstico de Niveles <br>COMID:{comid}",
+        images=[logo],
         yaxis={'title': 'Nivel (m)', 'range': [0, 'auto']},
         xaxis={'title': 'Fecha (UTC +0:00)', 'range': [startdate, enddate], 'hoverformat': '%b %d %Y %H:%M',
                'tickformat': '%b %d %Y'},
