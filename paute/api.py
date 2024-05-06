@@ -329,7 +329,7 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
     titulo = "Rio Paute (en Paute) - Estación H0894"
     layout = go.Layout(
         title=titulo,
-        yaxis={'title': 'Nivel (m)', 'range': [0, max_visible]},
+        yaxis={'title': 'Nivel (m)', 'range': [0, "auto"]},
         xaxis={'title': 'Fecha (UTC +0:00)', 'range': [startdate, enddate], 'hoverformat': '%b %d %Y %H:%M',
                'tickformat': '%b %d %Y'},
     )
@@ -347,8 +347,8 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
         y=1,
         xref="paper",
         yref="paper",
-        sizex=1,
-        sizey=1,
+        sizex=0.3,
+        sizey=0.3,
         xanchor="left",
         yanchor="top"
     )
