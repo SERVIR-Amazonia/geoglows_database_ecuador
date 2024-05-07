@@ -339,7 +339,7 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
         scatter_plots += records_plot
 
     # Create the logo
-    titulo = "Rio Paute (en Paute) - Estación H0894"
+    titulo = "Pronóstico de nivel del Rio Paute (en Paute) - Estación H0894"
     layout = go.Layout(
         title=titulo,
         yaxis={'title': 'Nivel (m)', 'range': [min_visible, max_visible]},
