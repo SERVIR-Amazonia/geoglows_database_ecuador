@@ -428,7 +428,7 @@ os.chdir(user_dir)
 os.chdir("tethys_apps_ecuador/geoglows_database_ecuador")
 
 # Read Paute data
-est = pd.read_csv("pte-europa.dat", sep="\t", header=0)
+est = pd.read_csv("sta-barbara.dat", sep="\t", header=0)
 est.index = est.datetime
 est = est.drop(columns=['datetime'])
 est.index = pd.to_datetime(est.index)
