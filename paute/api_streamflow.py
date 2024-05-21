@@ -264,14 +264,14 @@ def get_forecast_stats(stats, rperiods, comid, records, sim):
         max(plot_data['flow_max']), 
         max(plot_data['flow_avg']), 
         max(plot_data['high_res']),
-        daymax_df.nivel.max()
+        daymax_df.caudal.max()
     )
     max_visible = max_visible + 0.25*max_visible
     min_visible = min(
         max(plot_data['flow_min']), 
         max(plot_data['flow_avg']), 
         max(plot_data['high_res']),
-        daymin_df.nivel.min()
+        daymin_df.caudal.min()
     )
     min_visible = min_visible - 0.2*min_visible
     print(min_visible, max_visible)
@@ -434,7 +434,6 @@ est = est.drop(columns=['datetime'])
 est.index = pd.to_datetime(est.index)
 est.index = est.index.to_series().dt.strftime("%Y-%m-%d %H:%M:%S")
 est.index = pd.to_datetime(est.index)
-print("Read observed data - H0894")
 
 
 # Load enviromental variables - credentials
