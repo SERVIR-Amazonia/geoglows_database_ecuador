@@ -461,7 +461,7 @@ conn = db.connect()
 
 # Create plot
 daily_data = plot(9033449, est, conn, "pte_europa.png")
-daily_data.csv("pte-europa.csv", index=False)
+daily_data.to_csv("pte-europa.csv", index=False)
 
 
 # Close connection
