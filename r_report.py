@@ -206,7 +206,7 @@ def color_percent(pixelValue):
 ###############################################################################################################
 #                                                PLOT FUNCTIONS                                               #
 ###############################################################################################################
-def get_pacum_plot(raster_url, gdf):
+def get_pacum_plot(raster_url, gdf, fig_name):
     # Realiza una solicitud HTTP para obtener el contenido del archivo Raster
     raster_response = requests.get(raster_url)
 
@@ -246,7 +246,7 @@ def get_pacum_plot(raster_url, gdf):
 
         # Save the figure
         print("Saving image PACUM")
-        fig_path = f'{user_dir}/data/report/fig_pacum.png'
+        fig_path = f'{user_dir}/data/report/{fig_name}'
         plt.savefig(fig_path, bbox_inches='tight', pad_inches=0)
 
     else:
@@ -408,6 +408,7 @@ print("Read FFGS data")
 
 # Pacum raster URL
 raster_url = "https://www.hydroshare.org/resource/925ad37f78674d578eab2494e13db240/data/contents/pacum_24_res.tif"
+raster_url_72 = "https://www.hydroshare.org/resource/925ad37f78674d578eab2494e13db240/data/contents/pacum_72_res.tif"
 
 # Get data from DB
 db = create_engine(token)
@@ -418,7 +419,9 @@ print("Retrieved data from DB")
 
 
 # Generate figures
-get_pacum_plot(raster_url = raster_url, gdf = ecu)
+get_pacum_plot(raster_url = raster_url, gdf = ecu, fig_name="fig_pacum.png")
+get_pacum_plot(raster_url = raster_url_72, gdf = ecu, fig_name="fig_pacum_72.png")
+
 get_ffgs_plot(field="asm", gdf=ffgs, gdf2=ecu, umbral=10, colorfun=color_percent)
 get_ffgs_plot(field="ffg", gdf=ffgs, gdf2=ecu, umbral=100, colorfun=color_pacum_invert)
 get_ffgs_plot(field="fmap24", gdf=ffgs, gdf2=ecu, umbral=100, colorfun=color_pacum)
@@ -437,6 +440,7 @@ def upload_file(hs, local_file, resource_filename):
     hs.addResourceFile(HS_IDRS, local_file, resource_filename)
 
 upload_file(hs, f'{user_dir}/data/report/fig_pacum.png', "fig_pacum.png")
+upload_file(hs, f'{user_dir}/data/report/fig_pacum_72.png', "fig_pacum_72.png")
 upload_file(hs, f'{user_dir}/data/report/fig_asm.png', "fig_asm.png")
 upload_file(hs, f'{user_dir}/data/report/fig_ffg.png', "fig_ffg.png")
 upload_file(hs, f'{user_dir}/data/report/fig_fmap24.png', "fig_fmap24.png")
