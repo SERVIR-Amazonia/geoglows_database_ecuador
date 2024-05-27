@@ -460,7 +460,8 @@ db = create_engine(token)
 conn = db.connect()
 
 # Create plot
-plot(9033577, est, conn, "sta_barbara.png")
+daily_data = plot(9033577, est, conn, "sta_barbara.png")
+daily_data.to_csv("sta_barbara.csv", index=False)
 
 # Close connection
 conn.close()
@@ -478,3 +479,4 @@ def upload_file(hs, local_file, resource_filename):
     hs.addResourceFile(HS_IDRS, local_file, resource_filename)
 
 upload_file(hs, 'sta_barbara.png', "sta_barbara.png")
+upload_file(hs, 'sta_barbara.csv', "sta_barbara.csv")
