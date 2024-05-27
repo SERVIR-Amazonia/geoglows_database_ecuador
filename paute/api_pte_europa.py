@@ -460,7 +460,9 @@ db = create_engine(token)
 conn = db.connect()
 
 # Create plot
-plot(9033449, est, conn, "pte_europa.png")
+daily_data = plot(9033449, est, conn, "pte_europa.png")
+daily_data.csv("pte-europa.csv", index=False)
+
 
 # Close connection
 conn.close()
@@ -478,3 +480,4 @@ def upload_file(hs, local_file, resource_filename):
     hs.addResourceFile(HS_IDRS, local_file, resource_filename)
 
 upload_file(hs, 'pte_europa.png', "pte_europa.png")
+upload_file(hs, 'pte_europa.csv', "pte_europa.csv")
