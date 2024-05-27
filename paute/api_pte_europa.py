@@ -461,7 +461,7 @@ conn = db.connect()
 
 # Create plot
 daily_data = plot(9033449, est, conn, "pte_europa.png")
-daily_data.to_csv("pte-europa.csv", index=False)
+daily_data.to_csv("pte_europa.csv", index=False)
 
 
 # Close connection
@@ -482,6 +482,8 @@ hs = HydroShare(auth=auth)
 
 def upload_file(hs, local_file, resource_filename):
     if os.path.isfile(local_file) and os.access(local_file, os.R_OK):
+        print(os.path.isfile(local_file))
+        print(os.access(local_file, os.R_OK))
         print(f"{local_file} existe y es legible.")
         try:
             hs.deleteResourceFile(HS_IDRS, resource_filename)
