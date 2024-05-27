@@ -472,12 +472,28 @@ conn.close()
 auth = HydroShareAuthBasic(username=HS_USER, password=HS_PASS)
 hs = HydroShare(auth=auth)
 
+#def upload_file(hs, local_file, resource_filename):
+#    try:
+#        hs.deleteResourceFile(HS_IDRS,  resource_filename)
+#    except:
+#        print("File was not found in resource")
+#    hs.addResourceFile(HS_IDRS, local_file, resource_filename)
+
+
 def upload_file(hs, local_file, resource_filename):
-    try:
-        hs.deleteResourceFile(HS_IDRS,  resource_filename)
-    except:
-        print("File was not found in resource")
-    hs.addResourceFile(HS_IDRS, local_file, resource_filename)
+    if os.path.isfile(local_file) and os.access(local_file, os.R_OK):
+        print(f"{local_file} existe y es legible.")
+        try:
+            hs.deleteResourceFile(HS_IDRS, resource_filename)
+        except Exception as e:
+            print(f"Error al intentar eliminar el archivo: {e}")
+        try:
+            hs.addResourceFile(HS_IDRS, local_file, resource_filename)
+        except Exception as e:
+            print(f"Error al intentar agregar el archivo: {e}")
+    else:
+        print(f"{local_file} no existe o no es legible.")
+
 
 upload_file(hs, 'pte_europa.png', "pte_europa.png")
 upload_file(hs, 'pte_europa.csv', "pte_europa.csv")
