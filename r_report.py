@@ -209,46 +209,46 @@ def color_percent(pixelValue):
 def get_pacum_plot(raster_url, gdf, fig_name):
     # Realiza una solicitud HTTP para obtener el contenido del archivo Raster
     raster_response = requests.get(raster_url)
-
+    #
     # Verifica si la solicitud fue exitosa
     if raster_response.status_code == 200:
         # Lee el contenido de la respuesta en un objeto BytesIO
         raster_data = BytesIO(raster_response.content)
         print("Read pacum data")
-
+        #
         # Abre el raster utilizando rasterio
         with rasterio.open(raster_data) as src:
             # Realiza el enmascaramiento del raster con las geometrías del shapefile
             out_image, out_transform = rasterio.mask.mask(src, gdf.geometry, crop=True)
-
+        #
         # Crear una lista de valores entre 0 y 1
         mmin = out_image.min()
         mmax = out_image.max()
         rang = 100*(mmax - mmin)
         values = np.linspace(mmin, mmax, rang)  # Asegurarse de que haya suficientes valores en el rango
-
+        #
         # Crear una lista de colores utilizando la función color
         colors = [color_pacum(value) for value in values]
-
+        #
         # Crear un objeto ListedColormap basado en la lista de colores
         cmap_custom = ListedColormap(colors)
-
+        #
         # Crea una figura de Matplotlib y muestra el raster enmascarado
         plt.figure(figsize=(8, 8))
         plt.margins(0)
         show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
         gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
-
+        #
         # Establecer límites en los ejes x e y
         plt.xlim(-81.3, -74.9)
         plt.ylim(-5.2, 1.6)
         plt.axis("off")
-
+        #
         # Save the figure
         print("Saving image PACUM")
         fig_path = f'{user_dir}/data/report/{fig_name}'
         plt.savefig(fig_path, bbox_inches='tight', pad_inches=0)
-
+    #
     else:
         print("Error al descargar el archivo Raster. Código de estado:", raster_response.status_code)
 
@@ -259,26 +259,26 @@ def get_ffgs_plot(field, gdf, gdf2, umbral, colorfun):
     mmax = gdf[field].max()
     rang = umbral*(mmax - mmin)
     values = np.linspace(mmin, mmax, int(rang))  
-
+    #
     # Crear una lista de colores utilizando la función color
     colors = [colorfun(value) for value in values]
-
+    #
     # Crear un objeto ListedColormap basado en la lista de colores
     cmap_custom = ListedColormap(colors)
-
+    #
     # Crea una figura de Matplotlib y muestra el raster enmascarado
     plt.figure(figsize=(8, 8))
     plt.margins(0)
-
+    #
     # Graficar el GeoDataFrame utilizando el campo especificado
     gdf.plot(column=field, legend=False, cmap=cmap_custom, figsize=(8, 8))
     gdf2.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
-
+    #
     # Establecer límites en los ejes x e y
     plt.xlim(-81.3, -74.9)
     plt.ylim(-5.2, 1.6)
     plt.axis("off")
-
+    #
     # Save the figure
     print("Saving image FFGS")
     fig_path = f'{user_dir}/data/report/fig_{field}.png'
@@ -289,11 +289,11 @@ def get_ffgs_plot(field, gdf, gdf2, umbral, colorfun):
 def get_geoglows(gdf, gdf2, df): #gdf -> ecuador, gdf2 -> drainage, df -> alerts
     # Crear una figura y ejes de Matplotlib
     fig, ax = plt.subplots(figsize=(8, 8))
-
+    #
     # Graficar el archivo SHP
     gdf.plot(ax=ax, color='none', edgecolor='black', linewidth=1)
     gdf2.plot(ax=ax, color='blue', edgecolor='blue', linewidth=0.3)
-
+    #
     # Configurar la ruta a los archivos SVG para cada clase 'alert'
     svg_mapping = {
         'R0': 'svg/0.svg',
@@ -304,33 +304,33 @@ def get_geoglows(gdf, gdf2, df): #gdf -> ecuador, gdf2 -> drainage, df -> alerts
         'R50': 'svg/50.svg',
         'R100': 'svg/100.svg'
     }
-
+    #
     # Graficar los puntos utilizando archivos SVG como marcadores
     for index, row in df.iterrows():
         lat = row['latitude']
         lon = row['longitude']
         alert = row['alert']
-        
+        #   
         # Obtener la ruta del archivo SVG correspondiente
         svg_path = svg_mapping.get(alert, 'default_icon.svg')
-        
+        #
         # Convertir el archivo SVG en una imagen temporal (PNG)
         temp_png_path = 'temp_icon.png'
         cairosvg.svg2png(url=svg_path, write_to=temp_png_path)
-        
+        #
         # Cargar la imagen PNG como un OffsetImage
         img = OffsetImage(plt.imread(temp_png_path), zoom=0.5)
         ab = AnnotationBbox(img, (lon, lat), frameon=False)
-        
+        #
         # Agregar el marcador al gráfico
         ax.add_artist(ab)
-
+    #
     # Establecer límites en los ejes x e y para delimitar la figura
     plt.xlim(-81.3, -74.9)
     plt.ylim(-5.2, 1.6)
     plt.axis("off")
     plt.margins(0)
-
+    #
     # Save the figure
     print("Saving image GEOGLOWS")
     fig_path = f'{user_dir}/data/report/fig_geoglows.png'
@@ -402,7 +402,8 @@ drainage = gpd.read_file("shp/drainage.shp")
 print("Read Ecuador Drainage")
 
 # Get FFGS data
-shp_url = "https://geoserver.hydroshare.org/geoserver/HS-352379cf82444fd099eca8bfc662789b/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=nwsaffds&maxFeatures=20000&outputFormat=application/json"
+#shp_url = "https://geoserver.hydroshare.org/geoserver/HS-352379cf82444fd099eca8bfc662789b/wfs?service=WFS&version=2.0.0&request=GetFeature&typeName=nwsaffds&maxFeatures=20000&outputFormat=application/json"
+shp_url = "/home/ubuntu/data/nwsaffgs/nwsaffds.shp"
 ffgs = gpd.read_file(shp_url)
 print("Read FFGS data")
 
