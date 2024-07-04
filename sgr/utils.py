@@ -17,3 +17,4 @@ def get_layer_wrf_name(date):
             layer_name = layer_name_elem.text
             if layer_name.startswith(query):
                 layers.append(layer_name)
+    return(layers)

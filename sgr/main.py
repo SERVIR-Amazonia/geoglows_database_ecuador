@@ -51,4 +51,9 @@ plot.join_images("ecuador.png", "area.png", "pacum_sat.png")
 
 # Pronóstico
 now = dt.datetime.now()
-a = utils.get_layer_wrf_name(now)
+layers = utils.get_layer_wrf_name(now)
+
+
+
+
+
