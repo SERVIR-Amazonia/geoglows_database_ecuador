@@ -124,11 +124,11 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     plt.savefig("ecuador.png", bbox_inches='tight', pad_inches=0.2)
 
 
-def pacum_area(raster, rp_gdf, rs_gdf, puntos_gdf):
+def pacum_area(raster, ec_gdf, rp_gdf, rs_gdf, puntos_gdf):
     # Abre el raster utilizando rasterio
     with rasterio.open(raster) as src:
         # Realiza el enmascaramiento del raster con las geometrías del shapefile
-        out_image, out_transform = rasterio.mask.mask(src, area_gdf.geometry, crop=True)
+        out_image, out_transform = rasterio.mask.mask(src, ec_gdf.geometry, crop=True)
     #
     # Crear una lista de valores entre 0 y 1
     mmin = out_image.min()
