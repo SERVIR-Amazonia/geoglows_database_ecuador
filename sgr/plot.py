@@ -124,11 +124,11 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     plt.savefig("ecuador.png", bbox_inches='tight', pad_inches=0.2)
 
 
-def pacum_paute(raster, paute_gdf, rp_gdf, rs_gdf, embalses_gdf):
+def pacum_area(raster, area_gdf):
     # Abre el raster utilizando rasterio
     with rasterio.open(raster) as src:
         # Realiza el enmascaramiento del raster con las geometrías del shapefile
-        out_image, out_transform = rasterio.mask.mask(src, paute_gdf.geometry, crop=True)
+        out_image, out_transform = rasterio.mask.mask(src, area_gdf.geometry, crop=True)
     #
     # Crear una lista de valores entre 0 y 1
     mmin = out_image.min()
@@ -146,25 +146,21 @@ def pacum_paute(raster, paute_gdf, rp_gdf, rs_gdf, embalses_gdf):
     plt.figure(figsize=(8, 8))
     plt.margins(0)
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
-    embalses_gdf.plot(ax=plt.gca(), color='red', markersize=50, label="Embalses")
-    rs_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=0.2, label="Rios")
-    rp_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=1)
-    paute_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2)
-    embalses_gdf.plot(ax=plt.gca(), color='red', markersize=50)
+    area_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2)
 
     # Establecer límites en los ejes x e y   
-    plt.xlim(-79.4, -78.2)
-    plt.ylim(-3.3, -2.25)
+    plt.xlim(-78.6, -78.1)
+    plt.ylim(-1.3, -1.5)
     #plt.axis("off")
     #
     # Añadir un título a la figura
-    plt.title("Cuenca del río Paute", fontsize=18)
+    plt.title("Zona afectada", fontsize=18)
     #
     # Agregar la leyenda en la parte inferior
     plt.legend(loc='lower right')
     #
     # Save the figure
-    plt.savefig("paute.png", bbox_inches='tight', pad_inches=0.2)
+    plt.savefig("area.png", bbox_inches='tight', pad_inches=0.2)
 
 
 def join_images(img1, img2):

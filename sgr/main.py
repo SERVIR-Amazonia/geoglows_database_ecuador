@@ -37,12 +37,8 @@ os.chdir(user_dir)
 os.chdir("data/sgr")
 
 url = "https://www.hydroshare.org/resource/925ad37f78674d578eab2494e13db240/data/contents/pacum_persiann_daily7.tif"
-command = ['wget', url, '-O', "pacum.tif"]
-subprocess.run(command)
-
-
-
-
-plot.pacum_ec(raster="pacum.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=area)
-
+os.system(f"wget {url} -O pacum.tif")
+os.system("gdalwarp -tr 0.01 0.01 -r bilinear pacum.tif pacumres.tif")
+plot.pacum_ec(raster="pacumres.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=area)
+plot.pacum_area(raster="pacumres.tif", area_gdf=area)
 

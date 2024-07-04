@@ -65,8 +65,6 @@ def get(outpath):
         #
         # Descargar los nombres de archivos existentes
         url = "https://jsimpsonhttps.pps.eosdis.nasa.gov/text/imerg/gis/early/"
-        #url = "https://jsimpsonhttps.pps.eosdis.nasa.gov/text/imerg/gis/early/{0}/{1}/"
-        #url = url.format(actual_year, actual_month)
         #
         # Descargar el archivo con los nombres de los recursos
         password_mgr = urllib.request.HTTPPasswordMgrWithDefaultRealm()
