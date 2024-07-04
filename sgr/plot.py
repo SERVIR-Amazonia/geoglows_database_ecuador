@@ -101,10 +101,10 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     #
     # Crear una lista de colores utilizando la función color
     colors = [color_pacum(value) for value in values]
-    print("Funcion")
     #
     # Crear un objeto ListedColormap basado en la lista de colores
     cmap_custom = ListedColormap(colors)
+    print("Funcion")
     #
     # Crea una figura de Matplotlib y muestra el raster enmascarado
     plt.figure(figsize=(8, 8))
@@ -114,6 +114,7 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     prov_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=0.2)
     ec_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
     paute_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2)
+    print("Funcion2")
 
     # Establecer límites en los ejes x e y   
     plt.xlim(-81.3, -74.9)
