@@ -107,6 +107,7 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     # Crea una figura de Matplotlib y muestra el raster enmascarado
     plt.figure(figsize=(8, 8))
     plt.margins(0)
+    ax = plt.gca()
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
     prov_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=0.2)
     ec_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
@@ -115,10 +116,12 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     # Establecer límites en los ejes x e y   
     plt.xlim(-81.3, -74.9)
     plt.ylim(-5.2, 1.6)
-    #plt.axis("off")
+    #
+    # Ajustar el tamaño de los números de los ejes
+    ax.tick_params(axis='both', which='major', labelsize=18)
     #
     # Añadir un título a la figura
-    plt.title("Ecuador Continental", fontsize=18)
+    plt.title("Ecuador Continental", fontsize=22)
     #
     # Save the figure
     plt.savefig("ecuador.png", bbox_inches='tight', pad_inches=0.2)
@@ -147,20 +150,20 @@ def pacum_area(raster, ec_gdf, rp_gdf, rs_gdf, puntos_gdf):
     plt.margins(0)
     ax = plt.gca()
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
-    puntos_gdf.plot(ax=plt.gca(), color='red', markersize=20, label="Embalses")
+    puntos_gdf.plot(ax=plt.gca(), color='red', markersize=10, label="Puntos afectados")
     rs_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=0.2, label="Rios")
     rp_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=1)
-    puntos_gdf.plot(ax=plt.gca(), color='red', markersize=20)
+    puntos_gdf.plot(ax=plt.gca(), color='red', markersize=10)
 
     # Establecer límites en los ejes x e y   
     plt.xlim(-78.55, -78.05)
     plt.ylim(-1.3, -1.5)
     #plt.axis("off")
     # Ajustar el tamaño de los números de los ejes
-    ax.tick_params(axis='both', which='major', labelsize=8)
+    ax.tick_params(axis='both', which='major', labelsize=7)
     #
     # Añadir un título a la figura
-    plt.title("Zona afectada", fontsize=12)
+    plt.title("Zona afectada", fontsize=10)
     #
     # Agregar la leyenda en la parte inferior
     plt.legend(loc='lower right')
