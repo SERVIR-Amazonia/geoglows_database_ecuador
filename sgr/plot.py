@@ -145,6 +145,7 @@ def pacum_area(raster, ec_gdf, rp_gdf, rs_gdf, puntos_gdf):
     # Crea una figura de Matplotlib y muestra el raster enmascarado
     plt.figure(figsize=(8, 8))
     plt.margins(0)
+    ax = plt.gca()
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
     puntos_gdf.plot(ax=plt.gca(), color='red', markersize=20, label="Embalses")
     rs_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=0.2, label="Rios")
@@ -155,6 +156,8 @@ def pacum_area(raster, ec_gdf, rp_gdf, rs_gdf, puntos_gdf):
     plt.xlim(-78.55, -78.05)
     plt.ylim(-1.3, -1.5)
     #plt.axis("off")
+    # Ajustar el tamaño de los números de los ejes
+    ax.tick_params(axis='both', which='major', labelsize=8)
     #
     # Añadir un título a la figura
     plt.title("Zona afectada", fontsize=12)
