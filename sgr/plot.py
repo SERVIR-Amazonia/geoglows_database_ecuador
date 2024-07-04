@@ -119,15 +119,19 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     # Establecer límites en los ejes x e y   
     plt.xlim(-81.3, -74.9)
     plt.ylim(-5.2, 1.6)
+    print("Funcion3")
     #
     # Ajustar el tamaño de los números de los ejes
     ax.tick_params(axis='both', which='major', labelsize=15)
+    print("Funcion4")
     #
     # Añadir un título a la figura
     plt.title("Ecuador Continental", fontsize=22)
+    print("Funcion5")
     #
     # Save the figure
     plt.savefig("ecuador.png", bbox_inches='tight', pad_inches=0.2)
+    print("Funcion6")
 
 
 def pacum_area(raster, ec_gdf, rp_gdf, rs_gdf, puntos_gdf):
