@@ -124,7 +124,7 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     plt.savefig("ecuador.png", bbox_inches='tight', pad_inches=0.2)
 
 
-def pacum_area(raster, area_gdf):
+def pacum_area(raster, rp_gdf, rs_gdf, puntos_gdf):
     # Abre el raster utilizando rasterio
     with rasterio.open(raster) as src:
         # Realiza el enmascaramiento del raster con las geometrías del shapefile
@@ -146,7 +146,10 @@ def pacum_area(raster, area_gdf):
     plt.figure(figsize=(8, 8))
     plt.margins(0)
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
-    area_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2)
+    puntos_gdf.plot(ax=plt.gca(), color='red', markersize=50, label="Embalses")
+    rs_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=0.2, label="Rios")
+    rp_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=1)
+    puntos_gdf.plot(ax=plt.gca(), color='red', markersize=50)
 
     # Establecer límites en los ejes x e y   
     plt.xlim(-78.6, -78.1)

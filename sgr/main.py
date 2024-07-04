@@ -29,7 +29,8 @@ ec = gpd.read_file("shp/ecuador_diss.shp")
 prov = gpd.read_file("shp/ecuador.shp")
 area = gpd.read_file("shp/area_afectada.shp")
 rios_principales = gpd.read_file("shp/rios_principales_banos.shp")
-rios_secundarios = gpd.read_file("shp/rios_secundarion_banos.shp")
+rios_secundarios = gpd.read_file("shp/rios_secundarios_banos.shp")
+puntos_afectados = gpd.read_file("shp/puntos_afectados.shp")
 
 
 
@@ -41,5 +42,5 @@ url = "https://www.hydroshare.org/resource/925ad37f78674d578eab2494e13db240/data
 os.system(f"wget {url} -O pacum.tif")
 os.system("gdalwarp -tr 0.01 0.01 -r bilinear pacum.tif pacumres.tif")
 plot.pacum_ec(raster="pacumres.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=area)
-plot.pacum_area(raster="pacumres.tif", area_gdf=area)
+plot.pacum_area(raster="pacumres.tif", rp_gdf=rios_principales, rs_gdf=rios_secundarios)
 
