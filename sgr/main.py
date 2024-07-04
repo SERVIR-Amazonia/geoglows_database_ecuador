@@ -28,7 +28,8 @@ os.chdir("tethys_apps_ecuador/geoglows_database_ecuador")
 ec = gpd.read_file("shp/ecuador_diss.shp")
 prov = gpd.read_file("shp/ecuador.shp")
 area = gpd.read_file("shp/area_afectada.shp")
-
+rios_principales = gpd.read_file("shp/rios_principales_banos.shp")
+rios_secundarios = gpd.read_file("shp/rios_secundarion_banos.shp")
 
 
 
