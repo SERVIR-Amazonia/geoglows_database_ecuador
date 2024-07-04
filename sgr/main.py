@@ -1,4 +1,5 @@
 import utils
+import report
 import os
 import plot
 import imerg
@@ -7,11 +8,8 @@ import subprocess
 import pandas as pd
 import datetime as dt
 import geopandas as gpd
-
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
-
-
 
 
 
@@ -66,10 +64,4 @@ os.system("gdalwarp -tr 0.01 0.01 -r bilinear wrf.tif wrfres.tif")
 plot.pacum_ec(raster="wrfres.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=area)
 plot.pacum_area(raster="wrfres.tif", ec_gdf=ec, rp_gdf=rios_principales, rs_gdf=rios_secundarios, puntos_gdf=puntos_afectados)
 plot.join_images("ecuador.png", "area.png", "pacum_wrf.png")
-
-
-
-#url = "http://ec2-3-211-227-44.compute-1.amazonaws.com:4200/wrf-precipitation/2024-07-0300Z-24H-2024070307h00/2024-07-0300Z-24H-2024070307h00.geotiff"
-
-
 
