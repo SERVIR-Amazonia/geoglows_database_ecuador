@@ -142,12 +142,10 @@ def report(filename, pacum):
         Paragraph(parrafo_1, estilo_parrafo),
         Spacer(1, 10),
         Paragraph(subtitulo_1, estilo_subtitulo),
-        Spacer(1, 5),
         Image("pacum_sat.png", width=doc.width, height=5*cm),
         Image("pacum24.png", width=12*cm, height=1*cm),
-        Spacer(1, 10),
+        Spacer(1, 15),
         Paragraph(subtitulo_2, estilo_subtitulo),
-        Spacer(1, 5),
         Image("pacum_wrf.png", width=doc.width, height=5*cm),
         Image("pacum24.png", width=12*cm, height=1*cm),
         ]

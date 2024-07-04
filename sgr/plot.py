@@ -121,7 +121,7 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     ax.tick_params(axis='both', which='major', labelsize=15)
     #
     # Añadir un título a la figura
-    plt.title("Ecuador Continental", fontsize=22)
+    #plt.title("Ecuador Continental", fontsize=22)
     #
     # Save the figure
     plt.savefig("ecuador.png", bbox_inches='tight', pad_inches=0.2)
@@ -163,7 +163,7 @@ def pacum_area(raster, ec_gdf, rp_gdf, rs_gdf, puntos_gdf):
     ax.tick_params(axis='both', which='major', labelsize=7)
     #
     # Añadir un título a la figura
-    plt.title("Zona afectada", fontsize=10)
+    #plt.title("Zona afectada", fontsize=10)
     #
     # Agregar la leyenda en la parte inferior
     plt.legend(loc='lower right')
