@@ -98,6 +98,7 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     #rang = int(100 * (mmax - mmin))
     #print(mmin, mmax, rang)
     values = np.linspace(int(mmin), int(mmax), 10000)  # Asegurarse de que haya suficientes valores en el rango
+    print("Funcion")
     #
     # Crear una lista de colores utilizando la función color
     colors = [color_pacum(value) for value in values]
