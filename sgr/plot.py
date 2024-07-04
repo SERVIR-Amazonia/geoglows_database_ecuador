@@ -118,7 +118,7 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     plt.ylim(-5.2, 1.6)
     #
     # Ajustar el tamaño de los números de los ejes
-    ax.tick_params(axis='both', which='major', labelsize=18)
+    ax.tick_params(axis='both', which='major', labelsize=15)
     #
     # Añadir un título a la figura
     plt.title("Ecuador Continental", fontsize=22)

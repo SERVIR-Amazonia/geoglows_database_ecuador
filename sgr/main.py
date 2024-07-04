@@ -1,6 +1,7 @@
 import os
 import plot
 import imerg
+import utils
 import warnings
 import subprocess
 import pandas as pd
@@ -38,6 +39,8 @@ puntos_afectados = gpd.read_file("shp/puntos_afectados.shp")
 os.chdir(user_dir)
 os.chdir("data/sgr")
 
+
+# Datos satelitales
 url = "https://www.hydroshare.org/resource/925ad37f78674d578eab2494e13db240/data/contents/pacum_persiann_daily7.tif"
 os.system(f"wget {url} -O pacum.tif")
 os.system("gdalwarp -tr 0.01 0.01 -r bilinear pacum.tif pacumres.tif")
@@ -46,4 +49,6 @@ plot.pacum_area(raster="pacumres.tif", ec_gdf=ec, rp_gdf=rios_principales, rs_gd
 plot.join_images("ecuador.png", "area.png", "pacum_sat.png")
 
 
-
+# Pronóstico
+now = dt.datetime.now()
+a = utils.get_layer_wrf_name(now)
