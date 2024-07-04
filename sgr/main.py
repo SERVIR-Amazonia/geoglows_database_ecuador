@@ -65,3 +65,5 @@ plot.pacum_ec(raster="wrfres.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=area)
 plot.pacum_area(raster="wrfres.tif", ec_gdf=ec, rp_gdf=rios_principales, rs_gdf=rios_secundarios, puntos_gdf=puntos_afectados)
 plot.join_images("ecuador.png", "area.png", "pacum_wrf.png")
 
+
+report.report(filename="prueba.pdf", pacum=11)
