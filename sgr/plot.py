@@ -149,7 +149,7 @@ def pacum_area(raster, ec_gdf, rp_gdf, rs_gdf, puntos_gdf):
     puntos_gdf.plot(ax=plt.gca(), color='red', markersize=20, label="Embalses")
     rs_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=0.2, label="Rios")
     rp_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=1)
-    puntos_gdf.plot(ax=plt.gca(), color='red', markersize=50)
+    puntos_gdf.plot(ax=plt.gca(), color='red', markersize=20)
 
     # Establecer límites en los ejes x e y   
     plt.xlim(-78.55, -78.05)
@@ -157,7 +157,7 @@ def pacum_area(raster, ec_gdf, rp_gdf, rs_gdf, puntos_gdf):
     #plt.axis("off")
     #
     # Añadir un título a la figura
-    plt.title("Zona afectada", fontsize=18)
+    plt.title("Zona afectada", fontsize=12)
     #
     # Agregar la leyenda en la parte inferior
     plt.legend(loc='lower right')
@@ -170,8 +170,8 @@ def join_images(img1, img2, name):
     # Cargar las imágenes
     imagen1 = mpimg.imread(img1)
     imagen2 = mpimg.imread(img2)
-    # Crear una nueva figura
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11,5))
+    # Crear una nueva figura con una cuadrícula personalizada
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(15, 5), gridspec_kw={'width_ratios': [1, 2]})
     # Mostrar la primera imagen en la primera subtrama
     ax1.imshow(imagen1)
     ax1.axis('off')
