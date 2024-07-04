@@ -92,7 +92,7 @@ def report(filename, pacum):
     #
     estilo_titulo = ParagraphStyle(
         name = 'Title',
-        fontSize = 16,
+        fontSize = 14,
         textColor = colors.Color(31/255, 73/255, 125/255),
         alignment = TA_CENTER)
     #
@@ -135,21 +135,21 @@ def report(filename, pacum):
     # Agregar elementos al contenido del PDF
     elementos = [
         Paragraph(titulo, estilo_titulo),
-        Spacer(1, 14),
+        Spacer(1, 12),
         Paragraph(emision, estilo_fecha),
         Paragraph(vigencia, estilo_fecha),
-        Spacer(1, 14),
+        Spacer(1, 10),
         Paragraph(parrafo_1, estilo_parrafo),
-        Spacer(1, 14),
+        Spacer(1, 10),
         Paragraph(subtitulo_1, estilo_subtitulo),
         Spacer(1, 5),
         Image("pacum_sat.png", width=doc.width, height=5*cm),
-        Image("pacum24.png", width=12*cm, height=1.2*cm),
+        Image("pacum24.png", width=12*cm, height=1*cm),
         Spacer(1, 10),
         Paragraph(subtitulo_2, estilo_subtitulo),
         Spacer(1, 5),
         Image("pacum_wrf.png", width=doc.width, height=5*cm),
-        Image("pacum24.png", width=12*cm, height=1.2*cm),
+        Image("pacum24.png", width=12*cm, height=1*cm),
         ]
     #
     # Contruir el pdf
