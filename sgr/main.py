@@ -39,6 +39,8 @@ puntos_afectados = gpd.read_file("shp/puntos_afectados.shp")
 os.chdir(user_dir)
 os.chdir("data/sgr")
 
+if os.path.exists("pacumres.tif"): os.remove("pacumres.tif")
+if os.path.exists("wrfres.tif"): os.remove("wrfres.tif")
 
 # Datos satelitales
 url = "https://www.hydroshare.org/resource/925ad37f78674d578eab2494e13db240/data/contents/pacum_persiann_daily7.tif"
