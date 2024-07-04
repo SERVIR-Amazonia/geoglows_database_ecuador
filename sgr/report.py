@@ -49,9 +49,13 @@ def get_datetime():
         emision = emision.replace(mes_ingles, mes_espanol)
     #
     # Formatear dia anterior
-    anterior = (now + timedelta(days=-1)).strftime("%d de %B del %Y")
+    anterior = (now + timedelta(days=-1)).strftime("%d de %B del %Y (07H00)")
     for mes_ingles, mes_espanol in meses_ingles_a_espanol.items():
         anterior = anterior.replace(mes_ingles, mes_espanol)
+    # Formatear dia actual
+    actual = (now).strftime("%d de %B del %Y (07H00)")
+    for mes_ingles, mes_espanol in meses_ingles_a_espanol.items():
+        actual = actual.replace(mes_ingles, mes_espanol)
     #
     # Calcular la vigencia para 24 horas
     inicio_vigencia = now.strftime("desde 07:00 del %d de %B")
@@ -62,7 +66,7 @@ def get_datetime():
     #
     # Formatear la vigencia
     vigencia = f"<b>Vigencia:</b> {inicio_vigencia} {fin_vigencia}"
-    return(emision, vigencia, anterior)
+    return(emision, vigencia, anterior, actual)
 
 
 def agregar_tabla(datos):
@@ -83,10 +87,11 @@ def report(filename, pacum):
     header_path = "report_header.png"
     footer_path = "report_footer.png"
     titulo = "<b>Boletín Hidrometeorológico Especial Baños</b>"
-    emision, vigencia, anterior = get_datetime()
+    emision, vigencia, anterior, actual = get_datetime()
     parrafo_1 = "La <b>DIRECCIÓN DE PRONÓSTICOS Y ALERTAS HIDROMETEOROLÓGICAS DEL INAMHI</b>, basándose en la información obtenida de la plataforma INAMHI GEOGLOWS emite el siguiente boletín de vigilancia y predicción de condiciones hidrometeorológicas:"
     subtitulo_1 = "<b>Precipitación acumulada diaria</b>"
     subtitulo_2 = "<b>Pronóstico de precipitación</b>"
+    parrafo_2 = f"De acuerdo con los datos del hidroestimador satelital PERSIANN PDIR Now, la precipitación media registrada desde {anterior} hasta {actual}, fue de {pacum} mm."
     # Configurar estilos
     estilos = getSampleStyleSheet()
     #
