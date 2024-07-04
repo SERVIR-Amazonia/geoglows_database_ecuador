@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime
 import xml.etree.ElementTree as ET
 
 
@@ -18,3 +19,17 @@ def get_layer_wrf_name(date):
             if layer_name.startswith(query):
                 layers.append(layer_name)
     return(layers)
+
+
+
+def extraer_fechas(cadena):
+    # Extraer las dos fechas de la cadena
+    fecha1_str = cadena[:10]
+    fecha2_str = cadena[-12:-4]
+    # Convertir las fechas a objetos datetime
+    fecha1 = datetime.strptime(fecha1_str, "%Y-%m-%d")
+    fecha2 = datetime.strptime(fecha2_str, "%Y%m%d")
+    # Formatear las fechas como strings en el formato deseado
+    fecha1_formateada = fecha1.strftime("%Y-%m-%d")
+    fecha2_formateada = fecha2.strftime("%Y-%m-%d")
+    return fecha1_formateada, fecha2_formateada

@@ -1,7 +1,7 @@
+import utils
 import os
 import plot
 import imerg
-import utils
 import warnings
 import subprocess
 import pandas as pd
@@ -52,8 +52,22 @@ plot.join_images("ecuador.png", "area.png", "pacum_sat.png")
 # Pronóstico
 now = dt.datetime.now()
 layers = utils.get_layer_wrf_name(now)
+while len(layers)<=0:
+    now = now - dt.timedelta(days=1)
+    layers = utils.get_layer_wrf_name(now)
 
 
+url = "http://ec2-3-211-227-44.compute-1.amazonaws.com:4200/wrf-precipitation"
+url = f"{url}/{layers[0]}/{layers[0]}.geotiff"
+os.system(f"wget {url} -O wrf.tif")
+os.system("gdalwarp -tr 0.01 0.01 -r bilinear wrf.tif wrfres.tif")
+plot.pacum_ec(raster="wrfres.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=area)
+plot.pacum_area(raster="wrfres.tif", ec_gdf=ec, rp_gdf=rios_principales, rs_gdf=rios_secundarios, puntos_gdf=puntos_afectados)
+plot.join_images("ecuador.png", "area.png", "pacum_wrf.png")
+
+
+
+#url = "http://ec2-3-211-227-44.compute-1.amazonaws.com:4200/wrf-precipitation/2024-07-0300Z-24H-2024070307h00/2024-07-0300Z-24H-2024070307h00.geotiff"
 
 
 

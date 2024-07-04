@@ -95,7 +95,7 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     # Crear una lista de valores entre 0 y 1
     mmin = out_image.min()
     mmax = out_image.max()
-    rang = 100*(mmax - mmin)
+    rang = int(100 * (mmax - mmin))
     values = np.linspace(mmin, mmax, rang)  # Asegurarse de que haya suficientes valores en el rango
     #
     # Crear una lista de colores utilizando la función color
