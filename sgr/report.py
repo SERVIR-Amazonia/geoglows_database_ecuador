@@ -149,6 +149,7 @@ def report(filename, pacum):
         Paragraph(subtitulo_1, estilo_subtitulo),
         Image("pacum_sat.png", width=doc.width, height=5*cm),
         Image("pacum24.png", width=12*cm, height=1*cm),
+        Paragraph(parrafo_2, estilo_parrafo2),
         Spacer(1, 15),
         Paragraph(subtitulo_2, estilo_subtitulo),
         Image("pacum_wrf.png", width=doc.width, height=5*cm),
