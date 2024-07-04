@@ -86,8 +86,7 @@ def report(filename, pacum):
     emision, vigencia, anterior = get_datetime()
     parrafo_1 = "La <b>DIRECCIÓN DE PRONÓSTICOS Y ALERTAS HIDROMETEOROLÓGICAS DEL INAMHI</b>, basándose en la información obtenida de la plataforma INAMHI GEOGLOWS emite el siguiente boletín de vigilancia y predicción de condiciones hidrometeorológicas:"
     subtitulo_1 = "<b>Precipitación acumulada diaria</b>"
-    parrafo_2 = f"De acuerdo con los datos del hidroestimador satelital PERSIANN PDIR Now, la precipitación media registrada en la Cuenca del río Paute durante el {anterior}, fue de {pacum} mm. A continuación se presenta un desglose de la precipitación media por subcuencas."
-    #
+    subtitulo_2 = "<b>Pronóstico de precipitación</b>"
     # Configurar estilos
     estilos = getSampleStyleSheet()
     #
@@ -99,7 +98,7 @@ def report(filename, pacum):
     #
     estilo_subtitulo = ParagraphStyle(
         name = 'Subtitle',
-        fontSize = 14,
+        fontSize = 12,
         textColor = colors.Color(31/255, 73/255, 125/255),
         alignment = TA_CENTER)
     #
@@ -144,7 +143,12 @@ def report(filename, pacum):
         Spacer(1, 14),
         Paragraph(subtitulo_1, estilo_subtitulo),
         Spacer(1, 10),
-        Image("pacum_sat.png", width=doc.width, height=8*cm),
+        Image("pacum_sat.png", width=doc.width, height=5*cm),
+        Image("pacum24.png", width=12*cm, height=1.2*cm),
+        Paragraph(subtitulo_2, estilo_subtitulo),
+        Spacer(1, 10),
+        Spacer(1, 10),
+        Image("pacum_wrf.png", width=doc.width, height=5*cm),
         Image("pacum24.png", width=12*cm, height=1.2*cm),
         ]
     #
