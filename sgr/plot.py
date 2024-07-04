@@ -134,8 +134,8 @@ def pacum_area(raster, ec_gdf, rp_gdf, rs_gdf, puntos_gdf):
         out_image, out_transform = rasterio.mask.mask(src, ec_gdf.geometry, crop=True)
     #
     # Crear una lista de valores entre 0 y 1
-    mmin = int(out_image.min()-1)
-    mmax = int(out_image.max()+1)
+    mmin = out_image.min()
+    mmax = out_image.max()
     rang = int(100 * (mmax - mmin))
     values = np.linspace(int(mmin), int(mmax), rang)   # Asegurarse de que haya suficientes valores en el rango
     #
