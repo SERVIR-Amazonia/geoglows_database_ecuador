@@ -93,8 +93,8 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
         out_image, out_transform = rasterio.mask.mask(src, ec_gdf.geometry, crop=True)
     #
     # Crear una lista de valores entre 0 y 1
-    mmin = out_image.min()
-    mmax = out_image.max()
+    mmin = int(out_image.min()-1)
+    mmax = int(out_image.max()+1)
     rang = int(100 * (mmax - mmin))
     print(mmin, mmax, rang)
     values = np.linspace(mmin, mmax, rang)  # Asegurarse de que haya suficientes valores en el rango
