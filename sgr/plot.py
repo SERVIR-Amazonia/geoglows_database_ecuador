@@ -146,13 +146,13 @@ def pacum_area(raster, ec_gdf, rp_gdf, rs_gdf, puntos_gdf):
     plt.figure(figsize=(8, 8))
     plt.margins(0)
     show(out_image, transform=out_transform, ax=plt.gca(), cmap=cmap_custom)
-    puntos_gdf.plot(ax=plt.gca(), color='red', markersize=50, label="Embalses")
+    puntos_gdf.plot(ax=plt.gca(), color='red', markersize=20, label="Embalses")
     rs_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=0.2, label="Rios")
     rp_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=1)
     puntos_gdf.plot(ax=plt.gca(), color='red', markersize=50)
 
     # Establecer límites en los ejes x e y   
-    plt.xlim(-78.6, -78.1)
+    plt.xlim(-78.55, -78.05)
     plt.ylim(-1.3, -1.5)
     #plt.axis("off")
     #
@@ -166,7 +166,7 @@ def pacum_area(raster, ec_gdf, rp_gdf, rs_gdf, puntos_gdf):
     plt.savefig("area.png", bbox_inches='tight', pad_inches=0.2)
 
 
-def join_images(img1, img2):
+def join_images(img1, img2, name):
     # Cargar las imágenes
     imagen1 = mpimg.imread(img1)
     imagen2 = mpimg.imread(img2)
@@ -183,6 +183,6 @@ def join_images(img1, img2):
     # Ajustar el espacio entre las subtramas
     plt.tight_layout()
     # Guardar la figura en un archivo de imagen
-    plt.savefig('pacum.png')
+    plt.savefig(name)
 
 

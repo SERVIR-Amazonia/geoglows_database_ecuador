@@ -42,7 +42,5 @@ url = "https://www.hydroshare.org/resource/925ad37f78674d578eab2494e13db240/data
 os.system(f"wget {url} -O pacum.tif")
 os.system("gdalwarp -tr 0.01 0.01 -r bilinear pacum.tif pacumres.tif")
 plot.pacum_ec(raster="pacumres.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=area)
-plot.pacum_area(
-    raster="pacumres.tif", ec_gdf=ec, rp_gdf=rios_principales, 
-    rs_gdf=rios_secundarios, puntos_gdf=puntos_afectados)
-
+plot.pacum_area(raster="pacumres.tif", ec_gdf=ec, rp_gdf=rios_principales, rs_gdf=rios_secundarios, puntos_gdf=puntos_afectados)
+plot("ecuador.tif", "area.tif", "pacum_sat.tif")
