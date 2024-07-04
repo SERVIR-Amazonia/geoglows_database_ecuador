@@ -82,7 +82,7 @@ def report(filename, pacum):
     # Vars
     header_path = "report_header.png"
     footer_path = "report_footer.png"
-    titulo = "<b>Boletín Hidrometeorológico Especial Paute</b>"
+    titulo = "<b>Boletín Hidrometeorológico Especial Baños</b>"
     emision, vigencia, anterior = get_datetime()
     parrafo_1 = "La <b>DIRECCIÓN DE PRONÓSTICOS Y ALERTAS HIDROMETEOROLÓGICAS DEL INAMHI</b>, basándose en la información obtenida de la plataforma INAMHI GEOGLOWS emite el siguiente boletín de vigilancia y predicción de condiciones hidrometeorológicas:"
     subtitulo_1 = "<b>Precipitación acumulada diaria</b>"
@@ -92,26 +92,26 @@ def report(filename, pacum):
     #
     estilo_titulo = ParagraphStyle(
         name = 'Title',
-        fontSize = 18,
+        fontSize = 16,
         textColor = colors.Color(31/255, 73/255, 125/255),
         alignment = TA_CENTER)
     #
     estilo_subtitulo = ParagraphStyle(
         name = 'Subtitle',
-        fontSize = 12,
+        fontSize = 11,
         textColor = colors.Color(31/255, 73/255, 125/255),
         alignment = TA_CENTER)
     #
     estilo_fecha = ParagraphStyle(
         name = 'Dates',
-        fontSize = 10,
+        fontSize = 9,
         alignment = TA_CENTER,
         spaceBefore = 5,
         spaceAfter = 5)
     #
     estilo_parrafo = ParagraphStyle(
         name = 'P01',
-        fontSize = 10,
+        fontSize = 9,
         alignment = TA_CENTER,
         spaceBefore = 5,
         spaceAfter = 5,
@@ -119,7 +119,7 @@ def report(filename, pacum):
     #
     estilo_parrafo2 = ParagraphStyle(
         name = 'P02',
-        fontSize = 10,
+        fontSize = 9,
         alignment = TA_JUSTIFY,
         spaceBefore = 5,
         spaceAfter = 5,
@@ -142,12 +142,12 @@ def report(filename, pacum):
         Paragraph(parrafo_1, estilo_parrafo),
         Spacer(1, 14),
         Paragraph(subtitulo_1, estilo_subtitulo),
-        Spacer(1, 10),
+        Spacer(1, 5),
         Image("pacum_sat.png", width=doc.width, height=5*cm),
         Image("pacum24.png", width=12*cm, height=1.2*cm),
+        Spacer(1, 10),
         Paragraph(subtitulo_2, estilo_subtitulo),
-        Spacer(1, 10),
-        Spacer(1, 10),
+        Spacer(1, 5),
         Image("pacum_wrf.png", width=doc.width, height=5*cm),
         Image("pacum24.png", width=12*cm, height=1.2*cm),
         ]
