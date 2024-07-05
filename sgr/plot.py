@@ -369,7 +369,7 @@ def geoglows_plot(ec_gdf, prov_gdf, drainage_gdf, df, area_gdf): #gdf -> ecuador
         ab = AnnotationBbox(img, (lon, lat), frameon=False)
         #
         # Agregar el marcador al gráfico
-        #plt.gca().add_artist(ab)
+        plt.gca().add_artist(ab)
     #
     area_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2)
     #
