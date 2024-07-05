@@ -83,8 +83,6 @@ geojson = response.json()
 gdf = gpd.GeoDataFrame.from_features(geojson['features'])
 df = pd.DataFrame(gdf.drop(columns='geometry'))
 
-print(df)
-
 plot.geoglows_plot(ec_gdf=ec, prov_gdf=prov, drainage_gdf=drainage, df=df, area_gdf=area)
 plot.geoglows_plot_area(puntos_gdf=puntos_afectados, rp_gdf=rios_principales, rs_gdf=rios_secundarios, df=df)
 plot.join_images("geoglows_ec.png", "geoglows_area.png", "geoglows.png")
