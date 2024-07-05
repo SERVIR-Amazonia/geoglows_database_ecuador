@@ -86,7 +86,7 @@ def agregar_tabla(datos):
     return(tabla)
 
 
-def report(filename, pacum, forecast):
+def report(filename, pacum, forecast, asm):
     # Vars
     header_path = "report_header.png"
     footer_path = "report_footer.png"
@@ -95,8 +95,10 @@ def report(filename, pacum, forecast):
     parrafo_1 = "La <b>DIRECCIÓN DE PRONÓSTICOS Y ALERTAS HIDROMETEOROLÓGICAS DEL INAMHI</b>, basándose en la información obtenida de la plataforma INAMHI GEOGLOWS emite el siguiente boletín de vigilancia y predicción de condiciones hidrometeorológicas:"
     subtitulo_1 = "<b>Precipitación acumulada diaria</b>"
     subtitulo_2 = "<b>Pronóstico de precipitación</b>"
+    subtitulo_3 = "<b>Humedad del suelo</b>"
     parrafo_2 = f"De acuerdo con los datos del hidroestimador satelital <b>PERSIANN PDIR Now</b>, en la zona de interés se registró una precipitación media de <b>{pacum} mm</b> entre el <b>{anterior}</b> y el <b>{actual}.</b>"
     parrafo_3 = f"Según los datos del <b>modelo WRF (INAMHI)</b>, se pronostica una precipitación media de <b>{forecast} mm</b> en la zona de interés, entre el <b>{actual}</b> y el <b>{futuro}.</b>"
+    parrafo_4 = f"De acuerdo con la plataforma Flash Flood Guidance System <b>(FFGS)</b>, en la zona de interés se registró una humedad media del suelo de <b>{100*asm} %</b> entre el <b>{anterior}</b> y el <b>{actual}.</b>"
     # Configurar estilos
     estilos = getSampleStyleSheet()
     #
@@ -161,6 +163,11 @@ def report(filename, pacum, forecast):
         Image("pacum_wrf.png", width=doc.width, height=5*cm),
         Image("pacum24.png", width=14*cm, height=0.7*cm),
         Paragraph(parrafo_3, estilo_parrafo2),
+        ##
+        PageBreak(),
+        Paragraph(subtitulo_2, estilo_subtitulo),
+        Image("asm.png", width=doc.width, height=5*cm),
+        Paragraph(parrafo_4, estilo_parrafo2),
         ]
     #
     # Contruir el pdf
