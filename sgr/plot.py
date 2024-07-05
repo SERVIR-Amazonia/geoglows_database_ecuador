@@ -330,15 +330,15 @@ def asm_area_plot(gdf, puntos_gdf, rp_gdf, rs_gdf):
 
 
 
-def geoglows_plot(gdf, gdf2, df): #gdf -> ecuador, gdf2 -> drainage, df -> alerts
+def geoglows_plot(ec_gdf, drainage_gdf, df, area_gdf): #gdf -> ecuador, gdf2 -> drainage, df -> alerts
     # Crear una figura y ejes de Matplotlib
     plt.figure(figsize=(8, 8))
     plt.margins(0)
     ax = plt.gca()
     #
     # Graficar el archivo SHP
-    gdf.plot(ax=ax, color='none', edgecolor='black', linewidth=1)
-    gdf2.plot(ax=ax, color='blue', edgecolor='blue', linewidth=0.3)
+    ec_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
+    drainage_gdf.plot(ax=plt.gca(), color='blue', edgecolor='blue', linewidth=0.3)
     #
     # Configurar la ruta a los archivos SVG para cada clase 'alert'
     svg_mapping = {
@@ -368,7 +368,9 @@ def geoglows_plot(gdf, gdf2, df): #gdf -> ecuador, gdf2 -> drainage, df -> alert
         ab = AnnotationBbox(img, (lon, lat), frameon=False)
         #
         # Agregar el marcador al gráfico
-        ax.add_artist(ab)
+        #plt.gca().add_artist(ab)
+    #
+    area_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2)
     #
     # Establecer límites en los ejes x e y   
     plt.xlim(-81.3, -74.9)
