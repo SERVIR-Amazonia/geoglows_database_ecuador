@@ -47,6 +47,7 @@ os.system("gdalwarp -tr 0.01 0.01 -r bilinear pacum.tif pacumres.tif")
 plot.pacum_ec(raster="pacumres.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=area)
 plot.pacum_area(raster="pacumres.tif", ec_gdf=ec, rp_gdf=rios_principales, rs_gdf=rios_secundarios, puntos_gdf=puntos_afectados)
 plot.join_images("ecuador.png", "area.png", "pacum_sat.png")
+datos = plot.get_pacum_subbasin("pacumres.tif", area, "id")
 
 
 # Pronóstico
@@ -67,3 +68,4 @@ plot.join_images("ecuador.png", "area.png", "pacum_wrf.png")
 
 
 report.report(filename="prueba.pdf", pacum=11)
+print(datos)

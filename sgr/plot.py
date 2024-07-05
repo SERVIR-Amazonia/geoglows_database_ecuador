@@ -17,6 +17,8 @@ from matplotlib.colors import ListedColormap
 from dotenv import load_dotenv
 import cairosvg
 
+import pandas as pd
+
 
 
 def rgba_to_hex(rgba_color):
@@ -192,3 +194,28 @@ def join_images(img1, img2, name):
     plt.savefig(name)
 
 
+
+def get_pacum_subbasin(raster_file, shp_file, field):
+    # Cargar el shapefile de cuencas hidrográficas
+    cuencas = shp_file
+    resultados = pd.DataFrame(columns=['subbasin', 'pacum'])
+    #
+    # Abrir el archivo raster
+    with rasterio.open(raster_file) as src:
+        # Reproyectar el shapefile para que coincida con la proyección del raster
+        cuencas = cuencas.to_crs(src.crs)
+        #
+        # Leer los valores del raster que intersectan con las geometrías de las cuencas
+        for index, row in cuencas.iterrows():
+            geom = row.geometry
+            #
+            # Máscara del raster basado en la geometría de la cuenca
+            out_image, out_transform = mask(src, [geom], crop=True)
+            #
+            # Calcular el valor promedio de precipitación dentro de la cuenca
+            avg_precipitation = round(np.nanmean(out_image), 2)
+            #
+            # Agregar los resultados al DataFrame
+            resultados = resultados.append({'subbasin': f"Rio {row[field]}", 'pacum': avg_precipitation}, ignore_index=True)
+    #
+    return(resultados)
