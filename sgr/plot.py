@@ -433,7 +433,7 @@ def geoglows_plot_area(puntos_gdf, rs_gdf, rp_gdf, df):
     #
     # Establecer límites en los ejes x e y   
     plt.xlim(-78.55, -78.05)
-    plt.ylim(-1.3, -1.5)
+    plt.ylim(-1.2, -1.6)
     plt.margins(0)
     #
     # Ajustar el tamaño de los números de los ejes
