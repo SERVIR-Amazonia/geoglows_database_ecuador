@@ -87,6 +87,32 @@ def color_pacum(pixelValue):
         return "none"
 
 
+def color_percent(pixelValue):
+    if 0 <= pixelValue <= 0.1:
+        return "#F9F788"
+    elif 0.1 <= pixelValue <= 0.2:
+        return "#D6D309"
+    elif 0.2 <= pixelValue <= 0.3:
+        return "#B08C00"
+    elif 0.3 <= pixelValue <= 0.4:
+        return "#B6F8A9"
+    elif 0.4 <= pixelValue <= 0.5:
+        return "#1DD41C"
+    elif 0.5 <= pixelValue <= 0.6:
+        return "#005200"
+    elif 0.6 <= pixelValue <= 0.7:
+        return "#359AFF"
+    elif 0.7 <= pixelValue <= 0.8:
+        return "#0069D2"
+    elif 0.8 <= pixelValue <= 0.9:
+        return "#00367F"
+    elif 0.9 <= pixelValue <= 1:
+        return "#100053"
+    else:
+        return "none"
+
+
+
 
 def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     # Abre el raster utilizando rasterio
@@ -220,3 +246,40 @@ def get_pacum_subbasin(raster_file, shp_file, field):
             resultados = resultados.append({'subbasin': f"Rio {row[field]}", 'pacum': avg_precipitation}, ignore_index=True)
     #
     return(resultados)
+
+
+
+def get_asm_plot(gdf, prov_gdf, ec_gdf, area_gdf):
+    # Generate the color bar
+    mmin = gdf["asm"].min()
+    mmax = gdf["asm"].max()
+    rang = int(100*(mmax - mmin)) 
+    values = np.linspace(mmin, mmax, int(rang))  
+    #
+    # Crear una lista de colores utilizando la función color
+    colorfun = color_percent
+    colors = [colorfun(value) for value in values]
+    #
+    # Crear un objeto ListedColormap basado en la lista de colores
+    cmap_custom = ListedColormap(colors)
+    #
+    # Crea una figura de Matplotlib y muestra el raster enmascarado
+    plt.figure(figsize=(8, 8))
+    plt.margins(0)
+    ax = plt.gca()
+    #
+    # Graficar el GeoDataFrame utilizando el campo especificado
+    gdf.plot(column=field, legend=False, cmap=cmap_custom, figsize=(8, 8))
+    prov_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=0.2)
+    ec_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
+    area_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2)
+    #
+    # Establecer límites en los ejes x e y   
+    plt.xlim(-81.3, -74.9)
+    plt.ylim(-5.2, 1.6)
+    #
+    # Ajustar el tamaño de los números de los ejes
+    ax.tick_params(axis='both', which='major', labelsize=15)
+    #
+    # Save the figure
+    plt.savefig("asm_ec.png", bbox_inches='tight', pad_inches=0.2)

@@ -56,7 +56,6 @@ layers = utils.get_layer_wrf_name(now)
 while len(layers)<=0:
     now = now - dt.timedelta(days=1)
     layers = utils.get_layer_wrf_name(now)
-
 url = "http://ec2-3-211-227-44.compute-1.amazonaws.com:4200/wrf-precipitation"
 url = f"{url}/{layers[0]}/{layers[0]}.geotiff"
 os.system(f"wget {url} -O wrf.tif")
@@ -65,6 +64,14 @@ plot.pacum_ec(raster="wrfres.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=area)
 plot.pacum_area(raster="wrfres.tif", ec_gdf=ec, rp_gdf=rios_principales, rs_gdf=rios_secundarios, puntos_gdf=puntos_afectados)
 plot.join_images("ecuador.png", "area.png", "pacum_wrf.png")
 pacum_wrf = plot.get_pacum_subbasin("wrfres.tif", area, "id").pacum[0]
+
+
+# Humedad del suelo
+#os.system("gdal_rasterize -a asm -tr 0.01 0.01 -l nwsaffds /home/ubuntu/data/nwsaffgs/nwsaffds.shp soilmoisture.tif")
+ffgs = gpd.read_file("/home/ubuntu/data/nwsaffgs/nwsaffds.shp")
+plot.get_asm_plot(ffgs, prov_gdf=prov, ec_gdf=ec, area_gdf=area)
+
+
 
 
 report.report(filename="prueba.pdf", pacum=pacum_satellite, forecast=pacum_wrf)

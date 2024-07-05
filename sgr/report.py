@@ -4,7 +4,7 @@ from reportlab.platypus import SimpleDocTemplate, Image, Spacer, Table, TableSty
 from reportlab.platypus.paragraph import Paragraph
 from functools import partial
 from reportlab.lib.pagesizes import letter
-from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY
+from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY, TA_LEFT
 from datetime import datetime, timedelta
 from reportlab.lib import colors
 
@@ -110,7 +110,7 @@ def report(filename, pacum, forecast):
         name = 'Subtitle',
         fontSize = 11,
         textColor = colors.Color(31/255, 73/255, 125/255),
-        alignment = TA_CENTER,
+        alignment = TA_LEFT,
         spaceAfter = 4)
     #
     estilo_fecha = ParagraphStyle(
@@ -126,7 +126,7 @@ def report(filename, pacum, forecast):
         alignment = TA_CENTER,
         spaceBefore = 5,
         spaceAfter = 5,
-        leading = 13)
+        leading = 15)
     #
     estilo_parrafo2 = ParagraphStyle(
         name = 'P02',
@@ -134,7 +134,7 @@ def report(filename, pacum, forecast):
         alignment = TA_JUSTIFY,
         spaceBefore = 5,
         spaceAfter = 5,
-        leading = 13)
+        leading = 15)
     #
     # Crear el documento PDF
     doc = SimpleDocTemplate(filename, pagesize=letter)
