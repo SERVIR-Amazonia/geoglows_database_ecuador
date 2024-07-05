@@ -57,7 +57,6 @@ while len(layers)<=0:
     now = now - dt.timedelta(days=1)
     layers = utils.get_layer_wrf_name(now)
 
-
 url = "http://ec2-3-211-227-44.compute-1.amazonaws.com:4200/wrf-precipitation"
 url = f"{url}/{layers[0]}/{layers[0]}.geotiff"
 os.system(f"wget {url} -O wrf.tif")
@@ -69,5 +68,3 @@ pacum_wrf = plot.get_pacum_subbasin("wrfres.tif", area, "id").pacum[0]
 
 
 report.report(filename="prueba.pdf", pacum=11)
-print(pacum_satellite)
-print(pacum_wrf)

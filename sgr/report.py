@@ -56,6 +56,10 @@ def get_datetime():
     actual = (now).strftime("%d de %B del %Y (07H00)")
     for mes_ingles, mes_espanol in meses_ingles_a_espanol.items():
         actual = actual.replace(mes_ingles, mes_espanol)
+    # Formatear dia futuro
+    futuro = (now + timedelta(days=1)).strftime("%d de %B del %Y (07H00)")
+    for mes_ingles, mes_espanol in meses_ingles_a_espanol.items():
+        futuro = futuro.replace(mes_ingles, mes_espanol)
     #
     # Calcular la vigencia para 24 horas
     inicio_vigencia = now.strftime("desde 07:00 del %d de %B")
@@ -66,7 +70,7 @@ def get_datetime():
     #
     # Formatear la vigencia
     vigencia = f"<b>Vigencia:</b> {inicio_vigencia} {fin_vigencia}"
-    return(emision, vigencia, anterior, actual)
+    return(emision, vigencia, anterior, actual, futuro)
 
 
 def agregar_tabla(datos):
@@ -82,16 +86,17 @@ def agregar_tabla(datos):
     return(tabla)
 
 
-def report(filename, pacum):
+def report(filename, pacum, forecast):
     # Vars
     header_path = "report_header.png"
     footer_path = "report_footer.png"
     titulo = "<b>Boletín Hidrometeorológico Especial Baños</b>"
-    emision, vigencia, anterior, actual = get_datetime()
+    emision, vigencia, anterior, actual, futuro = get_datetime()
     parrafo_1 = "La <b>DIRECCIÓN DE PRONÓSTICOS Y ALERTAS HIDROMETEOROLÓGICAS DEL INAMHI</b>, basándose en la información obtenida de la plataforma INAMHI GEOGLOWS emite el siguiente boletín de vigilancia y predicción de condiciones hidrometeorológicas:"
     subtitulo_1 = "<b>Precipitación acumulada diaria</b>"
     subtitulo_2 = "<b>Pronóstico de precipitación</b>"
-    parrafo_2 = f"De acuerdo con los datos del hidroestimador satelital PERSIANN PDIR Now, la precipitación media registrada desde {anterior} hasta {actual}, fue de {pacum} mm."
+    parrafo_2 = f"De acuerdo con los datos del hidroestimador satelital <b>PERSIANN PDIR Now</b>, en la zona de interés se registró una precipitación media de <b>{pacum} mm</b> entre el <b>{anterior}</b> y el <b>{actual}.</b>"
+    parrafo_3 = f"Según los datos del <b>modelo WRF (INAMHI)</b>, se pronostica una precipitación media de <b>{pacum} mm</b> en la zona de interés, entre el <b>{anterior}</b> y el <b>{actual}.</b>"
     # Configurar estilos
     estilos = getSampleStyleSheet()
     #
@@ -154,6 +159,7 @@ def report(filename, pacum):
         Paragraph(subtitulo_2, estilo_subtitulo),
         Image("pacum_wrf.png", width=doc.width, height=5*cm),
         Image("pacum24.png", width=12*cm, height=1*cm),
+        Paragraph(parrafo_3, estilo_parrafo2),
         ]
     #
     # Contruir el pdf
