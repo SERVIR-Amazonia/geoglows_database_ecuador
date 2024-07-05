@@ -96,6 +96,7 @@ def report(filename, pacum, forecast, asm):
     subtitulo_1 = "<b>Precipitación acumulada diaria</b>"
     subtitulo_2 = "<b>Pronóstico de precipitación</b>"
     subtitulo_3 = "<b>Humedad del suelo</b>"
+    subtitulo_4 = "<b>Crecidas repentinas (GEOGLOWS)</b>"
     parrafo_2 = f"De acuerdo con los datos del hidroestimador satelital <b>PERSIANN PDIR Now</b>, en la zona de interés se registró una precipitación media de <b>{pacum} mm</b> entre el <b>{anterior}</b> y el <b>{actual}.</b>"
     parrafo_3 = f"Según los datos del <b>modelo WRF (INAMHI)</b>, se pronostica una precipitación media de <b>{forecast} mm</b> en la zona de interés, entre el <b>{actual}</b> y el <b>{futuro}.</b>"
     parrafo_4 = f"De acuerdo con la plataforma Flash Flood Guidance System <b>(FFGS)</b>, en la zona de interés se registró una humedad media del suelo de <b>{100*asm} %</b> entre el <b>{anterior}</b> y el <b>{actual}.</b>"
@@ -169,6 +170,8 @@ def report(filename, pacum, forecast, asm):
         Image("asm.png", width=doc.width, height=5*cm),
         Paragraph(parrafo_4, estilo_parrafo2),
         Spacer(1, 20),
+        Paragraph(subtitulo_4, estilo_subtitulo),
+        Image("geoglows.png", width=doc.width, height=5*cm),
         ]
     #
     # Contruir el pdf

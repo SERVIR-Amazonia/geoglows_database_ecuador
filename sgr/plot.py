@@ -267,7 +267,6 @@ def asm_plot(gdf, prov_gdf, ec_gdf, area_gdf):
     # Crea una figura de Matplotlib y muestra el raster enmascarado
     plt.figure(figsize=(8, 8))
     plt.margins(0)
-    ax = plt.gca()
     #
     # Graficar el GeoDataFrame utilizando el campo especificado
     gdf.plot(column="asm", legend=False, cmap=cmap_custom, figsize=(8, 8))
@@ -280,7 +279,7 @@ def asm_plot(gdf, prov_gdf, ec_gdf, area_gdf):
     plt.ylim(-5.2, 1.6)
     #
     # Ajustar el tamaño de los números de los ejes
-    ax.tick_params(axis='both', which='major', labelsize=40)
+    plt.gca().tick_params(axis='both', which='major', labelsize=17)
     #
     # Save the figure
     plt.savefig("asm_ec.png", bbox_inches='tight', pad_inches=0.2)
@@ -306,7 +305,6 @@ def asm_area_plot(gdf, puntos_gdf, rp_gdf, rs_gdf):
     # Crea una figura de Matplotlib y muestra el raster enmascarado
     plt.figure(figsize=(8, 8))
     plt.margins(0)
-    ax = plt.gca()
     #
     # Graficar el GeoDataFrame utilizando el campo especificado
     gdf.plot(column="asm", legend=False, cmap=cmap_custom, figsize=(8, 8))
@@ -320,7 +318,7 @@ def asm_area_plot(gdf, puntos_gdf, rp_gdf, rs_gdf):
     plt.ylim(-1.3, -1.5)
     #
     # Ajustar el tamaño de los números de los ejes
-    ax.tick_params(axis='both', which='major', labelsize=8)
+    plt.gca().tick_params(axis='both', which='major', labelsize=5)
     #
     # Agregar la leyenda en la parte inferior
     plt.legend(loc='lower right')
