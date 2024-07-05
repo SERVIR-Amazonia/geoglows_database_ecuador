@@ -432,11 +432,11 @@ def geoglows_plot_area(puntos_gdf, rs_gdf, rp_gdf, df):
     puntos_gdf.plot(ax=ax, color='red', markersize=10)
     #
     # Establecer límites en los ejes x e y   
-    plt.xlim(-81.3, -74.9)
-    plt.ylim(-5.2, 1.6)
+    plt.xlim(-78.55, -78.05)
+    plt.ylim(-1.3, -1.5)
     #
     # Ajustar el tamaño de los números de los ejes
-    ax.tick_params(axis='both', which='major', labelsize=15)
+    ax.tick_params(axis='both', which='major', labelsize=7)
     plt.margins(0)
     #
     # Save the figure
@@ -446,3 +446,65 @@ def geoglows_plot_area(puntos_gdf, rs_gdf, rp_gdf, df):
 
 
 
+def geoglows_plot_area(puntos_gdf, rs_gdf, rp_gdf, df):
+    # Crear una figura y ejes de Matplotlib
+    fig, ax = plt.subplots(figsize=(8, 8))
+    
+    # Establecer límites en los ejes x e y   
+    plt.xlim(-78.55, -78.05)
+    plt.ylim(-1.3, -1.5)
+    
+    # Configurar la ruta a los archivos SVG para cada clase 'alert'
+    svg_mapping = {
+        'R0': 'svg/0.svg',
+        'R2': 'svg/2.svg',
+        'R5': 'svg/5.svg',
+        'R10': 'svg/10.svg',
+        'R25': 'svg/25.svg',
+        'R50': 'svg/50.svg',
+        'R100': 'svg/100.svg'
+    }
+    
+    # Graficar puntos afectados
+    puntos_gdf.plot(ax=ax, color='red', markersize=10, label="Puntos afectados")
+    
+    # Graficar los puntos utilizando archivos SVG como marcadores
+    for index, row in df.iterrows():
+        lat = row['latitude']
+        lon = row['longitude']
+        alert = row['alert']
+        
+        # Obtener la ruta del archivo SVG correspondiente
+        svg_path = svg_mapping.get(alert, 'default_icon.svg')
+        
+        # Convertir el archivo SVG en una imagen temporal (PNG)
+        temp_png_path = 'temp_icon.png'
+        cairosvg.svg2png(url=svg_path, write_to=temp_png_path)
+        
+        # Leer la imagen PNG
+        img = plt.imread(temp_png_path)
+        
+        # Obtener la posición en píxeles de la imagen en las coordenadas lat/lon
+        trans = ax.transData.transform
+        coords = trans((lon, lat))
+        
+        # Calcular el tamaño de la imagen en píxeles
+        img_extent = [coords[0] - img.shape[1] / 2, coords[0] + img.shape[1] / 2, coords[1] - img.shape[0] / 2, coords[1] + img.shape[0] / 2]
+        
+        # Agregar la imagen al gráfico
+        ax.imshow(img, extent=img_extent, aspect='auto', zorder=10)
+    
+    # Graficar rios y otros puntos
+    rs_gdf.plot(ax=ax, color='black', edgecolor='black', linewidth=0.2, label="Rios")
+    rp_gdf.plot(ax=ax, color='black', edgecolor='black', linewidth=1)
+    puntos_gdf.plot(ax=ax, color='red', markersize=10)
+    
+    # Ajustar el tamaño de los números de los ejes
+    ax.tick_params(axis='both', which='major', labelsize=7)
+    
+    # Agregar la leyenda en la parte inferior
+    plt.legend(loc='lower right')
+    
+    # Guardar la figura
+    plt.savefig("geoglows_area.png", bbox_inches='tight', pad_inches=0)
+    plt.show()
