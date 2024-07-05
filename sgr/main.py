@@ -47,7 +47,7 @@ os.system("gdalwarp -tr 0.01 0.01 -r bilinear pacum.tif pacumres.tif")
 plot.pacum_ec(raster="pacumres.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=area)
 plot.pacum_area(raster="pacumres.tif", ec_gdf=ec, rp_gdf=rios_principales, rs_gdf=rios_secundarios, puntos_gdf=puntos_afectados)
 plot.join_images("ecuador.png", "area.png", "pacum_sat.png")
-datos = plot.get_pacum_subbasin("pacumres.tif", area, "id")
+pacum_satellite = plot.get_pacum_subbasin("pacumres.tif", area, "id").pacum[0]
 
 
 # Pronóstico
@@ -65,7 +65,9 @@ os.system("gdalwarp -tr 0.01 0.01 -r bilinear wrf.tif wrfres.tif")
 plot.pacum_ec(raster="wrfres.tif", ec_gdf=ec, prov_gdf=prov, paute_gdf=area)
 plot.pacum_area(raster="wrfres.tif", ec_gdf=ec, rp_gdf=rios_principales, rs_gdf=rios_secundarios, puntos_gdf=puntos_afectados)
 plot.join_images("ecuador.png", "area.png", "pacum_wrf.png")
+pacum_wrf = plot.get_pacum_subbasin("wrfres.tif", area, "id").pacum[0]
 
 
 report.report(filename="prueba.pdf", pacum=11)
-print(datos)
+print(pacum_satellite)
+print(pacum_wrf)
