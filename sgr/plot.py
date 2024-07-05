@@ -442,4 +442,4 @@ def geoglows_plot_area(puntos_gdf, rs_gdf, rp_gdf, df):
     plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
     #
     # Save the figure
-    plt.savefig("geoglows_area.png", bbox_inches='tight', pad_inches=0)
+    plt.savefig("geoglows_area.png", bbox_inches='tight', pad_inches=0.2)
