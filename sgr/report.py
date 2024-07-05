@@ -125,7 +125,7 @@ def report(filename, pacum, forecast):
         alignment = TA_CENTER,
         spaceBefore = 5,
         spaceAfter = 5,
-        leading = 16)
+        leading = 13)
     #
     estilo_parrafo2 = ParagraphStyle(
         name = 'P02',
@@ -133,7 +133,7 @@ def report(filename, pacum, forecast):
         alignment = TA_JUSTIFY,
         spaceBefore = 5,
         spaceAfter = 5,
-        leading = 16)
+        leading = 13)
     #
     # Crear el documento PDF
     doc = SimpleDocTemplate(filename, pagesize=letter)
