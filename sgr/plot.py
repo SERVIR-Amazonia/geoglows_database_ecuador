@@ -147,7 +147,7 @@ def pacum_ec(raster, ec_gdf, prov_gdf, paute_gdf):
     plt.ylim(-5.2, 1.6)
     #
     # Ajustar el tamaño de los números de los ejes
-    ax.tick_params(axis='both', which='major', labelsize=15)
+    ax.tick_params(axis='both', which='major', labelsize=20)
     #
     # Añadir un título a la figura
     #plt.title("Ecuador Continental", fontsize=22)
@@ -189,7 +189,7 @@ def pacum_area(raster, ec_gdf, rp_gdf, rs_gdf, puntos_gdf):
     plt.ylim(-1.3, -1.5)
     #plt.axis("off")
     # Ajustar el tamaño de los números de los ejes
-    ax.tick_params(axis='both', which='major', labelsize=10)
+    ax.tick_params(axis='both', which='major', labelsize=9)
     #
     # Añadir un título a la figura
     #plt.title("Zona afectada", fontsize=10)
@@ -280,7 +280,7 @@ def asm_plot(gdf, prov_gdf, ec_gdf, area_gdf):
     plt.ylim(-5.2, 1.6)
     #
     # Ajustar el tamaño de los números de los ejes
-    ax.tick_params(axis='both', which='major', labelsize=15)
+    ax.tick_params(axis='both', which='major', labelsize=25)
     #
     # Save the figure
     plt.savefig("asm_ec.png", bbox_inches='tight', pad_inches=0.2)
@@ -320,7 +320,7 @@ def asm_area_plot(gdf, puntos_gdf, rp_gdf, rs_gdf):
     plt.ylim(-1.3, -1.5)
     #
     # Ajustar el tamaño de los números de los ejes
-    ax.tick_params(axis='both', which='major', labelsize=10)
+    ax.tick_params(axis='both', which='major', labelsize=9)
     #
     # Agregar la leyenda en la parte inferior
     plt.legend(loc='lower right')
