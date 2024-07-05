@@ -390,7 +390,7 @@ def geoglows_plot(ec_gdf, prov_gdf, drainage_gdf, df, area_gdf):
 
 def geoglows_plot_area(puntos_gdf, rs_gdf, rp_gdf, df):
     # Crear una figura y ejes de Matplotlib
-    fig, ax = plt.subplots(figsize=(8, 8))
+    fig, ax = plt.subplots(figsize=(16, 8))
     plt.margins(0)
     
     # Establecer límites en los ejes x e y   
@@ -443,7 +443,7 @@ def geoglows_plot_area(puntos_gdf, rs_gdf, rp_gdf, df):
     plt.legend(loc='lower right')
     
     # Ajustar los márgenes después de añadir los AnnotationBbox
-    plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
+    plt.subplots_adjust(left=0, right=0, top=0, bottom=0)
     
     # Guardar la figura
     plt.savefig("geoglows_area.png", bbox_inches='tight', pad_inches=0)
