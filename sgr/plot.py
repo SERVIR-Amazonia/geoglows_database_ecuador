@@ -370,9 +370,12 @@ def geoglows_plot(gdf, gdf2, df): #gdf -> ecuador, gdf2 -> drainage, df -> alert
         # Agregar el marcador al gráfico
         ax.add_artist(ab)
     #
-    # Establecer límites en los ejes x e y para delimitar la figura
+    # Establecer límites en los ejes x e y   
     plt.xlim(-81.3, -74.9)
     plt.ylim(-5.2, 1.6)
-    plt.margins(0)
     #
+    # Ajustar el tamaño de los números de los ejes
+    ax.tick_params(axis='both', which='major', labelsize=15)
+    #
+    # Save the figure
     plt.savefig("geoglows.png", bbox_inches='tight', pad_inches=0.2)
