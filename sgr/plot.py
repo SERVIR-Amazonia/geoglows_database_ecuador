@@ -330,13 +330,14 @@ def asm_area_plot(gdf, puntos_gdf, rp_gdf, rs_gdf):
 
 
 
-def geoglows_plot(ec_gdf, drainage_gdf, df, area_gdf): #gdf -> ecuador, gdf2 -> drainage, df -> alerts
+def geoglows_plot(ec_gdf, prov_gdf, drainage_gdf, df, area_gdf): #gdf -> ecuador, gdf2 -> drainage, df -> alerts
     # Crear una figura y ejes de Matplotlib
     plt.figure(figsize=(8, 8))
     plt.margins(0)
     ax = plt.gca()
     #
     # Graficar el archivo SHP
+    prov_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=0.2)
     ec_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
     drainage_gdf.plot(ax=plt.gca(), color='blue', edgecolor='blue', linewidth=0.3)
     #
@@ -378,6 +379,7 @@ def geoglows_plot(ec_gdf, drainage_gdf, df, area_gdf): #gdf -> ecuador, gdf2 -> 
     #
     # Ajustar el tamaño de los números de los ejes
     ax.tick_params(axis='both', which='major', labelsize=15)
+    plt.margins(0)
     #
     # Save the figure
     plt.savefig("geoglows.png", bbox_inches='tight', pad_inches=0.2)
