@@ -435,6 +435,7 @@ def geoglows_plot_area(puntos_gdf, rs_gdf, rp_gdf, df):
     #
     # Ajustar el tamaño de los números de los ejes
     ax.tick_params(axis='both', which='major', labelsize=7)
+    plt.margins(0)
     #
     # Agregar la leyenda en la parte inferior
     plt.legend(loc='lower right')
