@@ -330,7 +330,7 @@ def asm_area_plot(gdf, puntos_gdf, rp_gdf, rs_gdf):
 
 
 
-def geoglows_plot(ec_gdf, prov_gdf, drainage_gdf, df, area_gdf): #gdf -> ecuador, gdf2 -> drainage, df -> alerts
+def geoglows_plot(ec_gdf, prov_gdf, drainage_gdf, df, area_gdf):
     # Crear una figura y ejes de Matplotlib
     plt.figure(figsize=(8, 8))
     plt.margins(0)
@@ -382,4 +382,62 @@ def geoglows_plot(ec_gdf, prov_gdf, drainage_gdf, df, area_gdf): #gdf -> ecuador
     plt.margins(0)
     #
     # Save the figure
-    plt.savefig("geoglows.png", bbox_inches='tight', pad_inches=0.2)
+    plt.savefig("geoglows_ec.png", bbox_inches='tight', pad_inches=0.2)
+
+
+
+
+
+def geoglows_plot_area(puntos_gdf, rs_gdf, rp_gdf, df):
+    # Crear una figura y ejes de Matplotlib
+    plt.figure(figsize=(8, 8))
+    plt.margins(0)
+    ax = plt.gca()
+    #
+    # Configurar la ruta a los archivos SVG para cada clase 'alert'
+    svg_mapping = {
+        'R0': 'svg/0.svg',
+        'R2': 'svg/2.svg',
+        'R5': 'svg/5.svg',
+        'R10': 'svg/10.svg',
+        'R25': 'svg/25.svg',
+        'R50': 'svg/50.svg',
+        'R100': 'svg/100.svg'}
+    #
+    # Graficar los puntos utilizando archivos SVG como marcadores
+    for index, row in df.iterrows():
+        lat = row['latitude']
+        lon = row['longitude']
+        alert = row['alert']
+        #   
+        # Obtener la ruta del archivo SVG correspondiente
+        svg_path = svg_mapping.get(alert, 'default_icon.svg')
+        #
+        # Convertir el archivo SVG en una imagen temporal (PNG)
+        temp_png_path = 'temp_icon.png'
+        cairosvg.svg2png(url=svg_path, write_to=temp_png_path)
+        #
+        # Cargar la imagen PNG como un OffsetImage
+        img = OffsetImage(plt.imread(temp_png_path), zoom=0.5)
+        ab = AnnotationBbox(img, (lon, lat), frameon=False)
+        #
+        # Agregar el marcador al gráfico
+        plt.gca().add_artist(ab)
+    #
+    puntos_gdf.plot(ax=plt.gca(), color='red', markersize=10, label="Puntos afectados")
+    rs_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=0.2, label="Rios")
+    rp_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=1)
+    puntos_gdf.plot(ax=plt.gca(), color='red', markersize=10)
+
+    # Establecer límites en los ejes x e y   
+    plt.xlim(-78.55, -78.05)
+    plt.ylim(-1.3, -1.5)
+    #
+    # Ajustar el tamaño de los números de los ejes
+    ax.tick_params(axis='both', which='major', labelsize=7)
+    #
+    # Agregar la leyenda en la parte inferior
+    plt.legend(loc='lower right')
+    #
+    # Save the figure
+    plt.savefig("geoglows_area.png", bbox_inches='tight', pad_inches=0.2)
