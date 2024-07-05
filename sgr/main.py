@@ -69,8 +69,9 @@ pacum_wrf = plot.get_pacum_subbasin("wrfres.tif", area, "id").pacum[0]
 # Humedad del suelo
 #os.system("gdal_rasterize -a asm -tr 0.01 0.01 -l nwsaffds /home/ubuntu/data/nwsaffgs/nwsaffds.shp soilmoisture.tif")
 ffgs = gpd.read_file("/home/ubuntu/data/nwsaffgs/nwsaffds.shp")
-plot.get_asm_plot(ffgs, prov_gdf=prov, ec_gdf=ec, area_gdf=area)
-
+plot.asm_plot(ffgs, prov_gdf=prov, ec_gdf=ec, area_gdf=area)
+plot.asm_area_plot(ffgs, puntos_gdf=puntos_afectados, rp_gdf=rios_principales, rs_gdf=rios_secundarios)
+plot.join_images("asm_ec.png", "asm_area.png", "asm.png")
 
 
 

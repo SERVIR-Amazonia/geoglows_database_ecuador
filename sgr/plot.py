@@ -249,7 +249,7 @@ def get_pacum_subbasin(raster_file, shp_file, field):
 
 
 
-def get_asm_plot(gdf, prov_gdf, ec_gdf, area_gdf):
+def asm_plot(gdf, prov_gdf, ec_gdf, area_gdf):
     # Generate the color bar
     mmin = gdf["asm"].min()
     mmax = gdf["asm"].max()
@@ -283,3 +283,46 @@ def get_asm_plot(gdf, prov_gdf, ec_gdf, area_gdf):
     #
     # Save the figure
     plt.savefig("asm_ec.png", bbox_inches='tight', pad_inches=0.2)
+
+
+
+
+    
+def asm_area_plot(gdf, puntos_gdf, rp_gdf, rs_gdf):
+    # Generate the color bar
+    mmin = gdf["asm"].min()
+    mmax = gdf["asm"].max()
+    rang = int(100*(mmax - mmin)) 
+    values = np.linspace(mmin, mmax, int(rang))  
+    #
+    # Crear una lista de colores utilizando la función color
+    colorfun = color_percent
+    colors = [colorfun(value) for value in values]
+    #
+    # Crear un objeto ListedColormap basado en la lista de colores
+    cmap_custom = ListedColormap(colors)
+    #
+    # Crea una figura de Matplotlib y muestra el raster enmascarado
+    plt.figure(figsize=(8, 8))
+    plt.margins(0)
+    ax = plt.gca()
+    #
+    # Graficar el GeoDataFrame utilizando el campo especificado
+    gdf.plot(column="asm", legend=False, cmap=cmap_custom, figsize=(8, 8))
+    puntos_gdf.plot(ax=plt.gca(), color='red', markersize=10, label="Puntos afectados")
+    rs_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=0.2, label="Rios")
+    rp_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=1)
+    puntos_gdf.plot(ax=plt.gca(), color='red', markersize=10)
+
+    # Establecer límites en los ejes x e y   
+    plt.xlim(-78.55, -78.05)
+    plt.ylim(-1.3, -1.5)
+    #
+    # Ajustar el tamaño de los números de los ejes
+    ax.tick_params(axis='both', which='major', labelsize=7)
+    #
+    # Agregar la leyenda en la parte inferior
+    plt.legend(loc='lower right')
+    #
+    # Save the figure
+    plt.savefig("asm_area.png", bbox_inches='tight', pad_inches=0.2)
