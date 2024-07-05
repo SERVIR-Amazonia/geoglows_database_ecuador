@@ -393,6 +393,9 @@ def geoglows_plot_area(puntos_gdf, rs_gdf, rp_gdf, df):
     plt.figure(figsize=(8, 8))
     plt.margins(0)
     ax = plt.gca()
+    # Establecer límites en los ejes x e y   
+    plt.xlim(-78.55, -78.05)
+    plt.ylim(-1.3, -1.5)
     #
     # Configurar la ruta a los archivos SVG para cada clase 'alert'
     svg_mapping = {
