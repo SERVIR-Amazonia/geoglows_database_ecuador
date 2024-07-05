@@ -4,6 +4,7 @@ import os
 import plot
 import imerg
 import warnings
+import requests
 import subprocess
 import pandas as pd
 import datetime as dt
@@ -27,10 +28,11 @@ os.chdir("tethys_apps_ecuador/geoglows_database_ecuador")
 ec = gpd.read_file("shp/ecuador_diss.shp")
 prov = gpd.read_file("shp/ecuador.shp")
 area = gpd.read_file("shp/area_afectada.shp")
+drainage = gpd.read_file("shp/drainage.shp")
 rios_principales = gpd.read_file("shp/rios_principales_banos.shp")
 rios_secundarios = gpd.read_file("shp/rios_secundarios_banos.shp")
 puntos_afectados = gpd.read_file("shp/puntos_afectados.shp")
-
+ffgs = gpd.read_file("/home/ubuntu/data/nwsaffgs/nwsaffds.shp")
 
 
 
@@ -67,13 +69,25 @@ pacum_wrf = plot.get_pacum_subbasin("wrfres.tif", area, "id").pacum[0]
 
 
 # Humedad del suelo
-ffgs = gpd.read_file("/home/ubuntu/data/nwsaffgs/nwsaffds.shp")
 plot.asm_plot(ffgs, prov_gdf=prov, ec_gdf=ec, area_gdf=area)
 plot.asm_area_plot(ffgs, puntos_gdf=puntos_afectados, rp_gdf=rios_principales, rs_gdf=rios_secundarios)
 plot.join_images("asm_ec.png", "asm_area.png", "asm.png")
-
 os.system("gdal_rasterize -a asm -tr 0.001 0.001 -l nwsaffds /home/ubuntu/data/nwsaffgs/nwsaffds.shp soilmoisture.tif")
 asm_value = plot.get_pacum_subbasin("soilmoisture.tif", area, "id").pacum[0]
+
+
+# Geoglows Alerts
+url = 'https://inamhi.geoglows.org/apps/hydroviewer-ecuador/get-alerts/'
+response = requests.get(url)
+geojson = response.json()
+gdf = gpd.GeoDataFrame.from_features(geojson['features'])
+df = pd.DataFrame(gdf.drop(columns='geometry'))
+
+print(df)
+
+plot.geoglows_plot(prov, drainage, df)
+
+
 
 
 report.report(filename="prueba.pdf", pacum=pacum_satellite, forecast=pacum_wrf, asm=asm_value)

@@ -165,9 +165,10 @@ def report(filename, pacum, forecast, asm):
         Paragraph(parrafo_3, estilo_parrafo2),
         ##
         PageBreak(),
-        Paragraph(subtitulo_2, estilo_subtitulo),
+        Paragraph(subtitulo_3, estilo_subtitulo),
         Image("asm.png", width=doc.width, height=5*cm),
         Paragraph(parrafo_4, estilo_parrafo2),
+        Spacer(1, 20),
         ]
     #
     # Contruir el pdf

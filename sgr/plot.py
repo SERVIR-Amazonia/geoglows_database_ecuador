@@ -18,6 +18,7 @@ from dotenv import load_dotenv
 import cairosvg
 
 import pandas as pd
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
 
 
@@ -326,3 +327,50 @@ def asm_area_plot(gdf, puntos_gdf, rp_gdf, rs_gdf):
     #
     # Save the figure
     plt.savefig("asm_area.png", bbox_inches='tight', pad_inches=0.2)
+
+
+
+def geoglows_plot(gdf, gdf2, df): #gdf -> ecuador, gdf2 -> drainage, df -> alerts
+    # Crear una figura y ejes de Matplotlib
+    fig, ax = plt.subplots(figsize=(8, 8))
+    #
+    # Graficar el archivo SHP
+    gdf.plot(ax=ax, color='none', edgecolor='black', linewidth=1)
+    gdf2.plot(ax=ax, color='blue', edgecolor='blue', linewidth=0.3)
+    #
+    # Configurar la ruta a los archivos SVG para cada clase 'alert'
+    svg_mapping = {
+        'R0': 'svg/0.svg',
+        'R2': 'svg/2.svg',
+        'R5': 'svg/5.svg',
+        'R10': 'svg/10.svg',
+        'R25': 'svg/25.svg',
+        'R50': 'svg/50.svg',
+        'R100': 'svg/100.svg'}
+    #
+    # Graficar los puntos utilizando archivos SVG como marcadores
+    for index, row in df.iterrows():
+        lat = row['latitude']
+        lon = row['longitude']
+        alert = row['alert']
+        #   
+        # Obtener la ruta del archivo SVG correspondiente
+        svg_path = svg_mapping.get(alert, 'default_icon.svg')
+        #
+        # Convertir el archivo SVG en una imagen temporal (PNG)
+        temp_png_path = 'temp_icon.png'
+        cairosvg.svg2png(url=svg_path, write_to=temp_png_path)
+        #
+        # Cargar la imagen PNG como un OffsetImage
+        img = OffsetImage(plt.imread(temp_png_path), zoom=0.5)
+        ab = AnnotationBbox(img, (lon, lat), frameon=False)
+        #
+        # Agregar el marcador al gráfico
+        ax.add_artist(ab)
+    #
+    # Establecer límites en los ejes x e y para delimitar la figura
+    plt.xlim(-81.3, -74.9)
+    plt.ylim(-5.2, 1.6)
+    plt.margins(0)
+    #
+    plt.savefig("geoglows.png", bbox_inches='tight', pad_inches=0.2)
