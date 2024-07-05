@@ -211,6 +211,7 @@ def get_pacum_subbasin(raster_file, shp_file, field):
             #
             # Máscara del raster basado en la geometría de la cuenca
             out_image, out_transform = mask(src, [geom], crop=True)
+            out_image[out_image < 0] = 0
             #
             # Calcular el valor promedio de precipitación dentro de la cuenca
             avg_precipitation = round(np.nanmean(out_image), 2)
