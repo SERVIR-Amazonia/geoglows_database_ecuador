@@ -67,4 +67,4 @@ plot.join_images("ecuador.png", "area.png", "pacum_wrf.png")
 pacum_wrf = plot.get_pacum_subbasin("wrfres.tif", area, "id").pacum[0]
 
 
-report.report(filename="prueba.pdf", pacum=11)
+report.report(filename="prueba.pdf", pacum=pacum_satellite, forecast=pacum_wrf)

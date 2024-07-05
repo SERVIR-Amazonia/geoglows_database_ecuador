@@ -96,7 +96,7 @@ def report(filename, pacum, forecast):
     subtitulo_1 = "<b>Precipitación acumulada diaria</b>"
     subtitulo_2 = "<b>Pronóstico de precipitación</b>"
     parrafo_2 = f"De acuerdo con los datos del hidroestimador satelital <b>PERSIANN PDIR Now</b>, en la zona de interés se registró una precipitación media de <b>{pacum} mm</b> entre el <b>{anterior}</b> y el <b>{actual}.</b>"
-    parrafo_3 = f"Según los datos del <b>modelo WRF (INAMHI)</b>, se pronostica una precipitación media de <b>{pacum} mm</b> en la zona de interés, entre el <b>{anterior}</b> y el <b>{actual}.</b>"
+    parrafo_3 = f"Según los datos del <b>modelo WRF (INAMHI)</b>, se pronostica una precipitación media de <b>{forecast} mm</b> en la zona de interés, entre el <b>{actual}</b> y el <b>{futuro}.</b>"
     # Configurar estilos
     estilos = getSampleStyleSheet()
     #
