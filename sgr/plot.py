@@ -189,7 +189,7 @@ def pacum_area(raster, ec_gdf, rp_gdf, rs_gdf, puntos_gdf):
     plt.ylim(-1.3, -1.5)
     #plt.axis("off")
     # Ajustar el tamaño de los números de los ejes
-    ax.tick_params(axis='both', which='major', labelsize=7)
+    ax.tick_params(axis='both', which='major', labelsize=15)
     #
     # Añadir un título a la figura
     #plt.title("Zona afectada", fontsize=10)
@@ -320,7 +320,7 @@ def asm_area_plot(gdf, puntos_gdf, rp_gdf, rs_gdf):
     plt.ylim(-1.3, -1.5)
     #
     # Ajustar el tamaño de los números de los ejes
-    ax.tick_params(axis='both', which='major', labelsize=7)
+    ax.tick_params(axis='both', which='major', labelsize=15)
     #
     # Agregar la leyenda en la parte inferior
     plt.legend(loc='lower right')
@@ -437,7 +437,7 @@ def geoglows_plot_area(puntos_gdf, rs_gdf, rp_gdf, df):
     plt.margins(0)
     #
     # Ajustar el tamaño de los números de los ejes
-    ax.tick_params(axis='both', which='major', labelsize=7)
+    ax.tick_params(axis='both', which='major', labelsize=15)
     plt.margins(0)
     plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
     #
