@@ -318,7 +318,7 @@ def asm_area_plot(gdf, puntos_gdf, rp_gdf, rs_gdf):
     plt.ylim(-1.3, -1.5)
     #
     # Ajustar el tamaño de los números de los ejes
-    plt.gca().tick_params(axis='both', which='major', labelsize=5)
+    plt.gca().tick_params(axis='both', which='major', labelsize=9)
     #
     # Agregar la leyenda en la parte inferior
     plt.legend(loc='lower right')
@@ -376,7 +376,7 @@ def geoglows_plot(ec_gdf, prov_gdf, drainage_gdf, df, area_gdf):
     plt.ylim(-5.2, 1.6)
     #
     # Ajustar el tamaño de los números de los ejes
-    ax.tick_params(axis='both', which='major', labelsize=20)
+    ax.tick_params(axis='both', which='major', labelsize=17)
     plt.margins(0)
     #
     # Save the figure
@@ -435,7 +435,7 @@ def geoglows_plot_area(puntos_gdf, rs_gdf, rp_gdf, df):
     plt.margins(0)
     #
     # Ajustar el tamaño de los números de los ejes
-    ax.tick_params(axis='both', which='major', labelsize=15)
+    ax.tick_params(axis='both', which='major', labelsize=9)
     plt.margins(0)
     plt.subplots_adjust(left=0, right=1, top=1, bottom=0)
     #
