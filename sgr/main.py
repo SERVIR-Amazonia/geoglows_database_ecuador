@@ -85,7 +85,7 @@ df = pd.DataFrame(gdf.drop(columns='geometry'))
 
 print(df)
 
-plot.geoglows_plot(prov, drainage, df)
+plot.geoglows_plot(prov, drainage, df, area_gdf=area)
 
 
 
