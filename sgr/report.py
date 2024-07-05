@@ -110,14 +110,15 @@ def report(filename, pacum, forecast):
         name = 'Subtitle',
         fontSize = 11,
         textColor = colors.Color(31/255, 73/255, 125/255),
-        alignment = TA_CENTER)
+        alignment = TA_CENTER,
+        spaceAfter = 4)
     #
     estilo_fecha = ParagraphStyle(
         name = 'Dates',
         fontSize = 9,
         alignment = TA_CENTER,
-        spaceBefore = 5,
-        spaceAfter = 5)
+        spaceBefore = 3,
+        spaceAfter = 3)
     #
     estilo_parrafo = ParagraphStyle(
         name = 'P01',
@@ -155,7 +156,7 @@ def report(filename, pacum, forecast):
         Image("pacum_sat.png", width=doc.width, height=5*cm),
         Image("pacum24.png", width=14*cm, height=0.7*cm),
         Paragraph(parrafo_2, estilo_parrafo2),
-        Spacer(1, 15),
+        Spacer(1, 20),
         Paragraph(subtitulo_2, estilo_subtitulo),
         Image("pacum_wrf.png", width=doc.width, height=5*cm),
         Image("pacum24.png", width=14*cm, height=0.7*cm),
