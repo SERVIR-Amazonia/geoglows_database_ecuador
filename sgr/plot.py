@@ -269,7 +269,7 @@ def get_asm_plot(gdf, prov_gdf, ec_gdf, area_gdf):
     ax = plt.gca()
     #
     # Graficar el GeoDataFrame utilizando el campo especificado
-    gdf.plot(column=field, legend=False, cmap=cmap_custom, figsize=(8, 8))
+    gdf.plot(column="asm", legend=False, cmap=cmap_custom, figsize=(8, 8))
     prov_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=0.2)
     ec_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=1)
     area_gdf.plot(ax=plt.gca(), color='none', edgecolor='black', linewidth=2)
