@@ -333,6 +333,7 @@ def asm_area_plot(gdf, puntos_gdf, rp_gdf, rs_gdf):
 def geoglows_plot(gdf, gdf2, df): #gdf -> ecuador, gdf2 -> drainage, df -> alerts
     # Crear una figura y ejes de Matplotlib
     fig, ax = plt.subplots(figsize=(8, 8))
+    plt.margins(0)
     #
     # Graficar el archivo SHP
     gdf.plot(ax=ax, color='none', edgecolor='black', linewidth=1)
