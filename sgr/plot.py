@@ -422,7 +422,7 @@ def geoglows_plot_area(puntos_gdf, rs_gdf, rp_gdf, df):
         ab = AnnotationBbox(img, (lon, lat), frameon=False)
         #
         # Agregar el marcador al gráfico
-        plt.gca().add_artist(ab)
+        #plt.gca().add_artist(ab)
     #
     puntos_gdf.plot(ax=plt.gca(), color='red', markersize=10, label="Puntos afectados")
     rs_gdf.plot(ax=plt.gca(), color='black', edgecolor='black', linewidth=0.2, label="Rios")
