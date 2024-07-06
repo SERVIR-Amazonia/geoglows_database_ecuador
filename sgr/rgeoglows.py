@@ -293,4 +293,4 @@ def plot(comid, conn, outpath):
     daily_avg = daily_avg.rename(columns={  'flow_avg_m^3/s': 'Caudal medio (m3/s)', 
                                             "high_res_m^3/s": "Alta resolución (m3/s)"})
     daily_avg = daily_avg.dropna().T
-    return(daily_avg)
+    return(daily_avg.reset_index())
