@@ -104,8 +104,12 @@ conn = db.connect()
 t9028087 = rgeoglows.plot(9028087, conn, "9028087.png")
 plot.join_images("loc/9028087.png", "9028087.png", "forecast_9028087.png")
 
+t9028483 = rgeoglows.plot(9028483, conn, "9028483.png")
+plot.join_images("loc/9028483.png", "9028483.png", "forecast_9028483.png")
 
-tables = [t9028087]
+
+
+tables = [t9028087, t9028483]
 
 
 report.report(filename="prueba.pdf", pacum=pacum_satellite, forecast=pacum_wrf, asm=asm_value, tables=tables)
