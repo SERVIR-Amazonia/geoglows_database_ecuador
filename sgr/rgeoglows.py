@@ -289,6 +289,6 @@ def plot(comid, conn, outpath):
     daily_avg.index = pd.to_datetime(daily_avg.index)
     #daily_avg["Fecha"] = daily_avg.index.to_series().dt.strftime("%Y-%m-%d")
     daily_avg = daily_avg[['flow_avg_m^3/s', "high_res_m^3/s"]]
-    daily_avg = daily_avg.rename(columns={  'flow_avg_m^3/s': 'Caudal medio pronosticado (m3/s)', 
-                                            "high_res_m^3/s": "Pronóstico de Alta resolución (m3/s)"})
-    return(daily_avg.T)
+    daily_avg = daily_avg.rename(columns={  'flow_avg_m^3/s': 'Caudal medio (m3/s)', 
+                                            "high_res_m^3/s": "Alta resolución (m3/s)"})
+    return(daily_avg.dropna().T)
