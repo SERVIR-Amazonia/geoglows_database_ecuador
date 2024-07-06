@@ -117,7 +117,16 @@ t9028099 = rgeoglows.plot(9028099, conn, "9028099.png")
 plot.join_images("loc/9028099.png", "9028099.png", "forecast_9028099.png")
 
 
-tables = [t9028087, t9028483, t9028041, t9028088, t9028099]
+t9028091 = rgeoglows.plot(9028091, conn, "9028091.png")
+plot.join_images("loc/9028091.png", "9028091.png", "forecast_9028091.png")
+
+t9028095 = rgeoglows.plot(9028095, conn, "9028095.png")
+plot.join_images("loc/9028095.png", "9028095.png", "forecast_9028095.png")
+
+t9028125 = rgeoglows.plot(9028125, conn, "9028125.png")
+plot.join_images("loc/9028125.png", "9028125.png", "forecast_9028125.png")
+
+tables = [t9028087, t9028483, t9028041, t9028088, t9028099, t9028091, t9028095, t9028125]
 
 
 report.report(filename="prueba.pdf", pacum=pacum_satellite, forecast=pacum_wrf, asm=asm_value, tables=tables)

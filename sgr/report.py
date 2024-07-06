@@ -170,7 +170,7 @@ def report(filename, pacum, forecast, asm, tables):
         Image("asm.png", width=doc.width, height=5*cm),
         Image("soilmoisture_legend.png", width=10*cm, height=1*cm),
         Paragraph(parrafo_4, estilo_parrafo2),
-        Spacer(1, 20),
+        Spacer(1, 30),
         Paragraph(subtitulo_4, estilo_subtitulo),
         Paragraph("Con base en la información del modelo hidrológico GEOGLOWS, se emite el siguiente pronóstico hidrológico", estilo_parrafo2),
         Paragraph("<b>1. Rio Patate</b>", estilo_parrafo2),
@@ -186,6 +186,7 @@ def report(filename, pacum, forecast, asm, tables):
         Image("leyenda.png", width=10*cm, height=1*cm),
         Paragraph("<b>Tabla 2.</b> Caudales pronosticados para el río Chambo", estilo_parrafo),
         agregar_tabla(tables[1]),
+        Spacer(1, 20),
 
         Paragraph("<b>3. Rio Verde Chico</b>", estilo_parrafo2),
         Image("forecast_9028041.png", width=doc.width, height=4*cm),
@@ -193,17 +194,43 @@ def report(filename, pacum, forecast, asm, tables):
         Paragraph("<b>Tabla 3.</b> Caudales pronosticados para el río Verde Chico", estilo_parrafo),
         agregar_tabla(tables[2]),
 
+        ##
+        PageBreak(),
         Paragraph("<b>4. Rio Verde</b>", estilo_parrafo2),
         Image("forecast_9028088.png", width=doc.width, height=4*cm),
         Image("leyenda.png", width=10*cm, height=1*cm),
         Paragraph("<b>Tabla 4.</b> Caudales pronosticados para el río Verde", estilo_parrafo),
         agregar_tabla(tables[3]),
+        Spacer(1, 20),
 
         Paragraph("<b>5. Rio Topo</b>", estilo_parrafo2),
         Image("forecast_9028099.png", width=doc.width, height=4*cm),
         Image("leyenda.png", width=10*cm, height=1*cm),
         Paragraph("<b>Tabla 5.</b> Caudales pronosticados para el río Topo", estilo_parrafo),
-        agregar_tabla(tables[4])
+        agregar_tabla(tables[4]),
+
+        ##
+        PageBreak(),
+        Paragraph("<b>6. Rio Pastaza (tramo 1)</b>", estilo_parrafo2),
+        Image("forecast_9028091.png", width=doc.width, height=4*cm),
+        Image("leyenda.png", width=10*cm, height=1*cm),
+        Paragraph("<b>Tabla 6.</b> Caudales pronosticados del tramo 1 del río Pastaza", estilo_parrafo),
+        agregar_tabla(tables[5]),
+        Spacer(1, 20),
+
+        Paragraph("<b>7. Rio Pastaza (tramo 2)</b>", estilo_parrafo2),
+        Image("forecast_t9028095.png", width=doc.width, height=4*cm),
+        Image("leyenda.png", width=10*cm, height=1*cm),
+        Paragraph("<b>Tabla 7.</b> Caudales pronosticados del tramo 2 del río Pastaza", estilo_parrafo),
+        agregar_tabla(tables[6]),
+
+        ##
+        PageBreak(),
+        Paragraph("<b>8. Rio Pastaza (tramo 3)</b>", estilo_parrafo2),
+        Image("forecast_9028125.png", width=doc.width, height=4*cm),
+        Image("leyenda.png", width=10*cm, height=1*cm),
+        Paragraph("<b>Tabla 8.</b> Caudales pronosticados del tramo 3 del río Pastaza", estilo_parrafo),
+        agregar_tabla(tables[5]),
 
         ]
     #
