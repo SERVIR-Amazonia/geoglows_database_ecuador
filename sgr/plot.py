@@ -186,7 +186,7 @@ def pacum_area(raster, ec_gdf, rp_gdf, rs_gdf, puntos_gdf):
 
     # Establecer límites en los ejes x e y   
     plt.xlim(-78.55, -78.05)
-    plt.ylim(-1.3, -1.5)
+    plt.ylim(-1.5, -1.3)
     #plt.axis("off")
     # Ajustar el tamaño de los números de los ejes
     ax.tick_params(axis='both', which='major', labelsize=9)
@@ -315,7 +315,7 @@ def asm_area_plot(gdf, puntos_gdf, rp_gdf, rs_gdf):
 
     # Establecer límites en los ejes x e y   
     plt.xlim(-78.55, -78.05)
-    plt.ylim(-1.3, -1.5)
+    plt.ylim(-1.5, -1.3)
     #
     # Ajustar el tamaño de los números de los ejes
     plt.gca().tick_params(axis='both', which='major', labelsize=9)
@@ -431,7 +431,7 @@ def geoglows_plot_area(puntos_gdf, rs_gdf, rp_gdf, df):
     #
     # Establecer límites en los ejes x e y   
     plt.xlim(-78.55, -78.05)
-    plt.ylim(-1.2, -1.6)
+    plt.ylim(-1.5, -1.3)
     plt.margins(0)
     #
     # Ajustar el tamaño de los números de los ejes
