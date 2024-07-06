@@ -79,7 +79,7 @@ def agregar_tabla(datos):
     tabla.setStyle(TableStyle([('BACKGROUND', (0,0), (-1,0), colors.grey),
                                ('TEXTCOLOR', (0,0), (-1,0), colors.whitesmoke),
                                ('ALIGN', (0,0), (-1,-1), 'CENTER'),
-                               ('FONTSIZE', (0, 0), (-1, -1), 6),
+                               ('FONTSIZE', (0, 0), (-1, -1), 7),
                                ('BOTTOMPADDING', (0,0), (-1,0), 2),
                                ('BACKGROUND', (0,1), (-1,-1), colors.white),
                                ('GRID', (0,0), (-1,-1), 0.5, colors.black)]))
@@ -171,7 +171,9 @@ def report(filename, pacum, forecast, asm, tables):
         Paragraph(parrafo_4, estilo_parrafo2),
         Spacer(1, 20),
         Paragraph(subtitulo_4, estilo_subtitulo),
+        Paragraph("1. Rio Patate", estilo_parrafo2),
         Image("forecast_9028087.png", width=doc.width, height=5*cm),
+        Image("leyenda.png", width=10*cm, height=5*cm),
         agregar_tabla(tables[0])
         ]
     #

@@ -102,7 +102,6 @@ db = create_engine(token)
 conn = db.connect()
 
 t9028087 = rgeoglows.plot(9028087, conn, "9028087.png")
-print(t9028087)
 plot.join_images("loc/9028087.png", "9028087.png", "forecast_9028087.png")
 
 
