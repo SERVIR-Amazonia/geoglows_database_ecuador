@@ -219,7 +219,7 @@ def report(filename, pacum, forecast, asm, tables):
         Spacer(1, 20),
 
         Paragraph("<b>7. Rio Pastaza (tramo 2)</b>", estilo_parrafo2),
-        Image("forecast_t9028095.png", width=doc.width, height=4*cm),
+        Image("forecast_9028095.png", width=doc.width, height=4*cm),
         Image("leyenda.png", width=10*cm, height=1*cm),
         Paragraph("<b>Tabla 7.</b> Caudales pronosticados del tramo 2 del río Pastaza", estilo_parrafo),
         agregar_tabla(tables[6]),
