@@ -172,7 +172,7 @@ def report(filename, pacum, forecast, asm, tables):
         Spacer(1, 20),
         Paragraph(subtitulo_4, estilo_subtitulo),
         Paragraph("1. Rio Patate", estilo_parrafo2),
-        Image("forecast_9028087.png", width=doc.width, height=5*cm),
+        Image("forecast_9028087.png", width=doc.width, height=1*cm),
         Image("leyenda.png", width=10*cm, height=5*cm),
         agregar_tabla(tables[0])
         ]
