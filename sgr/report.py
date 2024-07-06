@@ -181,11 +181,29 @@ def report(filename, pacum, forecast, asm, tables):
 
         ##
         PageBreak(),
-        Paragraph("<b>1. Rio Chambo</b>", estilo_parrafo2),
+        Paragraph("<b>2. Rio Chambo</b>", estilo_parrafo2),
         Image("forecast_9028483.png", width=doc.width, height=4*cm),
         Image("leyenda.png", width=10*cm, height=1*cm),
-        Paragraph("<b>Tabla 1.</b> Caudales pronosticados para el río Chambo", estilo_parrafo),
-        agregar_tabla(tables[1])
+        Paragraph("<b>Tabla 2.</b> Caudales pronosticados para el río Chambo", estilo_parrafo),
+        agregar_tabla(tables[1]),
+
+        Paragraph("<b>3. Rio Verde Chico</b>", estilo_parrafo2),
+        Image("forecast_9028041.png", width=doc.width, height=4*cm),
+        Image("leyenda.png", width=10*cm, height=1*cm),
+        Paragraph("<b>Tabla 3.</b> Caudales pronosticados para el río Verde Chico", estilo_parrafo),
+        agregar_tabla(tables[2]),
+
+        Paragraph("<b>4. Rio Verde</b>", estilo_parrafo2),
+        Image("forecast_9028088.png", width=doc.width, height=4*cm),
+        Image("leyenda.png", width=10*cm, height=1*cm),
+        Paragraph("<b>Tabla 4.</b> Caudales pronosticados para el río Verde", estilo_parrafo),
+        agregar_tabla(tables[3]),
+
+        Paragraph("<b>5. Rio Topo</b>", estilo_parrafo2),
+        Image("forecast_9028099.png", width=doc.width, height=4*cm),
+        Image("leyenda.png", width=10*cm, height=1*cm),
+        Paragraph("<b>Tabla 5.</b> Caudales pronosticados para el río Topo", estilo_parrafo),
+        agregar_tabla(tables[4])
 
         ]
     #
