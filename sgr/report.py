@@ -168,17 +168,19 @@ def report(filename, pacum, forecast, asm, tables):
         PageBreak(),
         Paragraph(subtitulo_3, estilo_subtitulo),
         Image("asm.png", width=doc.width, height=5*cm),
+        Image("soilmoisture_legend.png", width=10*cm, height=1*cm),
         Paragraph(parrafo_4, estilo_parrafo2),
         Spacer(1, 20),
         Paragraph(subtitulo_4, estilo_subtitulo),
         Paragraph("Con base en la información del modelo hidrológico GEOGLOWS, se emite el siguiente pronóstico hidrológico", estilo_parrafo2),
-
         Paragraph("<b>1. Rio Patate</b>", estilo_parrafo2),
         Image("forecast_9028087.png", width=doc.width, height=4*cm),
         Image("leyenda.png", width=10*cm, height=1*cm),
         Paragraph("<b>Tabla 1.</b> Caudales pronosticados para el río Patate", estilo_parrafo),
         agregar_tabla(tables[0]),
 
+        ##
+        PageBreak(),
         Paragraph("<b>1. Rio Chambo</b>", estilo_parrafo2),
         Image("forecast_9028483.png", width=doc.width, height=4*cm),
         Image("leyenda.png", width=10*cm, height=1*cm),
