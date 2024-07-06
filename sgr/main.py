@@ -106,7 +106,7 @@ print(t9028087)
 plot.join_images("loc/9028087.png", "9028087.png", "forecast_9028087.png")
 
 
+tables = [t9028087]
 
 
-
-report.report(filename="prueba.pdf", pacum=pacum_satellite, forecast=pacum_wrf, asm=asm_value)
+report.report(filename="prueba.pdf", pacum=pacum_satellite, forecast=pacum_wrf, asm=asm_value, tables=tables)
