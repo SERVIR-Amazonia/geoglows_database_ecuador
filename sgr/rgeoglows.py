@@ -291,4 +291,4 @@ def plot(comid, conn, outpath):
     daily_avg = daily_avg[['flow_avg_m^3/s', "high_res_m^3/s"]]
     daily_avg = daily_avg.rename(columns={  'flow_avg_m^3/s': 'Caudal medio pronosticado (m3/s)', 
                                             "high_res_m^3/s": "Pronóstico de Alta resolución (m3/s)"})
-    return(daily_avg.traspose())
+    return(daily_avg.T)
