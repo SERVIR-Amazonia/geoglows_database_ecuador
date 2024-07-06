@@ -11,6 +11,7 @@ import datetime as dt
 import geopandas as gpd
 from dotenv import load_dotenv
 from sqlalchemy import create_engine
+import rgeoglows
 
 
 
@@ -34,6 +35,14 @@ rios_secundarios = gpd.read_file("shp/rios_secundarios_banos.shp")
 puntos_afectados = gpd.read_file("shp/puntos_afectados.shp")
 ffgs = gpd.read_file("/home/ubuntu/data/nwsaffgs/nwsaffds.shp")
 
+# Load enviromental variables - credentials
+load_dotenv()
+DB_USER = os.getenv('DB_USER')
+DB_PASS = os.getenv('DB_PASS')
+DB_NAME = os.getenv('DB_NAME')
+MAIL_USER = os.getenv('MAIL_USER')
+MAIL_PASS = os.getenv('MAIL_PASS')
+print("Read enviromental variables")
 
 
 os.chdir(user_dir)
@@ -77,15 +86,25 @@ asm_value = plot.get_pacum_subbasin("soilmoisture.tif", area, "id").pacum[0]
 
 
 # Geoglows Alerts
-url = 'https://inamhi.geoglows.org/apps/hydroviewer-ecuador/get-alerts/'
-response = requests.get(url)
-geojson = response.json()
-gdf = gpd.GeoDataFrame.from_features(geojson['features'])
-df = pd.DataFrame(gdf.drop(columns='geometry'))
+#url = 'https://inamhi.geoglows.org/apps/hydroviewer-ecuador/get-alerts/'
+#response = requests.get(url)
+#geojson = response.json()
+#gdf = gpd.GeoDataFrame.from_features(geojson['features'])
+#df = pd.DataFrame(gdf.drop(columns='geometry'))
+#plot.geoglows_plot(ec_gdf=ec, prov_gdf=prov, drainage_gdf=drainage, df=df, area_gdf=area)
+#plot.geoglows_plot_area(puntos_gdf=puntos_afectados, rp_gdf=rios_principales, rs_gdf=rios_secundarios, df=df)
+#plot.join_images("geoglows_ec.png", "geoglows_area.png", "geoglows.png")
 
-plot.geoglows_plot(ec_gdf=ec, prov_gdf=prov, drainage_gdf=drainage, df=df, area_gdf=area)
-plot.geoglows_plot_area(puntos_gdf=puntos_afectados, rp_gdf=rios_principales, rs_gdf=rios_secundarios, df=df)
-plot.join_images("geoglows_ec.png", "geoglows_area.png", "geoglows.png")
+
+# Establish connection
+token = "postgresql+psycopg2://{0}:{1}@localhost:5432/{2}".format(DB_USER, DB_PASS, DB_NAME)
+db = create_engine(token)
+conn = db.connect()
+
+t9028087 = rgeoglows.plot(9028087, conn, "9028087.png")
+plot.join_images("loc/9028087.png", "9028087.png", "forecast_9028087.png")
+
+
 
 
 
