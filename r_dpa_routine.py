@@ -173,6 +173,8 @@ def get_imerg_pacum(temp):
             dest.write(out_image)
         #
         outpath = f"/home/ubuntu/data/report/pacum_{temp}.tif"
+        if os.path.exists(outpath):
+            os.remove(outpath)
         os.system("gdalwarp -tr 0.01 0.01 -r bilinear pacum_masked.tif pacum_masked_res.tif")
         os.system(f"gdalwarp -q -cutline ~/tethys_apps_ecuador/geoglows_database_ecuador/shp/nwsaffgs_ecuador_basins_v2.shp -tr 0.01 0.01 -of GTiff pacum_masked_res.tif {outpath}")
     except Exception as e:
@@ -799,7 +801,7 @@ from email import encoders
 def send(subject, body, attachment_files, sender, password):
     # Users to send email
     recipients = [
-        "prediccion@inamhi.gob.ec",
+        #"prediccion@inamhi.gob.ec",
         "jusethchancay@ecociencia.org"]
     #
     # SMTP server
