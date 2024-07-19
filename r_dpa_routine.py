@@ -801,7 +801,7 @@ from email import encoders
 def send(subject, body, attachment_files, sender, password):
     # Users to send email
     recipients = [
-        #"prediccion@inamhi.gob.ec",
+        "prediccion@inamhi.gob.ec",
         "jusethchancay@ecociencia.org"]
     #
     # SMTP server
